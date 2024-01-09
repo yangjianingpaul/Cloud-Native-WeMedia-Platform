@@ -20,17 +20,16 @@ public class Tess4jClient {
     private String language;
 
     public String doOCR(BufferedImage image) throws TesseractException {
-        //创建Tesseract对象
+        //Create a Tesseract object
         ITesseract tesseract = new Tesseract();
-        //设置字体库路径
+        //Set the font library path
         tesseract.setDatapath(dataPath);
-        //中文识别
+        //Chinese recognition
         tesseract.setLanguage(language);
-        //执行ocr识别
+        //Perform ocr identification
         String result = tesseract.doOCR(image);
-        //替换回车和tal键  使结果为一行
+        //Replace the return and tal keys to make the result a row
         result = result.replaceAll("\\r|\\n", "-").replaceAll(" ", "");
         return result;
     }
-
 }

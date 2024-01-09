@@ -3,8 +3,8 @@ package com.heima.wemedia.service;
 public interface WmNewsAutoScanService {
     /**
      *
-     * 自媒体文章审核
-     * @param id    自媒体文章id
+     * We media article review
+     * @param id    we-media article id
      */
     public void  autoScanWmNews(Integer id);
 }

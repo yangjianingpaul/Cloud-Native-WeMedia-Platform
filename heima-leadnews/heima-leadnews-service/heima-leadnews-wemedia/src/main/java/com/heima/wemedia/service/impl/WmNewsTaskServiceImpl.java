@@ -27,15 +27,15 @@ public class WmNewsTaskServiceImpl  implements WmNewsTaskService {
     private IScheduleClient scheduleClient;
 
     /**
-     * 添加任务到延迟队列中
-     * @param id          文章的id
-     * @param publishTime 发布的时间  可以做为任务的执行时间
+     * Add a task to the delay queue
+     * @param id          article id
+     * @param publishTime publish time and Can be used as the execution time of the task
      */
     @Override
     @Async
     public void addNewsToTask(Integer id, Date publishTime) {
 
-        log.info("添加任务到延迟服务中----begin");
+        log.info("Add a task to the delay service----begin");
 
         Task task = new Task();
         task.setExecuteTime(publishTime.getTime());
@@ -47,7 +47,7 @@ public class WmNewsTaskServiceImpl  implements WmNewsTaskService {
 
         scheduleClient.addTask(task);
 
-        log.info("添加任务到延迟服务中----end");
+        log.info("Add a task to the delay service----end");
 
     }
 

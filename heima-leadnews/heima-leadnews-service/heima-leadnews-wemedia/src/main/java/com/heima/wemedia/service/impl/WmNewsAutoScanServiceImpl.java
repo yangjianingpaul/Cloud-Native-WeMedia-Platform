@@ -41,8 +41,8 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
     @Autowired
     private WmNewsMapper wmNewsMapper;
     /**
-     * 自媒体文章审核
-     * @param id    自媒体文章id
+     * We media article review
+     * @param id    we-media article id
      */
     @Override
     @Async
@@ -52,64 +52,64 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-//        1.查询自媒体文章审核
+//        1.Query we media article review
         WmNews wmNews = wmNewsMapper.selectById(id);
         if (wmNews == null) {
-            throw new RuntimeException("WmNewsAutoScanServiceImpl-文章不存在");
+            throw new RuntimeException("WmNewsAutoScanServiceImpl-Article does not exist");
         }
 
         if (wmNews.getStatus().equals(WmNews.Status.SUBMIT.getCode())) {
-//        从内容中提取纯文本内容和图片
+//        Extract plain text content and images from content
             Map<String, Object> textAndImages = handleTextAndImages(wmNews);
 
-//            自管理敏感词过滤
+//            Self-managing sensitive word filtering
             boolean isSensitive = handleSensitiveScan((String) textAndImages.get("content"), wmNews);
             if (!isSensitive) {
                 return;
             }
 
-//        2。审核文本内容 百度云接口
+//        2。Review text content Baidu Cloud interface
             boolean isTextScan = handleTextScan((String) textAndImages.get("content"), wmNews);
             if (!isTextScan) {
                 return;
             }
-//        3。审核图片 百度云接口
+//        3。Review picture Baidu cloud interface
             boolean isImageScan = handleImageScan((List<String>) textAndImages.get("images"), wmNews);
             if (!isImageScan) {
                 return;
             }
         }
 
-//        4。审核成功，保存app端的相关文章的文章数据
+//        4。After the review is successful, the article data of relevant articles on the app side will be saved
         ResponseResult responseResult = saveAppArticle(wmNews);
         if (!responseResult.getCode().equals(200)) {
-            throw new RuntimeException("WmNewsAutoScanServiceImpl-保存app端相关文章数据失败");
+            throw new RuntimeException("WmNewsAutoScanServiceImpl-Failed to save related article data on the app. Procedure");
         }
-//            回填article_id
+//            Backfill the article id
         wmNews.setArticleId((Long) responseResult.getData());
-        updateWmNews(wmNews, 9, "审核成功");
+        updateWmNews(wmNews, 9, "Successful audit");
     }
 
     @Autowired
     private WmSensitiveMapper wmSensitiveMapper;
     /**
      *
-     * 自管理敏感词审核
+     * Self-managing sensitive word moderation
      * @param content
      * @param wmNews
      * @return
      */
     private boolean handleSensitiveScan(String content, WmNews wmNews) {
         boolean flag = true;
-//        获取所有的敏感词
+//        Get all the sensitive words
         List<WmSensitive> wmSensitives = wmSensitiveMapper.selectList(Wrappers.<WmSensitive>lambdaQuery().select(WmSensitive::getSensitives));
         List<String> sensitiveList = wmSensitives.stream().map(WmSensitive::getSensitives).collect(Collectors.toList());
-//        初始化敏感词库
+//        Initializes the sensitive word thesaurus
         SensitiveWordUtil.initMap(sensitiveList);
-//        查看文章中是否包含敏感词
+//        See if the article contains sensitive words
         Map<String, Integer> map = SensitiveWordUtil.matchWords(content);
         if (map.size() > 0) {
-            updateWmNews(wmNews, 2 ,"当前文章中存在违规内容" + map);
+            updateWmNews(wmNews, 2 ,"illegal content" + map);
             flag = false;
         }
         return flag;
@@ -164,7 +164,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
     @Autowired
     private Tess4jClient tess4jClient;
     /**
-     * 审核图片
+     * Review picture
      * @param images
      * @param wmNews
      * @return
@@ -174,7 +174,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
         if (images == null || images.size() == 0) {
             return flag;
         }
-//        下载图片minio
+//        Download images from minio
         images = images.stream().distinct().collect(Collectors.toList());
         List<byte[]> imageList = new ArrayList<>();
 
@@ -182,16 +182,16 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
             for (String image : images) {
                 byte[] bytes = fileStorageService.downLoadFile(image);
 //        Tess4j:
-/*                ByteArrayInputStream in = new ByteArrayInputStream(bytes);
+                ByteArrayInputStream in = new ByteArrayInputStream(bytes);
                 BufferedImage bufferedImage = ImageIO.read(in);
 
-//                图片识别
+//                Picture recognition
                 String result = tess4jClient.doOCR(bufferedImage);
-//                过滤文字
+//                Filter text
                 boolean isSensitive = handleSensitiveScan(result, wmNews);
                 if (!isSensitive) {
                     return isSensitive;
-                }*/
+                }
                 imageList.add(bytes);
             }
         } catch (Exception e) {
@@ -199,7 +199,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
         }
 
 
-//        审核图片
+//        Review picture
         try {
             for (byte[] bytes : imageList) {
                 Map map = greenImageScan.imageScan(bytes);
@@ -207,14 +207,14 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
                 if (map != null) {
 //                审核失败
                     if (map.get("conclusion").equals("不合规")) {
-                        updateWmNews(wmNews, 2, "当前文章中存在违规内容");
+                        updateWmNews(wmNews, 2, "There is illegal content in the current article");
                         flag = false;
                         break;
                     }
 
-//                不确定信息，需要人工审核
+//                Uncertain information, manual review required
                     if (map.get("conclusion").equals("审核失败") || map.get("conclusion").equals("疑似")) {
-                        updateWmNews(wmNews, 3, "当前文章中存在不确定内容");
+                        updateWmNews(wmNews, 3, "Uncertain information, manual review required");
                         flag = false;
                         break;
                     }
@@ -230,7 +230,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
     private GreenTextScan greenTextScan;
 
     /**
-     * 审核纯文本内容
+     * Review plain text content
      * @param content
      * @param wmNews
      * @return
@@ -246,15 +246,15 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
         try {
             Map map = greenTextScan.textScan(content);
             if (map != null) {
-//                审核失败
+//                Audit failure
                 if (map.get("conclusion").equals("不合规")) {
-                    updateWmNews(wmNews, 2, "当前文章中存在违规内容");
+                    updateWmNews(wmNews, 2, "There is illegal content in the current article");
                     flag = false;
                 }
 
-//                不确定信息，需要人工审核
+//                Uncertain information, manual review required
                 if (map.get("conclusion").equals("审核失败") || map.get("conclusion").equals("疑似")) {
-                    updateWmNews(wmNews, 3, "当前文章中存在不确定内容");
+                    updateWmNews(wmNews, 3, "Uncertain information, manual review required");
                     flag = false;
                 }
             }
@@ -266,7 +266,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
     }
 
     /**
-     * 修改文章内容
+     * Revise article content
      * @param wmNews
      * @param status
      * @param reason
@@ -278,15 +278,15 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
     }
 
     /**
-     * 1。从自媒体文章的内容中提取文本和图片
-     * 2。提取文章的封面图片
+     * 1。Extract text and pictures from the content of we-media articles
+     * 2。Extract the cover image of the article
      * @param wmNews
      * @return
      */
     private Map<String, Object> handleTextAndImages(WmNews wmNews) {
         StringBuilder stringBuilder = new StringBuilder();
         List<String> images = new ArrayList<>();
-//        1。从自媒体文章的内容中提取文本和图片
+//        1。Extract text and pictures from the content of we-media articles
         if (StringUtils.isNotBlank(wmNews.getContent())) {
             List<Map> maps = JSONArray.parseArray(wmNews.getContent(), Map.class);
             for (Map map : maps) {
@@ -300,7 +300,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
             }
         }
 
-//        2。提取文章的封面图片
+//        2。Extract the cover image of the article
         if (StringUtils.isNotBlank(wmNews.getImages())) {
             String[] split = wmNews.getImages().split(",");
             images.addAll(Arrays.asList(split));

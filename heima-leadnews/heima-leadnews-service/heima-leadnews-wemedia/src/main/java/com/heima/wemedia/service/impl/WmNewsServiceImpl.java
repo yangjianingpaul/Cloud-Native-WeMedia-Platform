@@ -91,7 +91,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
     private WmNewsTaskService wmNewsTaskService;
 
     /**
-     * 发布修改文章或保存为草稿
+     * Publish revised articles or save them as drafts
      * @param dto
      * @return
      */
@@ -100,9 +100,9 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
         if (dto == null || dto.getContent() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID );
         }
-//        1。保存或修改文章
+//        1。Save or modify the article
         WmNews wmNews = new WmNews();
-//        属性拷贝
+//        Attribute copy
         BeanUtils.copyProperties(dto,wmNews);
         if (dto.getImages() != null && dto.getImages().size() > 0) {
             String imagesStr = org.apache.commons.lang3.StringUtils.join(dto.getImages(), ",");
@@ -115,18 +115,18 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
         saveOrUpdateWmNews(wmNews);
 
-//        2。判断是否为草稿，如果为草稿结束当前方法
+//        2。Determine whether it is a draft, and if it is a draft end current method
         if (dto.getStatus().equals(WmNews.Status.NORMAL.getCode())) {
             return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
         }
-//        3。不是草稿，保存文章内容图片素材的关系
-//        获取到文章内容中的图片信息
+//        3。Not a draft, save the article content picture material relationship
+//        Get the picture information in the article content
         List<String> materials = extractUrlInfo(dto.getContent());
         saveRelativeInfoForContent(materials, wmNews.getId());
-//        4。不是草稿，保存文章封面图片与素材的关系
+//        4。Not a draft, save the relationship between the article cover picture and the material
         saveRelativeInfoForCover(dto, wmNews, materials);
 
-//        审核文章
+//        Review an article
 //        wmNewsAutoScanService.autoScanWmNews(wmNews.getId());
         wmNewsTaskService.addNewsToTask(wmNews.getId(), wmNews.getPublishTime());
         return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);

@@ -19,6 +19,7 @@
         <module>xxljob-demo</module>
         <module>freemarker-demo</module>
         <module>tess4j-demo</module>
+        <module>tesseract</module>
     </modules>
 
     <properties>

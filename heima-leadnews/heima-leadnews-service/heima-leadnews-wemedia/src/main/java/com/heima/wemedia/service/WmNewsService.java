@@ -10,56 +10,56 @@ import com.heima.model.wemedia.pojos.WmNews;
 public interface WmNewsService extends IService<WmNews> {
 
     /**
-     * 条件查询文章列表
+     * Search the article list
      * @param dto
      * @return
      */
     public ResponseResult findList(WmNewsPageReqDto dto);
 
     /**
-     * 发布修改文章或保存为草稿
+     * Publish revised articles or save them as drafts
      * @param dto
      * @return
      */
     public ResponseResult submitNews(WmNewsDto dto);
 
     /**
-     * 文章的上下架
+     * Articles on and off the shelf
      * @param dto
      * @return
      */
     public ResponseResult downOrUp(WmNewsDto dto);
 
     /**
-     * 删除文章
+     * Delete article
      * @param id
      * @return
      */
     ResponseResult deleteNewsById(Integer id);
 
     /**
-     * 文章审核列表
+     * Article review list
      * @param dto
      * @return
      */
     ResponseResult authArticleList(NewsAuthDto dto);
 
     /**
-     * 文章人工审核
+     * Manual article review
      * @param articleId
      * @return
      */
     ResponseResult articleDetails(Integer articleId);
 
     /**
-     * 人工审核通过
+     * Manual approval
      * @param dto
      * @return
      */
     ResponseResult articleAuthPass(NewsAuthDto dto);
 
     /**
-     * 人工审核失败
+     * Manual audit failure
      * @param dto
      * @return
      */
