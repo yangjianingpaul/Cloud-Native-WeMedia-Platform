@@ -151,9 +151,9 @@ minio:
   endpoint: http://192.168.31.125:9000
   readPath: http://192.168.31.125:9000
 baidu:
-  APP_ID: 45212545
-  API_KEY: hrl0YGqz4l4gUDYkIATg1GsF
-  SECRET_KEY: KQZ1XD4rm25b81lSLo4HFOd3PiGEPwvO
+  APP_ID: your ID
+  API_KEY: your Key
+  SECRET_KEY: your secret key
 feign:
   # Enable feign support for hystrix meltdown degradation
   hystrix:
