@@ -1,6 +1,6 @@
 # Nacos Configuration
 
-## nacos配置中心
+## Nacos Configuration Center
 ![](/resources/nacos配置中心.png)
 
 ## leadnews-user
@@ -14,8 +14,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.31.58:3306/leadnews_user?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: yangjia2432121
+    username: 'your name'
+    password: 'your password'
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
@@ -95,8 +95,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.31.58:3306/leadnews_article?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
-    username: root
-    password: yangjia2432121
+    username: 'your name'
+    password: 'your password'
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
@@ -106,8 +106,8 @@ mybatis-plus:
     datacenter-id: 1
     workerId: 1
 minio:
-  accessKey: minio
-  secretKey: minio123
+  accessKey: 'your access key'
+  secretKey: 'your secret key'
   bucket: leadnews
   endpoint: http://192.168.31.125:9000
   readPath: http://192.168.31.125:9000
@@ -137,16 +137,16 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.31.58:3306/leadnews_wemedia?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: yangjia2432121
+    username: 'your name'
+    password: 'your password'
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
   # 设置别名包扫描路径，通过该属性可以给包中的类注册别名
   type-aliases-package: com.heima.model.media.pojos
 minio:
-  accessKey: minio
-  secretKey: minio123
+  accessKey: 'your access key'
+  secretKey: 'your secret key'
   bucket: leadnews
   endpoint: http://192.168.31.125:9000
   readPath: http://192.168.31.125:9000
@@ -205,8 +205,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.31.58:3306/leadnews_schedule?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
-    username: root
-    password: yangjia2432121
+    username: 'your name'
+    password: 'your password'
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
@@ -281,8 +281,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.31.58:3306/leadnews_admin?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: yangjia2432121
+    username: 'your name'
+    password: 'your password'
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml

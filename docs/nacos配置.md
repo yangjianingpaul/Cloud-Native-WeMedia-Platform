@@ -1,4 +1,4 @@
-# nacose 配置
+# Nacos配置
 
 ## nacos配置中心
 ![](/resources/nacos配置中心.png)
@@ -14,8 +14,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.31.58:3306/leadnews_user?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: yangjia2432121
+    username: 'your name'
+    password: 'your password'
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
@@ -42,28 +42,28 @@ spring:
               - PUT
               - OPTION
       routes:
-        # 平台管理
+      # platform management
         - id: user
           uri: lb://leadnews-user
           predicates:
             - Path=/user/**
           filters:
             - StripPrefix= 1
-      # 文章微服务
+      # Article microservices
         - id: article
           uri: lb://leadnews-article
           predicates:
             - Path=/article/**
           filters:
             - StripPrefix= 1
-      #搜索微服务
+      # Search microservices
         - id: search
           uri: lb://leadnews-search
           predicates:
             - Path=/search/**
           filters:
             - StripPrefix= 1
-      #行为微服务
+      # Behavioral microservice
         - id: behavior
           uri: lb://leadnews-behavior
           predicates:
@@ -95,8 +95,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.31.58:3306/leadnews_article?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
-    username: root
-    password: yangjia2432121
+    username: 'your name'
+    password: 'your password'
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
@@ -106,8 +106,8 @@ mybatis-plus:
     datacenter-id: 1
     workerId: 1
 minio:
-  accessKey: minio
-  secretKey: minio123
+  accessKey: 'your access key'
+  secretKey: 'your secret key'
   bucket: leadnews
   endpoint: http://192.168.31.125:9000
   readPath: http://192.168.31.125:9000
@@ -137,22 +137,22 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.31.58:3306/leadnews_wemedia?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: yangjia2432121
+    username: 'your name'
+    password: 'your password'
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
   # 设置别名包扫描路径，通过该属性可以给包中的类注册别名
   type-aliases-package: com.heima.model.media.pojos
 minio:
-  accessKey: minio
-  secretKey: minio123
+  accessKey: 'your access key'
+  secretKey: 'your secret key'
   bucket: leadnews
   endpoint: http://192.168.31.125:9000
   readPath: http://192.168.31.125:9000
 baidu:
   APP_ID: your ID
-  API_KEY: your Key
+  API_KEY: your key
   SECRET_KEY: your secret key
 feign:
   # Enable feign support for hystrix meltdown degradation
@@ -177,15 +177,15 @@ spring:
     gateway:
       globalcors:
         cors-configurations:
-          '[/**]': # 匹配所有请求
-            allowedOrigins: "*" #跨域处理 允许所有的域
-            allowedMethods: # 支持的方法
+          '[/**]': # Match all requests
+            allowedOrigins: "*" # Cross-domain processing allows all domains
+            allowedMethods: # Supported method
               - GET
               - POST
               - PUT
               - DELETE
       routes:
-        # 平台管理
+        # platform management
         - id: wemedia
           uri: lb://leadnews-wemedia
           predicates:
@@ -205,8 +205,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.31.58:3306/leadnews_schedule?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC
-    username: root
-    password: yangjia2432121
+    username: 'your name'
+    password: 'your password'
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
@@ -245,15 +245,15 @@ spring:
     gateway:
       globalcors:
         cors-configurations:
-          '[/**]': # 匹配所有请求
-            allowedOrigins: "*" #跨域处理 允许所有的域
-            allowedMethods: # 支持的方法
+          '[/**]': # Match all requests
+            allowedOrigins: "*" # Cross-domain processing allows all domains
+            allowedMethods: # Supported method
               - GET
               - POST
               - PUT
               - DELETE
       routes:
-        # 平台管理
+        # platform management
         - id: admin
           uri: lb://leadnews-admin
           predicates:
@@ -281,8 +281,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.31.58:3306/leadnews_admin?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: yangjia2432121
+    username: 'your name'
+    password: 'your password'
 # 设置Mapper接口所对应的XML文件位置，如果你在Mapper接口中有自定义方法，需要进行该配置
 mybatis-plus:
   mapper-locations: classpath*:mapper/*.xml
