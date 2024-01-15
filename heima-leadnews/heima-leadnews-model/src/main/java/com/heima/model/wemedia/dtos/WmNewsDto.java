@@ -10,47 +10,47 @@ public class WmNewsDto {
     
     private Integer id;
      /**
-     * 标题
+     * title
      */
     private String title;
      /**
-     * 频道id
+     * Channel id
      */
     private Integer channelId;
      /**
-     * 标签
+     * labels
      */
     private String labels;
      /**
-     * 发布时间
+     * publish time
      */
     private Date publishTime;
      /**
-     * 文章内容
+     * content
      */
     private String content;
      /**
-     * 文章封面类型  0 无图 1 单图 3 多图 -1 自动
+     * cover type  0 no images 1 single image 3 multi imag -1 auto
      */
     private Short type;
      /**
-     * 提交时间
+     * submit time
      */
     private Date submitedTime; 
      /**
-     * 状态 提交为1  草稿为0
+     * status:submited 1  draft 0
      */
     private Short status;
      
      /**
-     * 封面图片列表 多张图以逗号隔开
+     * Cover image list, multiple pictures are separated by commas
      */
     private List<String> images;
 
     /**
-     * 上下架：
-     *      0：下架
-     *      1：上架
+     * up or down：
+     *      0：Take down articles
+     *      1：Show article
      */
     private Short enable;
 }

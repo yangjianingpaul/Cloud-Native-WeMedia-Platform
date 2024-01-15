@@ -7,7 +7,7 @@ import com.heima.model.user.dtos.UserRelationDto;
 
 public interface ApUserRelationService {
     /**
-     * 用户关注/取消关注
+     * User follow/unfollow
      * @param dto
      * @return
      */

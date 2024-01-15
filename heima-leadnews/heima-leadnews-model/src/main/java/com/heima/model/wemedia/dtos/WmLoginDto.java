@@ -7,11 +7,11 @@ import lombok.Data;
 public class WmLoginDto {
 
     /**
-     * 用户名
+     * username
      */
     private String name;
     /**
-     * 密码
+     * password
      */
     private String password;
 }

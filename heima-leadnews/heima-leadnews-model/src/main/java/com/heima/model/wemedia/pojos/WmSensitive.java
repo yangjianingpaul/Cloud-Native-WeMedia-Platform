@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 敏感词信息表
+ * Sensitive word information table
  * </p>
  *
  * @author itheima
@@ -23,19 +23,19 @@ public class WmSensitive implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * primary key
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 敏感词
+     * Sensitive words.
      */
     @TableField("sensitives")
     private String sensitives;
 
     /**
-     * 创建时间
+     * created time
      */
     @TableField("created_time")
     private Date createdTime;

@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 自媒体图文内容信息表
+ * We media graphic content information table
  * </p>
  *
  * @author itheima
@@ -24,40 +24,40 @@ public class WmNews implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * primary key
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 自媒体用户ID
+     * user id
      */
     @TableField("user_id")
     private Integer userId;
 
     /**
-     * 标题
+     * title
      */
     @TableField("title")
     private String title;
 
     /**
-     * 图文内容
+     * article content
      */
     @TableField("content")
     private String content;
 
     /**
-     * 文章布局
-            0 无图文章
-            1 单图文章
-            3 多图文章
+     * article layout
+            0 No picture article
+            1 single image
+            3 multi image
      */
     @TableField("type")
     private Short type;
 
     /**
-     * 图文频道ID
+     * channel id
      */
     @TableField("channel_id")
     private Integer channelId;
@@ -66,50 +66,50 @@ public class WmNews implements Serializable {
     private String labels;
 
     /**
-     * 创建时间
+     * created time
      */
     @TableField("created_time")
     private Date createdTime;
 
     /**
-     * 提交时间
+     * submit time
      */
     @TableField("submited_time")
     private Date submitedTime;
 
     /**
-     * 当前状态
-            0 草稿
-            1 提交（待审核）
-            2 审核失败
-            3 人工审核
-            4 人工审核通过
-            8 审核通过（待发布）
-            9 已发布
+     * article status
+            0 draft
+            1 submit（To be reviewed）
+            2 review failure
+            3 manually review
+            4 Manual approval
+            8 approve（To be published）
+            9 have published
      */
     @TableField("status")
     private Short status;
 
     /**
-     * 定时发布时间，不定时则为空
+     * The release time is scheduled. If it is not scheduled, it is empty
      */
     @TableField("publish_time")
     private Date publishTime;
 
     /**
-     * 拒绝理由
+     * reasons for refusal
      */
     @TableField("reason")
     private String reason;
 
     /**
-     * 发布库文章ID
+     * article id
      */
     @TableField("article_id")
     private Long articleId;
 
     /**
-     * //图片用逗号分隔
+     * The pictures are separated by commas
      */
     @TableField("images")
     private String images;
@@ -117,7 +117,7 @@ public class WmNews implements Serializable {
     @TableField("enable")
     private Short enable;
     
-     //状态枚举类
+     //State enumeration class
     @Alias("WmNewsStatus")
     public enum Status{
         NORMAL((short)0),SUBMIT((short)1),FAIL((short)2),ADMIN_AUTH((short)3),ADMIN_SUCCESS((short)4),SUCCESS((short)8),PUBLISHED((short)9);

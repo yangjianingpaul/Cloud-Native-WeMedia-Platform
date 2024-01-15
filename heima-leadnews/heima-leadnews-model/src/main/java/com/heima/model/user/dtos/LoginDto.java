@@ -8,13 +8,13 @@ import lombok.Data;
 public class LoginDto {
 
     /**
-     * 手机号
+     * Phone number
      */
     @ApiModelProperty(value = "手机号",required = true)
     private String phone;
 
     /**
-     * 密码
+     * password
      */
     @ApiModelProperty(value = "密码",required = true)
     private String password;

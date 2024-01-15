@@ -14,7 +14,7 @@ public class AppInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String userId = request.getHeader("userId");
         if(userId != null){
-            //存入到当前线程中
+            //Stored in the current thread
             ApUser apUser = new ApUser();
             apUser.setId(Integer.valueOf(userId));
             AppThreadLocalUtil.setUser(apUser);

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ChannelDto extends PageRequestDto {
     /**
-     * 频道名称
+     * Channel name
      */
     @ApiModelProperty(value = "频道名称")
     private String name;

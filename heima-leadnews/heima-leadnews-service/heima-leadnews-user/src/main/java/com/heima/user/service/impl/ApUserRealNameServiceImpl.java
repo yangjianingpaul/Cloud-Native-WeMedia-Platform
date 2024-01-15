@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class ApUserRealNameServiceImpl extends ServiceImpl<ApUserRealNameMapper, ApUserRealname> implements ApUserRealNameService {
 
     /**
-     * 获取审核列表
+     * Get audit list
      * @param dto
      * @return
      */
@@ -41,7 +41,7 @@ public class ApUserRealNameServiceImpl extends ServiceImpl<ApUserRealNameMapper,
     }
 
     /**
-     * 审核驳回
+     * Review and reject
      * @param dto
      * @return
      */
@@ -60,7 +60,7 @@ public class ApUserRealNameServiceImpl extends ServiceImpl<ApUserRealNameMapper,
     }
 
     /**
-     * 审核通过
+     * pass the audit
      * @param dto
      * @return
      */

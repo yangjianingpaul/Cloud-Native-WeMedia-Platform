@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 频道信息表
+ * channel info list
  * </p>
  *
  * @author itheima
@@ -26,41 +26,41 @@ public class WmChannel implements Serializable {
     private Integer id;
 
     /**
-     * 频道名称
+     * channel name
      */
     @TableField("name")
     private String name;
 
     /**
-     * 频道描述
+     * channel description
      */
     @TableField("description")
     private String description;
 
     /**
-     * 是否默认频道
-     * 1：默认     true
-     * 0：非默认   false
+     * Default channel or not
+     * 1：Default     true
+     * 0：Non-default   false
      */
     @TableField("is_default")
     private Boolean isDefault;
 
     /**
-     * 是否启用
-     * 1：启用   true
-     * 0：禁用   false
+     * Enable or not
+     * 1：Enable   true
+     * 0：Disable   false
      */
     @TableField("status")
     private Boolean status;
 
     /**
-     * 默认排序
+     * Default sort
      */
     @TableField("ord")
     private Integer ord;
 
     /**
-     * 创建时间
+     * Created time
      */
     @TableField("created_time")
     private Date createdTime;

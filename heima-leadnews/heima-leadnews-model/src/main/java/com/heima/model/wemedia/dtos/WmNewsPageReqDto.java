@@ -9,23 +9,23 @@ import java.util.Date;
 public class WmNewsPageReqDto extends PageRequestDto {
 
     /**
-     * 状态
+     * status
      */
     private Short status;
     /**
-     * 开始时间
+     * begin time
      */
     private Date beginPubDate;
     /**
-     * 结束时间
+     * end time
      */
     private Date endPubDate;
     /**
-     * 所属频道ID
+     * channel ID
      */
     private Integer channelId;
     /**
-     * 关键字
+     * keywords
      */
     private String keyword;
 }

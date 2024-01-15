@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 自媒体图文引用素材信息表
+ * We media graphic reference material information table
  * </p>
  *
  * @author itheima
@@ -22,33 +22,33 @@ public class WmNewsMaterial implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * primary key
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 素材ID
+     * material id
      */
     @TableField("material_id")
     private Integer materialId;
 
     /**
-     * 图文ID
+     * news id
      */
     @TableField("news_id")
     private Integer newsId;
 
     /**
-     * 引用类型
-            0 内容引用
-            1 主图引用
+     * Reference type
+            0 content reference
+            1 image reference
      */
     @TableField("type")
     private Short type;
 
     /**
-     * 引用排序
+     * Reference sort
      */
     @TableField("ord")
     private Short ord;

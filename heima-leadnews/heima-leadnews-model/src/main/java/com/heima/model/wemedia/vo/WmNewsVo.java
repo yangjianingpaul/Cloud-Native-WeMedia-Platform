@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class WmNewsVo  extends WmNews {
     /**
-     * 作者名称
+     * author name
      */
     private String authorName;
 }

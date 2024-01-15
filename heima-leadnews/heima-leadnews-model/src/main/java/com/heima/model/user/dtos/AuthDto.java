@@ -7,12 +7,12 @@ import lombok.Data;
 public class AuthDto  extends PageRequestDto {
 
     /**
-     * 状态
+     * status
      */
     private Short status;
 
     private Integer id;
 
-    //驳回的信息
+    //Rejected message
     private String msg;
 }

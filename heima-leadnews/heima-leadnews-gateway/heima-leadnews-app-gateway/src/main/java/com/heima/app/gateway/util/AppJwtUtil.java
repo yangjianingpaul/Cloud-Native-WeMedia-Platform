@@ -8,33 +8,33 @@ import java.util.*;
 
 public class AppJwtUtil {
 
-    // TOKEN的有效期一天（S）
+    // The validity period of the TOKEN is one day（S）
     private static final int TOKEN_TIME_OUT = 3_600;
-    // 加密KEY
+    //encryption key
     private static final String TOKEN_ENCRY_KEY = "MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY";
-    // 最小刷新间隔(S)
+    // Minimum refresh interval(S)
     private static final int REFRESH_TIME = 300;
 
-    // 生产ID
+    // Production ID
     public static String getToken(Long id) {
         Map<String, Object> claimMaps = new HashMap<>();
         claimMaps.put("id", id);
         long currentTime = System.currentTimeMillis();
         return Jwts.builder()
                 .setId(UUID.randomUUID().toString())
-                .setIssuedAt(new Date(currentTime))  //签发时间
-                .setSubject("system")  //说明
-                .setIssuer("heima") //签发者信息
-                .setAudience("app")  //接收用户
-                .compressWith(CompressionCodecs.GZIP)  //数据压缩方式
-                .signWith(SignatureAlgorithm.HS512, generalKey()) //加密方式
-                .setExpiration(new Date(currentTime + TOKEN_TIME_OUT * 1000))  //过期时间戳
-                .addClaims(claimMaps) //cla信息
+                .setIssuedAt(new Date(currentTime))  //Issue time
+                .setSubject("system")  //illustrate
+                .setIssuer("heima") //Issuer information
+                .setAudience("app")  //Receiving user
+                .compressWith(CompressionCodecs.GZIP)  //Data compression mode
+                .signWith(SignatureAlgorithm.HS512, generalKey()) //way of encryption
+                .setExpiration(new Date(currentTime + TOKEN_TIME_OUT * 1000))  //Expiration time stamp
+                .addClaims(claimMaps) //cla message
                 .compact();
     }
 
     /**
-     * 获取token中的claims信息
+     * Get claims information in the token
      *
      * @param token
      * @return
@@ -46,7 +46,7 @@ public class AppJwtUtil {
     }
 
     /**
-     * 获取payload body信息
+     * Obtain the payload body information
      *
      * @param token
      * @return
@@ -56,7 +56,7 @@ public class AppJwtUtil {
     }
 
     /**
-     * 获取hearder body信息
+     * Obtain hearder body information
      *
      * @param token
      * @return
@@ -66,10 +66,10 @@ public class AppJwtUtil {
     }
 
     /**
-     * 是否过期
+     * Expired or not
      *
      * @param claims
-     * @return -1：有效，0：有效，1：过期，2：过期
+     * @return -1：valid，0：valid，1：expired，2：expired
      */
     public static int verifyToken(Claims claims) throws Exception {
         if (claims == null) {
@@ -77,7 +77,7 @@ public class AppJwtUtil {
         }
 
         claims.getExpiration().before(new Date());
-        // 需要自动刷新TOKEN
+        // You need to automatically refresh the TOKEN
         if ((claims.getExpiration().getTime() - System.currentTimeMillis()) > REFRESH_TIME * 1000) {
             return -1;
         } else {
@@ -86,7 +86,7 @@ public class AppJwtUtil {
     }
 
     /**
-     * 由字符串生成加密key
+     * Generates an encryption key from a string
      *
      * @return
      */

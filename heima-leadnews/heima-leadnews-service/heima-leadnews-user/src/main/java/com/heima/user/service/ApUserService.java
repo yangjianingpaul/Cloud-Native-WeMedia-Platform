@@ -7,7 +7,7 @@ import com.heima.model.user.pojos.ApUser;
 
 public interface ApUserService extends IService<ApUser> {
     /**
-     * app端登录功能
+     * app login
      * @param dto
      * @return
      */

@@ -7,19 +7,19 @@ import lombok.Data;
 public class NewsAuthDto extends PageRequestDto {
 
     /**
-     * 文章标题
+     * title
      */
     private String title;
     /**
-     * 状态
+     * status
      */
     private Short status;
     /**
-     * 自媒体文章id
+     * Id of the we-media article
      */
     private Integer id;
     /**
-     * 审核失败的原因
+     * Reasons for audit failure
      */
     private String msg;
 }

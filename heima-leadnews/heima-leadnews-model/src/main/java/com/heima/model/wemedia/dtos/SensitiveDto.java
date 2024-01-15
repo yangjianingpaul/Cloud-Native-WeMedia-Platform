@@ -7,7 +7,7 @@ import lombok.Data;
 public class SensitiveDto extends PageRequestDto {
 
     /**
-     * 敏感词名称
+     * Sensitive word name
      */
     private String name;
 }

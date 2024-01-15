@@ -6,17 +6,17 @@ import lombok.Data;
 @Data
 public class UserRelationDto {
 
-    // 文章作者ID
+    // Article author ID
     @IdEncrypt
     Integer authorId;
 
-    // 文章id
+    // Article id
     @IdEncrypt
     Long articleId;
     /**
-     * 操作方式
-     * 0  关注
-     * 1  取消
+     * operating mode
+     * 0  Follow
+     * 1  Cancel
      */
     Short operation;
 }

@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * <p>
- * APP用户信息表
+ * APP user information table
  * </p>
  *
  * @author itheima
@@ -23,79 +23,79 @@ public class ApUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * major key
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 密码、通信等加密盐
+     * Encryption salt for passwords, communications, etc
      */
     @TableField("salt")
     private String salt;
 
     /**
-     * 用户名
+     * username
      */
     @TableField("name")
     private String name;
 
     /**
-     * 密码,md5加密
+     * Password, md5 encryption
      */
     @TableField("password")
     private String password;
 
     /**
-     * 手机号
+     * cell-phone number
      */
     @TableField("phone")
     private String phone;
 
     /**
-     * 头像
+     * head portrait
      */
     @TableField("image")
     private String image;
 
     /**
-     * 0 男
-            1 女
-            2 未知
+     * 0 male
+            1 female
+            2 unknown
      */
     @TableField("sex")
     private Boolean sex;
 
     /**
-     * 0 未
-            1 是
+     * 0 none
+            1 true
      */
     @TableField("is_certification")
     private Boolean certification;
 
     /**
-     * 是否身份认证
+     * Identity authentication or not
      */
     @TableField("is_identity_authentication")
     private Boolean identityAuthentication;
 
     /**
-     * 0正常
-            1锁定
+     * 0 normal
+            1 lock
      */
     @TableField("status")
     private Boolean status;
 
     /**
-     * 0 普通用户
-            1 自媒体人
-            2 大V
+     * 0 normal user
+            1 We-media people
+            2 Internet celebrity
      */
     @TableField("flag")
     private Short flag;
 
     /**
-     * 注册时间
+     * registration time
      */
     @TableField("created_time")
     private Date createdTime;
