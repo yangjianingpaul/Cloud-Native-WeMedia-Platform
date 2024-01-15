@@ -25,7 +25,7 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
 
 
     /**
-     * 查询所有频道
+     * Query all channels
      *
      * @return
      */
@@ -35,28 +35,28 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
     }
 
     /**
-     * 频道管理
+     * channel management
      *
      * @param dto
      * @return
      */
     @Override
     public ResponseResult channelManagement(ChannelDto dto) {
-//        1。检查参数
+//        1。check the parameters
         dto.checkParam();
-//        2。分页查询
+//        2。paginated queries
         IPage page = new Page(dto.getPage(), dto.getSize());
         LambdaQueryWrapper<WmChannel> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         if (dto.getName().equals("")) {
             lambdaQueryWrapper.ge(WmChannel::getId, 1);
         } else {
-//        按照用户查询
+//        follow the user query
             lambdaQueryWrapper.eq(WmChannel::getName, dto.getName());
         }
-//        按照时间倒序
+//        in reverse chronological order
         lambdaQueryWrapper.orderByDesc(WmChannel::getCreatedTime);
         page = page(page, lambdaQueryWrapper);
-//        3。结果返回
+//        3。the results are returned
         ResponseResult responseResult = new PageResponseResult(dto.getPage(),
                 dto.getSize(),
                 (int) page.getTotal());
@@ -65,7 +65,7 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
     }
 
     /**
-     * 新增频道
+     * add a new channel
      * @param wmChannel
      * @return
      */
@@ -81,7 +81,7 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
     }
 
     /**
-     * 更新频道
+     * update the channel
      * @param wmChannel
      * @return
      */
@@ -98,7 +98,7 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
     }
 
     /**
-     * 删除频道
+     * delete the channel
      * @param channelId
      * @return
      */

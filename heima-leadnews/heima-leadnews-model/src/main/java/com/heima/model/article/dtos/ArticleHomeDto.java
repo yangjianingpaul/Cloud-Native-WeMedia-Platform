@@ -7,12 +7,12 @@ import java.util.Date;
 @Data
 public class ArticleHomeDto {
 
-    // 最大时间
+    // max time
     Date maxBehotTime;
-    // 最小时间
+    // min time
     Date minBehotTime;
-    // 分页size
+    // page size
     Integer size;
-    // 频道ID
+    // channel ID
     String tag;
 }

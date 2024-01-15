@@ -39,29 +39,29 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
     private FileStorageService fileStorageService;
 
     /**
-     * 图片上传
+     * image upload
      * @param multipartFile
      * @return
      */
     @Override
     public ResponseResult uploadPicture(MultipartFile multipartFile) {
-//        1。检查参数
+//        1。Check parameter
         if (multipartFile == null || multipartFile.getSize() == 0) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
-//        2。上传图片到minio
+//        2。Upload pictures to minio
         String fileName = UUID.randomUUID().toString().replace("-", "");
         String originalFilename = multipartFile.getOriginalFilename();
         String postfix = originalFilename.substring(originalFilename.lastIndexOf("."));
         String fileId = null;
         try {
             fileId = fileStorageService.uploadImgFile("", fileName + postfix, multipartFile.getInputStream());
-            log.info("上传图片到minIO中，filed:{}", fileId);
+            log.info("Upload pictures to minio，filed:{}", fileId);
         } catch (IOException e) {
             e.printStackTrace();
-            log.error("WmMaterialServiceImp-上传文件失败");
+            log.error("WmMaterialServiceImp-Failed to upload file");
         }
-//        3.保存到数据库中
+//        3.Save to the database
         WmMaterial wmMaterial = new WmMaterial();
         wmMaterial.setUserId(WmThreadLocalUtil.getUser().getId());
         wmMaterial.setUrl(fileId);
@@ -69,33 +69,33 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
         wmMaterial.setType((short)0);
         wmMaterial.setCreatedTime(new Date());
         save(wmMaterial);
-//        4。返回结果
+//        4。return result
         return ResponseResult.okResult(wmMaterial);
     }
 
     /**
      *
-     * 素材列表查询
+     * Material list query
      * @param dto
      * @return
      */
     @Override
     public ResponseResult findList(WmMaterialDto dto) {
-//        1。检查参数
+//        1。Check parameter
         dto.checkParam();
-//        2。分页查询
+//        2。paging query
         IPage page = new Page(dto.getPage(), dto.getSize());
         LambdaQueryWrapper<WmMaterial> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-//        是否收藏
+//        Collect or not
         if (dto.getIsCollection() != null && dto.getIsCollection() == 1) {
             lambdaQueryWrapper.eq(WmMaterial::getIsCollection, dto.getIsCollection());
         }
-//        按照用户查询
+//        Query by user
         lambdaQueryWrapper.eq(WmMaterial::getUserId, WmThreadLocalUtil.getUser().getId());
-//        按照时间倒序
+//        In reverse chronological order
         lambdaQueryWrapper.orderByDesc(WmMaterial::getCreatedTime);
         page = page(page, lambdaQueryWrapper);
-//        3。结果返回
+//        3。Result return
         ResponseResult responseResult = new PageResponseResult(dto.getPage(),
                 dto.getSize(),
                 (int)page.getTotal());
@@ -107,7 +107,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
     private WmNewsMaterialMapper wmNewsMaterialMapper;
 
     /**
-     * 删除素材
+     * Delete material
      * @param id
      * @return
      */
@@ -116,7 +116,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
         Integer count = wmNewsMaterialMapper.selectCount(Wrappers.<WmNewsMaterial>lambdaQuery()
                 .eq(WmNewsMaterial::getMaterialId, id));
         if (count != 0) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_IMAGE_WAS_USED, "图片被文章引用");
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_IMAGE_WAS_USED, "The image is cited in the article");
         }
 
         String url = getById(id).getUrl();
@@ -126,7 +126,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
     }
 
     /**
-     * 图片收藏
+     * Photo collection
      * @param id
      * @return
      */
@@ -139,7 +139,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
     }
 
     /**
-     * 取消收藏
+     * cancel collection
      * @param id
      * @return
      */

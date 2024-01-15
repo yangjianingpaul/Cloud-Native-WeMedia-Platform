@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface WmMaterialService extends IService<WmMaterial> {
     /**
-     * 图片上传
+     * image upload
      * @param multipartFile
      * @return
      */
@@ -16,28 +16,28 @@ public interface WmMaterialService extends IService<WmMaterial> {
 
 
     /**
-     * 素材列表查询
+     * Material list query
      * @param dto
      * @return
      */
     public ResponseResult findList(WmMaterialDto dto);
 
     /**
-     * 删除素材
+     * Delete material
      * @param parseInt
      * @return
      */
     ResponseResult deletePicture(int parseInt);
 
     /**
-     * 图片收藏
+     * Photo collection
      * @param id
      * @return
      */
     ResponseResult collectPicture(String id);
 
     /**
-     * 取消收藏
+     * cancel collection
      * @param id
      * @return
      */

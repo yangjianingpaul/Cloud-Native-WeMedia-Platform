@@ -8,7 +8,7 @@ import com.heima.model.wemedia.pojos.WmUser;
 public interface WmUserService extends IService<WmUser> {
 
     /**
-     * 自媒体端登录
+     * we-media login
      * @param dto
      * @return
      */

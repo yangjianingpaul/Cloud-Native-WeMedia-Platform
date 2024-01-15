@@ -15,7 +15,7 @@ public class ArticleHomeController {
     private ApArticleServiceImpl apArticleService;
 
     /**
-     * 加载首页
+     * load first page
      * @param dto
      * @return
      */
@@ -26,7 +26,7 @@ public class ArticleHomeController {
     }
 
     /**
-     * 加载更多
+     * load more
      *
      * @param dto
      * @return
@@ -37,7 +37,7 @@ public class ArticleHomeController {
     }
 
     /**
-     * 加载最新
+     * load latest
      *
      * @param dto
      * @return

@@ -48,30 +48,30 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
 
     /**
      *
-     * 加载文章列表
+     * load article list
      * @param dto
-     * @param type  1。加载更多  2。加载最新
+     * @param type  1。load more  2。load latest
      * @return
      */
     @Override
     public ResponseResult load(ArticleHomeDto dto, Short type) {
-//        1.校验参数
-//        分页条数的校验
+//        1.Check parameter
+//        Check the number of page breaks
         Integer size = dto.getSize();
         if (size == null || size == 0) {
             size = 10;
         }
-//        分页值不超过50
+//        Page values do not exceed 50
         size = Math.min(size, MAX_PAGE_SIZE);
-//        校验参数
+//        Check parameter
         if (!type.equals(ArticleConstants.LOADTYPE_LOAD_MORE) && !type.equals(ArticleConstants.LOADTYPE_LOAD_NEW)) {
             type = ArticleConstants.LOADTYPE_LOAD_MORE;
         }
-//        频道参数校验
+//        check channel parameter
         if (StringUtils.isBlank(dto.getTag())) {
             dto.setTag(ArticleConstants.DEFAULT_TAG);
         }
-//        时间校验
+//        check time
         if (dto.getMaxBehotTime() == null) {
             dto.setMaxBehotTime(new Date());
         }
@@ -79,9 +79,9 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
         if (dto.getMinBehotTime() == null) {
             dto.setMinBehotTime(new Date());
         }
-//        2.查询
+//        2.query
         List<ApArticle> articleList = apArticleMapper.loadArticleList(dto, type);
-//        3.结果返回
+//        3.return result
         return ResponseResult.okResult(articleList);
     }
 

@@ -12,7 +12,7 @@ public class WmTokenInterceptor implements HandlerInterceptor {
 
     /**
      *
-     * 得到header中的用户信息，并且存入到当前的线程中
+     * Gets the user information in the header and stores it into the current thread
      * @param request
      * @param response
      * @param handler
@@ -23,7 +23,7 @@ public class WmTokenInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String userId = request.getHeader("userId");
         if (userId != null) {
-//            存入当前线程中
+//            Stored in the current thread
             WmUser wmUser = new WmUser();
             wmUser.setId(Integer.valueOf(userId));
             WmThreadLocalUtil.setUser(wmUser);
@@ -33,7 +33,7 @@ public class WmTokenInterceptor implements HandlerInterceptor {
 
     /**
      *
-     * 清理线程中的数据
+     * Clean up the data in the thread
      * @param request
      * @param response
      * @param handler

@@ -9,34 +9,34 @@ import okhttp3.Response;
 public interface WmChannelService extends IService<WmChannel> {
 
     /**
-     * 查询所有频道
+     * Query all channels
      * @return
      */
     public ResponseResult findAll();
 
     /**
-     * 频道管理
+     * channel management
      * @param dto
      * @return
      */
     ResponseResult channelManagement(ChannelDto dto);
 
     /**
-     * 新增频道
+     * New channel
      * @param wmChannel
      * @return
      */
     ResponseResult saveChannel(WmChannel wmChannel);
 
     /**
-     * 更新频道
+     * Update channel
      * @param wmChannel
      * @return
      */
     ResponseResult updateChannel(WmChannel wmChannel);
 
     /**
-     * 删除频道
+     * Delete channel
      * @param channelId
      * @return
      */
