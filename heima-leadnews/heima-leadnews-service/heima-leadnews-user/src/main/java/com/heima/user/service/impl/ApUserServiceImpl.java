@@ -46,7 +46,7 @@ public class ApUserServiceImpl extends ServiceImpl<ApUserMapper, ApUser> impleme
                 return ResponseResult.errorResult(AppHttpCodeEnum.LOGIN_PASSWORD_ERROR);
             }
 
-            //1.3 return data:  jwt  user
+            //1.3 return data:  jwt
             String token = AppJwtUtil.getToken(dbUser.getId().longValue());
             Map<String,Object> map = new HashMap<>();
             map.put("token",token);
@@ -56,7 +56,7 @@ public class ApUserServiceImpl extends ServiceImpl<ApUserMapper, ApUser> impleme
 
             return ResponseResult.okResult(map);
         }else {
-            //2.visitor login
+            //2.visitor login:also returns token id = 0
             Map<String,Object> map = new HashMap<>();
             map.put("token",AppJwtUtil.getToken(0L));
             return ResponseResult.okResult(map);
