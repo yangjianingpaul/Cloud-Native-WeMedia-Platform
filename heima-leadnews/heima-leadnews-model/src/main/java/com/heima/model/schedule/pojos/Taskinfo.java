@@ -14,7 +14,7 @@ import java.util.Date;
  * 
  * </p>
  *
- * @author itheima
+ * @author yang
  */
 @Data
 @TableName("taskinfo")
@@ -23,31 +23,31 @@ public class Taskinfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 任务id
+     * task id
      */
     @TableId(type = IdType.ID_WORKER)
     private Long taskId;
 
     /**
-     * 执行时间
+     * execution time
      */
     @TableField("execute_time")
     private Date executeTime;
 
     /**
-     * 参数
+     * parameter
      */
     @TableField("parameters")
     private byte[] parameters;
 
     /**
-     * 优先级
+     * priority
      */
     @TableField("priority")
     private Integer priority;
 
     /**
-     * 任务类型
+     * taskType
      */
     @TableField("task_type")
     private Integer taskType;

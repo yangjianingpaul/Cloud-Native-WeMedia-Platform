@@ -8,26 +8,26 @@ import java.io.Serializable;
 public class Task implements Serializable {
 
     /**
-     * 任务id
+     * task id
      */
     private Long taskId;
     /**
-     * 类型
+     * type
      */
     private Integer taskType;
 
     /**
-     * 优先级
+     * priority
      */
     private Integer priority;
 
     /**
-     * 执行id
+     * execution id
      */
     private long executeTime;
 
     /**
-     * task参数
+     * task parameter
      */
     private byte[] parameters;
     

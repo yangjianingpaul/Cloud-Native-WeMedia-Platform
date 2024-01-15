@@ -9,10 +9,10 @@ import java.util.Date;
 
 /**
  * <p>
- * 管理员用户信息表
+ * administrator user information table
  * </p>
  *
- * @author itheima
+ * @author yang
  */
 @Data
 @TableName("ad_user")
@@ -21,69 +21,69 @@ public class AdUser implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * primary key
      */
     private Integer id;
 
     /**
-     * 登录用户名
+     * login username
      */
     @TableField("name")
     private String name;
 
     /**
-     * 登录密码
+     * login password
      */
     @TableField("password")
     private String password;
 
     /**
-     * 盐
+     * salt
      */
     @TableField("salt")
     private String salt;
 
     /**
-     * 昵称
+     * nickname
      */
     @TableField("nickname")
     private String nickname;
 
     /**
-     * 头像
+     * avatar
      */
     @TableField("image")
     private String image;
 
     /**
-     * 手机号
+     * mobile phone number
      */
     @TableField("phone")
     private String phone;
 
     /**
-     * 状态
-            0 暂时不可用
-            1 永久不可用
-            9 正常可用
+     * state
+            0 temporarily unavailable
+            1 permanently disabled
+            9 normal usability
      */
     @TableField("status")
     private Integer status;
 
     /**
-     * 邮箱
+     * mailbox
      */
     @TableField("email")
     private String email;
 
     /**
-     * 最后一次登录时间
+     * last login time
      */
     @TableField("login_time")
     private Date loginTime;
 
     /**
-     * 创建时间
+     * creation time
      */
     @TableField("created_time")
     private Date createdTime;

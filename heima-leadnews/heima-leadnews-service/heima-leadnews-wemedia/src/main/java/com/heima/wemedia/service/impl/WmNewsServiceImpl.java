@@ -292,7 +292,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
             if (materials.size() >= 3) {
                 wmNews.setType(WemediaConstants.WM_NEWS_MANY_IMAGE);
                 images = materials.stream().limit(3).collect(Collectors.toList());
-            } else if (materials.size() > 1 && materials.size() < 3) {
+            } else if (materials.size() >= 1 && materials.size() < 3) {
 //            single image
                 wmNews.setType(WemediaConstants.WM_NEWS_SINGLE_IMAGE);
                 images = materials.stream().limit(1).collect(Collectors.toList());
@@ -303,7 +303,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
 //            revise the article
             if (images != null && images.size() > 0) {
-                wmNews.setImages(org.apache.commons.lang3.StringUtils.join(images, ","));
+                wmNews.setImages(StringUtils.join(images, ","));
             }
             updateById(wmNews);
         }
@@ -335,7 +335,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 //        query the id of the image by the url of the image
             List<WmMaterial> dbMaterials = wmMaterialMapper.selectList(Wrappers.<WmMaterial>lambdaQuery()
                     .in(WmMaterial::getUrl, materials));
-//        determine if the footage is valid
+//        determine if the material is valid
             if (dbMaterials == null || dbMaterials.size() == 0) {
 //       Manually throw an exception The first function: it can prompt the caller that the material is invalid, and the second function is to roll back the data
                 throw new CustomException(AppHttpCodeEnum.MATERIALS_REFERENCE_FAIL);

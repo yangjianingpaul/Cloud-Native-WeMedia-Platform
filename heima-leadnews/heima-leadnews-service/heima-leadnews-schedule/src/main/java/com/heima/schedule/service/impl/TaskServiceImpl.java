@@ -30,16 +30,16 @@ import java.util.Set;
 public class TaskServiceImpl implements TaskService {
 
     /**
-     * 添加延迟任务
+     * delay task
      *
      * @param task
      * @return
      */
     @Override
     public long addTask(Task task) {
-//        1。添加任务到数据库中
+//        1. add the task to the database
         boolean success = addTaskToDb(task);
-//        2。添加任务到redis
+//        2. add a task to redis
         if (success) {
             addTaskToCache(task);
         }
@@ -47,7 +47,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * 取消任务
+     * cancel the task
      *
      * @param taskId
      * @return
@@ -55,9 +55,9 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public boolean cancelTask(long taskId) {
         boolean flag = false;
-//        删除任务，更新任务日志
+//        delete the task and update the task log
         Task task = updateDb(taskId, ScheduleConstants.CANCELLED);
-//        删除redis的数据
+//        delete redis data
         if (task != null) {
             removeTaskFromCache(task);
             flag = true;
@@ -66,7 +66,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * 按照类型和优先级拉取任务
+     * pull tasks by type and priority
      *
      * @param type
      * @param priority
@@ -77,11 +77,11 @@ public class TaskServiceImpl implements TaskService {
         Task task = null;
         try {
             String key = type + "_" + priority;
-//        从redis中拉取数据，pop
+//        pull data from redis pop
             String taskJson = cacheService.lRightPop(ScheduleConstants.TOPIC + key);
             if (StringUtils.isNotBlank(taskJson)) {
                 task = JSON.parseObject(taskJson, Task.class);
-//            修改数据库信息
+//            modify the database information
                 updateDb(task.getTaskId(), ScheduleConstants.EXECUTED);
             }
         } catch (Exception e) {
@@ -89,12 +89,12 @@ public class TaskServiceImpl implements TaskService {
             log.error("poll task exception");
         }
 
-//        修改数据库信息
+//        modify the database information
         return task;
     }
 
     /**
-     * 未来数据定时刷新
+     * future data is refreshed on a regular basis
      */
     @Scheduled(cron = "0 */1 * * * ?")
     public void refresh() {
@@ -119,7 +119,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * 数据库任务定时同步到redis
+     * Database tasks are periodically synchronized to ApsaraDB for Redis
      */
     @PostConstruct
     @Scheduled(cron = "0 */5 * * * ?")
@@ -146,7 +146,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * 清理缓存中的数据
+     * clean up the data in the cache
      */
     public void clearCache() {
         Set<String> topicKeys = cacheService.scan(ScheduleConstants.TOPIC + "*");
@@ -156,7 +156,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * 删除redis中的数据
+     * delete data from redis
      *
      * @param task
      */
@@ -170,7 +170,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     /**
-     * 删除任务更新任务的日志
+     * delete the log of the update task
      *
      * @param taskId
      * @param status
@@ -199,21 +199,21 @@ public class TaskServiceImpl implements TaskService {
     private CacheService cacheService;
 
     /**
-     * 把任务添加到redis中
+     * add the task to redis
      *
      * @param task
      */
     private void addTaskToCache(Task task) {
         String key = task.getTaskType() + "_" + task.getPriority();
-//        获取5分钟之后的时间，毫秒值
+//        get the time after 5 minutes in milliseconds
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, 5);
         long nextScheduleTime = calendar.getTimeInMillis();
-//        2.1如果任务的执行时间小于等于当前时间，存入list
+//        2.1 If the execution time of the task is less than or equal to the current time, the task is stored in the list
         if (task.getExecuteTime() <= System.currentTimeMillis()) {
             cacheService.lLeftPush(ScheduleConstants.TOPIC + key, JSON.toJSONString(task));
         } else if (task.getExecuteTime() <= nextScheduleTime) {
-//        2.2如果任务的执行时间大于当前时间 && 小于等于预设时间（未来5分钟）存入zset中
+//        2.2 If the execution time of the task is greater than the current time &> less than or equal to the preset time (5 minutes in the future), it will be stored in zset
             cacheService.zAdd(ScheduleConstants.FUTURE + key, JSON.toJSONString(task), task.getExecuteTime());
         }
     }
@@ -225,7 +225,7 @@ public class TaskServiceImpl implements TaskService {
     private TaskinfoLogsMapper taskinfoLogsMapper;
 
     /**
-     * 添加任务到数据库中
+     * add the task to the database
      *
      * @param task
      * @return
@@ -235,7 +235,7 @@ public class TaskServiceImpl implements TaskService {
         boolean flag = false;
 
         try {
-//        保存任务表
+//        save the task table
             Taskinfo taskinfo = new Taskinfo();
             BeanUtils.copyProperties(task, taskinfo);
             taskinfo.setExecuteTime(new Date(task.getExecuteTime()));
@@ -243,7 +243,7 @@ public class TaskServiceImpl implements TaskService {
 
             task.setTaskId(taskinfo.getTaskId());
 
-//        保存任务日志数据
+//        save the task log data
             TaskinfoLogs taskinfoLogs = new TaskinfoLogs();
             BeanUtils.copyProperties(taskinfo, taskinfoLogs);
             taskinfoLogs.setVersion(1);

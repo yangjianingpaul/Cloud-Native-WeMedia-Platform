@@ -54,7 +54,7 @@ public class ArticleFreemarkerServiceImpl implements ArticleFreemarkerService {
     @Async
     public void buildArticleToMinIO(ApArticle apArticle, String content) {
         if (StringUtils.isNotBlank(content)) {
-//        2。Article content is generated as html files by freemarker
+//        2.Article content is generated as html files by freemarker
             Template template = null;
             StringWriter out = new StringWriter();
             try {
@@ -67,10 +67,10 @@ public class ArticleFreemarkerServiceImpl implements ArticleFreemarkerService {
                 throw new RuntimeException(e);
             }
 
-//        3。Upload the html file to minio
+//        3.Upload the html file to minio
             InputStream in = new ByteArrayInputStream(out.toString().getBytes());
             String path = fileStorageService.uploadHtmlFile("", apArticle.getId() + ".html", in);
-//        4。Modify the ap article table and save the static url field
+//        4.Modify the ap article table and save the static url field
             apArticleService.update(Wrappers.<ApArticle>lambdaUpdate()
                     .eq(ApArticle::getId, apArticle.getId())
                     .set(ApArticle::getStaticUrl, path));

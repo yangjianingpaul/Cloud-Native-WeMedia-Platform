@@ -11,7 +11,7 @@ import java.util.List;
 public interface WmNewsMaterialMapper extends BaseMapper<WmNewsMaterial> {
 
      /**
-      * 批量保存
+      * Batch save
       * @param materialIds
       * @param newsId
       * @param type

@@ -114,65 +114,70 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
     @Autowired
     private ArticleFreemarkerService articleFreemarkerService;
 
+    /**
+     * we-media service remote invoke article service:save article
+     * @param dto
+     * @return
+     */
     @Override
     public ResponseResult saveArticle(ArticleDto dto) {
-//        1。检查参数
+//        1. check the parameters
         if (dto == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID );
         }
 
         ApArticle apArticle = new ApArticle();
         BeanUtils.copyProperties(dto, apArticle);
-//        2。判断是否存在id
+//        2. check whether id exists
         if (dto.getId() == null) {
-//        2。1 不存在id 保存 文章 文章配置 文章内容
-//           保存文章
+//        2.1 If there is no ID, save the article, article configuration, and article content
+//           saveTheArticle
             save(apArticle);
-//            保存配置
+//            save configuration
             ApArticleConfig apArticleConfig = new ApArticleConfig(apArticle.getId());
             apArticleConfigMapper.insert(apArticleConfig);
 
-//            保存文章内容
+//            save the content of the article
             ApArticleContent apArticleContent = new ApArticleContent();
             apArticleContent.setArticleId(apArticle.getId());
             apArticleContent.setContent(dto.getContent());
             apArticleContentMapper.insert(apArticleContent);
         } else {
-//        2。2存在id 修改 文章 文章内容
+//        2.2 If there is an ID, modify the article and the content of the article
             updateById(apArticle);
             ApArticleContent apArticleContent = apArticleContentMapper.selectOne(Wrappers.<ApArticleContent>lambdaQuery()
                     .eq(ApArticleContent::getArticleId, dto.getId()));
             apArticleContent.setContent(dto.getContent());
             apArticleContentMapper.updateById(apArticleContent);
         }
-//        异步调用，生成静态文件上传到minio中
+//        Asynchronous call generates a static file and uploads it to minio
         articleFreemarkerService.buildArticleToMinIO(apArticle, dto.getContent());
-//        3。结果返回 文章id
+//        3. Return the article ID
         return ResponseResult.okResult(apArticle.getId());
     }
 
     /**
-     * 更新文章的分值  同时更新缓存中的热点文章数据
+     * Update the score value of the article, and update the hot article data in the cache
      * @param mess
      */
     @Override
     public void updateScore(ArticleVisitStreamMess mess) {
-        //1.更新文章的阅读、点赞、收藏、评论的数量
+        //1.Update the number of views, likes, favorites, and comments on articles
         ApArticle apArticle = updateArticle(mess);
-        //2.计算文章的分值
+        //2.calculate the score value of the article
         Integer score = computeScore(apArticle);
         score = score * 3;
 
-        //3.替换当前文章对应频道的热点数据
+        //3.Replaces the hot spot data of the channel in the current article
         replaceDataToRedis(apArticle, score, ArticleConstants.HOT_ARTICLE_FIRST_PAGE + apArticle.getChannelId());
 
-        //4.替换推荐对应的热点数据
+        //4.Replaces the hotspot data corresponding to the recommendation
         replaceDataToRedis(apArticle, score, ArticleConstants.HOT_ARTICLE_FIRST_PAGE + ArticleConstants.DEFAULT_TAG);
 
     }
 
     /**
-     * 替换数据并且存入到redis
+     * replace the data and store it in redis
      * @param apArticle
      * @param score
      * @param s
@@ -184,7 +189,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
 
             boolean flag = true;
 
-            //如果缓存中存在该文章，只更新分值
+            //If the article exists in the cache, only the score is updated
             for (HotArticleVo hotArticleVo : hotArticleVoList) {
                 if (hotArticleVo.getId().equals(apArticle.getId())) {
                     hotArticleVo.setScore(score);
@@ -193,7 +198,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
                 }
             }
 
-            //如果缓存中不存在，查询缓存中分值最小的一条数据，进行分值的比较，如果当前文章的分值大于缓存中的数据，就替换
+            //If it does not exist in the cache, query the data with the smallest score in the cache, compare the scores, and replace the current article if the score is greater than the data in the cache
             if (flag) {
                 if (hotArticleVoList.size() >= 30) {
                     hotArticleVoList = hotArticleVoList.stream().sorted(Comparator.comparing(HotArticleVo::getScore).reversed()).collect(Collectors.toList());
@@ -214,7 +219,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
                     hotArticleVoList.add(hot);
                 }
             }
-            //缓存到redis
+            //cache to redis
             hotArticleVoList = hotArticleVoList.stream().sorted(Comparator.comparing(HotArticleVo::getScore).reversed()).collect(Collectors.toList());
             cacheService.set(s, JSON.toJSONString(hotArticleVoList));
 
@@ -222,7 +227,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
     }
 
     /**
-     * 更新文章行为数量
+     * update the number of article behaviors
      * @param mess
      */
     private ApArticle updateArticle(ArticleVisitStreamMess mess) {
@@ -237,7 +242,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
     }
 
     /**
-     * 计算文章的具体分值
+     * calculate the specific score of the article
      * @param apArticle
      * @return
      */
@@ -260,14 +265,14 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
     }
 
     /**
-     * 加载文章详情 数据回显
+     * load article details and data echoes
      * @param dto
      * @return
      */
     @Override
     public ResponseResult loadArticleBehavior(ArticleInfoDto dto) {
 
-        //0.检查参数
+        //0.check the parameters
         if (dto == null || dto.getArticleId() == null || dto.getAuthorId() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
@@ -277,23 +282,23 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
 
         ApUser user = AppThreadLocalUtil.getUser();
         if(user != null){
-            //喜欢行为
+            //likes behavior
             String likeBehaviorJson = (String) cacheService.hGet(BehaviorConstants.LIKE_BEHAVIOR + dto.getArticleId().toString(), user.getId().toString());
             if(StringUtils.isNotBlank(likeBehaviorJson)){
                 islike = true;
             }
-            //不喜欢的行为
+            //unlike behavior
             String unLikeBehaviorJson = (String) cacheService.hGet(BehaviorConstants.UN_LIKE_BEHAVIOR + dto.getArticleId().toString(), user.getId().toString());
             if(StringUtils.isNotBlank(unLikeBehaviorJson)){
                 isunlike = true;
             }
-            //是否收藏
+            //whether collect
             String collctionJson = (String) cacheService.hGet(BehaviorConstants.COLLECTION_BEHAVIOR+user.getId(),dto.getArticleId().toString());
             if(StringUtils.isNotBlank(collctionJson)){
                 iscollection = true;
             }
 
-            //是否关注
+            //whether following
             Double score = cacheService.zScore(BehaviorConstants.APUSER_FOLLOW_RELATION + user.getId(), dto.getAuthorId().toString());
             System.out.println(score);
             if(score != null){
@@ -312,7 +317,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
     }
 
     /**
-     * 删除app端相关文章
+     * delete related articles on the app
      * @param id
      * @return
      */

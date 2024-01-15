@@ -52,7 +52,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-//        1.Query we media article review
+//        1. Query we media article review
         WmNews wmNews = wmNewsMapper.selectById(id);
         if (wmNews == null) {
             throw new RuntimeException("WmNewsAutoScanServiceImpl-Article does not exist");
@@ -68,15 +68,22 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
                 return;
             }
 
-//        2。Review text content Baidu Cloud interface
-            boolean isTextScan = handleTextScan((String) textAndImages.get("content"), wmNews);
-            if (!isTextScan) {
-                return;
+//        2. Review text content Baidu Cloud interface
+            String content = (String) textAndImages.get("content");
+            if (StringUtils.isNotBlank(content)) {
+                boolean isTextScan = handleTextScan(content, wmNews);
+                if (!isTextScan) {
+                    return;
+                }
             }
-//        3。Review picture Baidu cloud interface
-            boolean isImageScan = handleImageScan((List<String>) textAndImages.get("images"), wmNews);
-            if (!isImageScan) {
-                return;
+
+//        3. Review picture Baidu cloud interface
+            List<String> images = (List<String>) textAndImages.get("images");
+            if (!images.equals(null) && images.size() > 0) {
+                boolean isImageScan = handleImageScan(images, wmNews);
+                if (!isImageScan) {
+                    return;
+                }
             }
         }
 
@@ -125,28 +132,28 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
     private WmUserMapper wmUserMapper;
 
     /**
-     * 保存app端相关的文章数据
+     * save the relevant article data on the app
      * @param wmNews
      */
     private ResponseResult saveAppArticle(WmNews wmNews) {
         ArticleDto dto = new ArticleDto();
-//        属性的拷贝
+//        copy property
         BeanUtils.copyProperties(wmNews, dto);
-//        文章的布局
+//        the layout of the article
         dto.setLayout(wmNews.getType());
-//        频道
+//        channel
         WmChannel wmChannel = wmChannelMapper.selectById(wmNews.getChannelId());
         if (wmChannel != null) {
             dto.setChannelName(wmChannel.getName());
         }
-//        作者
+//        author
         dto.setAuthorId(wmNews.getUserId().longValue());
         WmUser wmUser = wmUserMapper.selectById(wmNews.getUserId());
         if (wmUser != null) {
             dto.setAuthorName(wmUser.getName());
         }
 
-//        设置文章id
+//        set article id
         if (wmNews.getArticleId() != null) {
             dto.setId(wmNews.getArticleId());
         }

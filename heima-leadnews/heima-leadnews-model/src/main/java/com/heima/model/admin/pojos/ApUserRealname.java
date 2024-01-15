@@ -11,10 +11,10 @@ import java.util.Date;
 
 /**
  * <p>
- * APP实名认证信息表
+ * app real name authentication information table
  * </p>
  *
- * @author itheima
+ * @author yang
  */
 @Data
 @TableName("ap_user_realname")
@@ -23,83 +23,83 @@ public class ApUserRealname implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * primary key
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 账号ID
+     * account id
      */
     @TableField("user_id")
     private Integer userId;
 
     /**
-     * 用户名称
+     * username
      */
     @TableField("name")
     private String name;
 
     /**
-     * 资源名称
+     * the name of the resource
      */
     @TableField("idno")
     private String idno;
 
     /**
-     * 正面照片
+     * front-photo
      */
     @TableField("font_image")
     private String fontImage;
 
     /**
-     * 背面照片
+     * back-photo
      */
     @TableField("back_image")
     private String backImage;
 
     /**
-     * 手持照片
+     * hand-held-photo
      */
     @TableField("hold_image")
     private String holdImage;
 
     /**
-     * 活体照片
+     * live-photographs
      */
     @TableField("live_image")
     private String liveImage;
 
     /**
-     * 状态
-            0 创建中
-            1 待审核
-            2 审核失败
-            9 审核通过
+     * state
+            0 creating
+            1 to be reviewed
+            2 audit failed
+            9 approved
      */
     @TableField("status")
     private Short status;
 
     /**
-     * 拒绝原因
+     * reason for rejection
      */
     @TableField("reason")
     private String reason;
 
     /**
-     * 创建时间
+     * creation time
      */
     @TableField("created_time")
     private Date createdTime;
 
     /**
-     * 提交时间
+     * submission time
      */
     @TableField("submited_time")
     private Date submitedTime;
 
     /**
-     * 更新时间
+     * updated
      */
     @TableField("updated_time")
     private Date updatedTime;

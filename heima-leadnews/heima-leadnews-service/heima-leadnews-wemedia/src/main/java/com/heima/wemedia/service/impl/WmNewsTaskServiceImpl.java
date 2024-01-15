@@ -55,23 +55,23 @@ public class WmNewsTaskServiceImpl  implements WmNewsTaskService {
     private WmNewsAutoScanService wmNewsAutoScanService;
 
     /**
-     * 消费任务
+     * consumption tasks
      */
     @Scheduled(fixedRate = 1000)
     @Override
     public void scanNewsByTask() {
 
-        log.info("消费任务，审核文章");
+        log.info("consume tasks and review articles");
 
         ResponseResult response = scheduleClient.poll(TaskTypeEnum.NEWS_SCAN_TIME.getTaskType(),
                 TaskTypeEnum.NEWS_SCAN_TIME.getPriority());
 
-        log.info("文章审核---消费任务执行---begin---");
+        log.info("Article review---execution of consumption tasks---begin---");
         if (response.getCode().equals(200) && response.getData() != null) {
             Task task = JSON.parseObject(JSON.toJSONString(response.getData()), Task.class);
             WmNews wmNews = ProtostuffUtil.deserialize(task.getParameters(), WmNews.class);
             wmNewsAutoScanService.autoScanWmNews(wmNews.getId());
         }
-        log.info("文章审核---消费任务执行---end---");
+        log.info("Article review---execution of consumption tasks---end---");
     }
 }

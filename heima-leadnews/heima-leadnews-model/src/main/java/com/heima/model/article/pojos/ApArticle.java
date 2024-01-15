@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 文章信息表，存储已发布的文章
+ * An article information table that stores published articles
  * </p>
  *
  * @author itheima
@@ -26,117 +26,117 @@ public class ApArticle implements Serializable {
 
 
     /**
-     * 标题
+     * title
      */
     private String title;
 
     /**
-     * 作者id
+     * author id
      */
     @TableField("author_id")
     private Long authorId;
 
     /**
-     * 作者名称
+     * Author's name
      */
     @TableField("author_name")
     private String authorName;
 
     /**
-     * 频道id
+     * channel id
      */
     @TableField("channel_id")
     private Integer channelId;
 
     /**
-     * 频道名称
+     * The name of the channel
      */
     @TableField("channel_name")
     private String channelName;
 
     /**
-     * 文章布局  0 无图文章   1 单图文章    2 多图文章
+     * Article layout:0. No image article 1. Single image article 2. Multi-image article
      */
     private Short layout;
 
     /**
-     * 文章标记  0 普通文章   1 热点文章   2 置顶文章   3 精品文章   4 大V 文章
+     * Article Tagged:0. Common Articles 1. Hot Articles 2. Pinned Articles 3. Featured Articles 4. web celebrity Articles
      */
     private Byte flag;
 
     /**
-     * 文章封面图片 多张逗号分隔
+     * The cover image of the article, separated by multiple commas
      */
     private String images;
 
     /**
-     * 标签
+     * label
      */
     private String labels;
 
     /**
-     * 点赞数量
+     * number of likes
      */
     private Integer likes;
 
     /**
-     * 收藏数量
+     * number of favorites
      */
     private Integer collection;
 
     /**
-     * 评论数量
+     * number of reviews
      */
     private Integer comment;
 
     /**
-     * 阅读数量
+     * number of reads
      */
     private Integer views;
 
     /**
-     * 省市
+     * provinces and cities
      */
     @TableField("province_id")
     private Integer provinceId;
 
     /**
-     * 市区
+     * urban
      */
     @TableField("city_id")
     private Integer cityId;
 
     /**
-     * 区县
+     * district
      */
     @TableField("county_id")
     private Integer countyId;
 
     /**
-     * 创建时间
+     * creation time
      */
     @TableField("created_time")
     private Date createdTime;
 
     /**
-     * 发布时间
+     * publish time
      */
     @TableField("publish_time")
     private Date publishTime;
 
     /**
-     * 同步状态
+     * Synchronization status
      */
     @TableField("sync_status")
     private Boolean syncStatus;
 
     /**
-     * 来源
+     * source
      */
     private Boolean origin;
 
     /**
-     * 静态页面地址
+     * static page address
      */
     @TableField("static_url")
     private String staticUrl;
