@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * <p>
- * APP用户搜索信息表
+ * app user search information table
  * </p>
  * @author itheima
  */
@@ -19,22 +19,22 @@ public class ApUserSearch implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
+     * primary key
      */
     private String id;
 
     /**
-     * 用户ID
+     * user id
      */
     private Integer userId;
 
     /**
-     * 搜索词
+     * keywords
      */
     private String keyword;
 
     /**
-     * 创建时间
+     * creation time
      */
     private Date createdTime;
 

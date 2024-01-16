@@ -39,13 +39,13 @@ public class ArticleSearchServiceImpl implements ArticleSearchService {
     private ApUserSearchService apUserSearchService;
 
     /**
-     * es article paging retrieval
+     * es article paging query
      *
      * @param dto
      * @return
      */
     @Override
-    public ResponseResult search(UserSearchDto dto) throws IOException {
+    public ResponseResult searchArticle(UserSearchDto dto) throws IOException {
 
         //1.Check parameter
         if (dto == null || StringUtils.isBlank(dto.getSearchWords())) {

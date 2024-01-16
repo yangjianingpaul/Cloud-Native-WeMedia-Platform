@@ -18,7 +18,7 @@ public class ApAssociateWordsController {
     private ApAssociateWordsService apAssociateWordsService;
 
     @PostMapping("/search")
-    public ResponseResult search(@RequestBody UserSearchDto dto) {
-        return apAssociateWordsService.search(dto);
+    public ResponseResult associateSearch(@RequestBody UserSearchDto dto) {
+        return apAssociateWordsService.associateSearch(dto);
     }
 }

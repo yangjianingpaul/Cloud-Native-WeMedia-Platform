@@ -16,11 +16,22 @@ public class ApUserSearchController {
     @Autowired
     private ApUserSearchService apUserSearchService;
 
+    /**
+     * search history
+     *
+     * @return
+     */
     @PostMapping("/load")
     public ResponseResult findUserSearch() {
         return apUserSearchService.findUserSearch();
     }
 
+    /**
+     * delete search history
+     *
+     * @param dto
+     * @return
+     */
     @PostMapping("/del")
     public ResponseResult delUserSearch(@RequestBody HistorySearchDto dto) {
         return apUserSearchService.delUserSearch(dto);

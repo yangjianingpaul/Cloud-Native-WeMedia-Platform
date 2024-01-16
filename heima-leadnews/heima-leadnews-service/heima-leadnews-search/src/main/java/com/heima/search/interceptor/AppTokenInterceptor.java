@@ -13,7 +13,7 @@ public class AppTokenInterceptor implements HandlerInterceptor {
                              HttpServletResponse response, Object handler) throws Exception {
         String userId = request.getHeader("userId");
         if(userId != null){
-            //存入到当前线程中
+            //into the current thread
             ApUser apUser = new ApUser();
             apUser.setId(Integer.valueOf(userId));
             AppThreadLocalUtil.setUser(apUser);

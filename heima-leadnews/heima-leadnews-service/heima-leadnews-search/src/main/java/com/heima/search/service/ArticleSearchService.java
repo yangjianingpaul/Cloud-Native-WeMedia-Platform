@@ -11,5 +11,5 @@ public interface ArticleSearchService {
      es article pagination search
      @return
      */
-    ResponseResult search(UserSearchDto userSearchDto) throws IOException;
+    ResponseResult searchArticle(UserSearchDto userSearchDto) throws IOException;
 }

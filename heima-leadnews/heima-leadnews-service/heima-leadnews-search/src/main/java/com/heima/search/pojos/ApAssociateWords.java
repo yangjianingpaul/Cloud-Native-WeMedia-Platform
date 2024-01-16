@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 联想词表
+ * a list of associative words
  * </p>
  *
  * @author itheima
@@ -22,12 +22,12 @@ public class ApAssociateWords implements Serializable {
     private String id;
 
     /**
-     * 联想词
+     * associative words
      */
     private String associateWords;
 
     /**
-     * 创建时间
+     * creation time
      */
     private Date createdTime;
 

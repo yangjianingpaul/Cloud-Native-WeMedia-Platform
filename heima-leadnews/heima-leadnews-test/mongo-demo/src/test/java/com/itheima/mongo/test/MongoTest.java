@@ -24,7 +24,7 @@ public class MongoTest {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    //保存
+    //save
     @Test
     public void saveTest() {
         for (int i = 0; i < 10; i++) {
@@ -35,14 +35,14 @@ public class MongoTest {
         }
     }
 
-    //查询一个
+    //query next
     @Test
     public void saveFindOne() {
-        ApAssociateWords apAssociateWords = mongoTemplate.findById("657662f005be187bc8142490", ApAssociateWords.class);
+        ApAssociateWords apAssociateWords = mongoTemplate.findById("65a6812c66692827b9907ab2", ApAssociateWords.class);
         System.out.println(apAssociateWords);
     }
 
-    //条件查询
+    //conditional queries
     @Test
     public void testQuery() {
         Query query = Query.query(Criteria.where("associateWords").is("黑马头条"))
@@ -51,6 +51,7 @@ public class MongoTest {
         System.out.println(apAssociateWordsList);
     }
 
+//    delete
     @Test
     public void testDel() {
         mongoTemplate.remove(Query.query(Criteria.where("associateWords").is("黑马头条")), ApAssociateWords.class);

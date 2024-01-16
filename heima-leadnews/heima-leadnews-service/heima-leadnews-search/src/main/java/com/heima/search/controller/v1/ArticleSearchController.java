@@ -18,8 +18,14 @@ public class ArticleSearchController {
     @Autowired
     private ArticleSearchService articleSearchService;
 
+    /**
+     * elasticsearch
+     * @param dto
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/search")
-    public ResponseResult search(@RequestBody UserSearchDto dto) throws IOException {
-        return articleSearchService.search(dto);
+    public ResponseResult searchArticle(@RequestBody UserSearchDto dto) throws IOException {
+        return articleSearchService.searchArticle(dto);
     }
 }

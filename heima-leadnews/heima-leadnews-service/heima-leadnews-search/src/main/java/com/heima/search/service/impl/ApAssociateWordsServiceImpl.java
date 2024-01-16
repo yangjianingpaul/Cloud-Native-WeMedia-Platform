@@ -29,7 +29,7 @@ public class ApAssociateWordsServiceImpl implements ApAssociateWordsService {
      * @return
      */
     @Override
-    public ResponseResult search(UserSearchDto dto) {
+    public ResponseResult associateSearch(UserSearchDto dto) {
 //        1.test parameters
         if (StringUtils.isBlank(dto.getSearchWords())) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);

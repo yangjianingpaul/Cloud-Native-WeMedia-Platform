@@ -5,15 +5,15 @@ import com.heima.model.wemedia.pojos.WmUser;
 
 public class AppThreadLocalUtil {
     private final static ThreadLocal<ApUser> WM_USER_THREAD_LOCAL = new ThreadLocal<>();
-//    存入线程
+//    deposit threads
     public static void setUser(ApUser apUser) {
         WM_USER_THREAD_LOCAL.set(apUser);
     }
-//    从线程中获取
+//    get it from the thread
     public static ApUser getUser() {
         return WM_USER_THREAD_LOCAL.get();
     }
-//    清理
+//    clean
     public static void clear() {
         WM_USER_THREAD_LOCAL.remove();
     }

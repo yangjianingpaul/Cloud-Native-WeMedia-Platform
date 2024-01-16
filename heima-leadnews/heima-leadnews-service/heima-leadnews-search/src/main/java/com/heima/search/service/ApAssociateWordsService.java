@@ -10,5 +10,5 @@ public interface ApAssociateWordsService {
      * @param dto
      * @return
      */
-    public ResponseResult search(UserSearchDto dto);
+    public ResponseResult associateSearch(UserSearchDto dto);
 }

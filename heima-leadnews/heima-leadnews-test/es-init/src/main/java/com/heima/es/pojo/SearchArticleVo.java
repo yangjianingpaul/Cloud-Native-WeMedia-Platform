@@ -6,23 +6,23 @@ import java.util.Date;
 @Data
 public class SearchArticleVo {
 
-    // 文章id
+    // article id
     private Long id;
-    // 文章标题
+    // title of the article
     private String title;
-    // 文章发布时间
+    // date of publication of the article
     private Date publishTime;
-    // 文章布局
+    // article layout
     private Integer layout;
-    // 封面
+    // cover
     private String images;
-    // 作者id
+    // author id
     private Long authorId;
-    // 作者名词
+    // Author's name
     private String authorName;
-    //静态url
+    //static urls
     private String staticUrl;
-    //文章内容
+    //article content
     private String content;
 
 }
