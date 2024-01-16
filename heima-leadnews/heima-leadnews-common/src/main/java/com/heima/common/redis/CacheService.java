@@ -1448,7 +1448,7 @@ public class CacheService extends CachingConfigurerSupport {
         RedisConnection conn = factory.getConnection();
         try {
 
-            //参考redis命令：
+            //refer to the redis command
             //set key value [EX seconds] [PX milliseconds] [NX|XX]
             Boolean result = conn.set(
                     name.getBytes(),

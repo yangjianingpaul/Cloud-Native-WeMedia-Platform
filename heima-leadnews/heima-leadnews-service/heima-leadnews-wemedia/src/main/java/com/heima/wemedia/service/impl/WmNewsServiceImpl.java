@@ -100,7 +100,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
         if (dto == null || dto.getContent() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID );
         }
-//        1。Save or modify the article
+//        1.Save or modify the article
         WmNews wmNews = new WmNews();
 //        Attribute copy
         BeanUtils.copyProperties(dto,wmNews);
@@ -115,18 +115,18 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
         saveOrUpdateWmNews(wmNews);
 
-//        2。Determine whether it is a draft, and if it is a draft end current method
+//        2.Determine whether it is a draft, and if it is a draft end current method
         if (dto.getStatus().equals(WmNews.Status.NORMAL.getCode())) {
             return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
         }
-//        3。Not a draft, save the article content picture material relationship
+//        3.Not a draft, save the article content picture material relationship
 //        Get the picture information in the article content
         List<String> materials = extractUrlInfo(dto.getContent());
         saveRelativeInfoForContent(materials, wmNews.getId());
-//        4。Not a draft, save the relationship between the article cover picture and the material
+//        4.Not a draft, save the relationship between the article cover picture and the material
         saveRelativeInfoForCover(dto, wmNews, materials);
 
-//        Review an article
+//        5.Review an article
 //        wmNewsAutoScanService.autoScanWmNews(wmNews.getId());
         wmNewsTaskService.addNewsToTask(wmNews.getId(), wmNews.getPublishTime());
         return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);

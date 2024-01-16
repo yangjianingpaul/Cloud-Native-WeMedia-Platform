@@ -81,7 +81,7 @@ public class TaskServiceImpl implements TaskService {
             String taskJson = cacheService.lRightPop(ScheduleConstants.TOPIC + key);
             if (StringUtils.isNotBlank(taskJson)) {
                 task = JSON.parseObject(taskJson, Task.class);
-//            modify the database information
+//        modify the database information
                 updateDb(task.getTaskId(), ScheduleConstants.EXECUTED);
             }
         } catch (Exception e) {
@@ -101,18 +101,18 @@ public class TaskServiceImpl implements TaskService {
 
         String token = cacheService.tryLock("FUTURE_TASK_SYNC", 1000 * 30);
         if (StringUtils.isNotBlank(token)) {
-            log.info("未来数据定时刷新--定时任务");
-//        获取所有未来数据的集合key
+            log.info("Scheduled refresh of future data---a scheduled task");
+//        get the set key of all future data
             Set<String> futureKeys = cacheService.scan(ScheduleConstants.FUTURE + "*");
             for (String futureKey : futureKeys) {
-//            获取当前数据的key,topic
+//        obtain the key and topic of the current data
                 String topicKey = ScheduleConstants.TOPIC + futureKey.split(ScheduleConstants.FUTURE)[1];
-//        按照key和分值查询符合条件的数据
+//        query eligible data based on key and score
                 Set<String> tasks = cacheService.zRangeByScore(futureKey, 0, System.currentTimeMillis());
-//            同步数据
+//        sync data
                 if (!tasks.isEmpty()) {
                     cacheService.refreshWithPipeline(futureKey, topicKey, tasks);
-                    log.info("成功的将" + futureKey + "刷新到了" + topicKey);
+                    log.info("successful refreshed" + futureKey + "into" + topicKey);
                 }
             }
         }
@@ -124,15 +124,15 @@ public class TaskServiceImpl implements TaskService {
     @PostConstruct
     @Scheduled(cron = "0 */5 * * * ?")
     public void reloadData() {
-//        清理缓存中的数据list,zset
+//        Clear the data list, zset in the cache
         clearCache();
-//        查询符合条件的任务，小于未来5分钟的数据
-//        获取5分钟之后的时间，毫秒值
+//        Query the data of eligible tasks that are less than the next 5 minutes
+//        get the time after 5 minutes in milliseconds
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, 5);
         List<Taskinfo> taskInfoList = taskinfoMapper.selectList(Wrappers.<Taskinfo>lambdaQuery().lt(Taskinfo::getExecuteTime, calendar.getTime()));
 
-//        把任务添加到redis
+//        add the task to redis
         if (taskInfoList != null && taskInfoList.size() > 0) {
             for (Taskinfo taskinfo : taskInfoList) {
                 Task task = new Task();
@@ -142,7 +142,7 @@ public class TaskServiceImpl implements TaskService {
             }
         }
 
-        log.info("数据库的任务同步到了redis");
+        log.info("database tasks are synchronized to redis");
     }
 
     /**
@@ -179,9 +179,9 @@ public class TaskServiceImpl implements TaskService {
     private Task updateDb(long taskId, int status) {
         Task task = new Task();
         try {
-            //        删除任务
+            //        delete the task
             taskinfoMapper.deleteById(taskId);
-//        更新任务日志
+//        update the task log
             TaskinfoLogs taskinfoLogs = taskinfoLogsMapper.selectById(taskId);
             taskinfoLogs.setStatus(status);
             taskinfoLogsMapper.updateById(taskinfoLogs);
