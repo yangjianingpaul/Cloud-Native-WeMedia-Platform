@@ -6,15 +6,15 @@ import lombok.Data;
 public class UpdateArticleMess {
 
     /**
-     * 修改文章的字段类型
+     * modify the field type of the article
       */
     private UpdateArticleType type;
     /**
-     * 文章ID
+     * article id
      */
     private Long articleId;
     /**
-     * 修改数据的增量，可为正负
+     * Modify the increment of the data, which can be positive or negative
      */
     private Integer add;
 

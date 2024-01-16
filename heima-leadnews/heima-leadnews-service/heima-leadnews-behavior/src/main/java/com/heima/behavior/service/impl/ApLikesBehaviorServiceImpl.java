@@ -70,7 +70,7 @@ public class ApLikesBehaviorServiceImpl implements ApLikesBehaviorService {
     }
 
     /**
-     * 检查参数
+     * check the parameters
      *
      * @return
      */

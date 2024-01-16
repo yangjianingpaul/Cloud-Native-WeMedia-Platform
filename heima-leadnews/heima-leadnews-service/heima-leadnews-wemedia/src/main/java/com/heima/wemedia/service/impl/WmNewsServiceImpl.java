@@ -136,7 +136,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
     private KafkaTemplate<String, String> kafkaTemplate;
 
     /**
-     * the article is on and off the shelves
+     * the article is listed or not
      * @param dto
      * @return
      */
@@ -149,11 +149,11 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 //        2：query the article
         WmNews wmNews = getById(dto.getId());
         if (wmNews == null) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.DATA_NOT_EXIST, "文章不存在");
+            return ResponseResult.errorResult(AppHttpCodeEnum.DATA_NOT_EXIST, "the article does not exist");
         }
 //        3：determine if the article has been published
         if (!wmNews.getStatus().equals(WmNews.Status.PUBLISHED.getCode())) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "当前文章不是发布状态，不能上下架");
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "The current article is not published and cannot be taken or unlisted");
         }
 //        4:modify the article enable
         if (dto.getEnable() != null && dto.getEnable() > -1 && dto.getEnable() < 2) {

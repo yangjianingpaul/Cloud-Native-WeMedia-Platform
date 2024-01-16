@@ -12,44 +12,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface ApArticleService extends IService<ApArticle> {
     /**
      *
-     * 加载文章列表
+     * load the list of articles
      * @param dto
-     * @param type  1。加载更多  2。加载最新
+     * @param type  1.load more  2.load the latest
      * @return
      */
     public ResponseResult load(ArticleHomeDto dto, Short type);
 
     /**
-     * 加载文章列表
+     * load the list of articles
      * @param dto
-     * @param type  1 加载更多   2 加载最新
-     * @param firstPage  true  是首页  false 非首页
+     * @param type  1 load more   2 load the latest
+     * @param firstPage  true:It's the top page,  false: non homepage
      * @return
      */
     public ResponseResult load2(ArticleHomeDto dto,Short type,boolean firstPage);
 
     /**
-     * 保存app端相关文章
+     * save relevant articles on the app
      * @param dto
      * @return
      */
     public ResponseResult saveArticle(ArticleDto dto);
 
     /**
-     * 更新文章的分值  同时更新缓存中的热点文章数据
+     * Update the score value of the article, and update the hot article data in the cache
      * @param mess
      */
     public void updateScore(ArticleVisitStreamMess mess);
 
     /**
-     * 加载文章详情 数据回显
+     * Load the article details and the data will be displayed
      * @param dto
      * @return
      */
     public ResponseResult loadArticleBehavior(ArticleInfoDto dto);
 
     /**
-     * 删除app端相关文章
+     * delete related articles on the app
      * @param id
      * @return
      */

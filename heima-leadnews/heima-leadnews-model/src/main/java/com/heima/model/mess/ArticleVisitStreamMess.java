@@ -5,23 +5,23 @@ import lombok.Data;
 @Data
 public class ArticleVisitStreamMess {
     /**
-     * 文章id
+     * article id
      */
     private Long articleId;
     /**
-     * 阅读
+     * read
      */
     private int view;
     /**
-     * 收藏
+     * collection
      */
     private int collect;
     /**
-     * 评论
+     * comments
      */
     private int comment;
     /**
-     * 点赞
+     * like
      */
     private int like;
 }

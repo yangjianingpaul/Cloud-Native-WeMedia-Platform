@@ -5,7 +5,7 @@ import com.heima.model.common.dtos.ResponseResult;
 
 /**
  * <p>
- * APP不喜欢行为表 服务类
+ * APP doesn't like the behavior table service class
  * </p>
  *
  * @author itheima
@@ -13,7 +13,7 @@ import com.heima.model.common.dtos.ResponseResult;
 public interface ApUnlikesBehaviorService {
 
     /**
-     * 不喜欢
+     * dislike
      * @param dto
      * @return
      */

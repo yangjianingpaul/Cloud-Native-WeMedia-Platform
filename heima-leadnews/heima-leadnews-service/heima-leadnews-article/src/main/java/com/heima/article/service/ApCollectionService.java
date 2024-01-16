@@ -6,7 +6,7 @@ import com.heima.model.common.dtos.ResponseResult;
 public interface ApCollectionService {
 
     /**
-     * 收藏
+     * collection
      * @param dto
      * @return
      */

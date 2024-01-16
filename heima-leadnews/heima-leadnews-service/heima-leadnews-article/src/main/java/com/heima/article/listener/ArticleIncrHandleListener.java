@@ -18,8 +18,8 @@ public class ArticleIncrHandleListener {
     private ApArticleService apArticleService;
 
     @KafkaListener(topics = HotArticleConstants.HOT_ARTICLE_INCR_HANDLE_TOPIC)
-    public void onMessage(String mess){
-        if(StringUtils.isNotBlank(mess)){
+    public void onMessage(String mess) {
+        if (StringUtils.isNotBlank(mess)) {
             ArticleVisitStreamMess articleVisitStreamMess = JSON.parseObject(mess, ArticleVisitStreamMess.class);
             apArticleService.updateScore(articleVisitStreamMess);
         }

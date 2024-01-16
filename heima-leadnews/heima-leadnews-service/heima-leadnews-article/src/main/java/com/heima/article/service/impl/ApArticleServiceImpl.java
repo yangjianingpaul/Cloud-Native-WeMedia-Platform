@@ -47,10 +47,10 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
     private final static short MAX_PAGE_SIZE = 50;
 
     /**
-     *
      * load article list
+     *
      * @param dto
-     * @param type  1。load more  2。load latest
+     * @param type 1。load more  2。load latest
      * @return
      */
     @Override
@@ -87,6 +87,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
 
     /**
      * load article list
+     *
      * @param dto
      * @param type      1 load more   2 load latest
      * @param firstPage true: is first page,  flase: not first page
@@ -94,9 +95,9 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
      */
     @Override
     public ResponseResult load2(ArticleHomeDto dto, Short type, boolean firstPage) {
-        if(firstPage){
+        if (firstPage) {
             String jsonStr = cacheService.get(ArticleConstants.HOT_ARTICLE_FIRST_PAGE + dto.getTag());
-            if(StringUtils.isNotBlank(jsonStr)){
+            if (StringUtils.isNotBlank(jsonStr)) {
                 List<HotArticleVo> hotArticleVoList = JSON.parseArray(jsonStr, HotArticleVo.class);
                 ResponseResult responseResult = ResponseResult.okResult(hotArticleVoList);
                 return responseResult;
@@ -116,6 +117,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
 
     /**
      * we-media service remote invoke article service:save article
+     *
      * @param dto
      * @return
      */
@@ -123,7 +125,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
     public ResponseResult saveArticle(ArticleDto dto) {
 //        1. check the parameters
         if (dto == null) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID );
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
 
         ApArticle apArticle = new ApArticle();
@@ -158,6 +160,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
 
     /**
      * Update the score value of the article, and update the hot article data in the cache
+     *
      * @param mess
      */
     @Override
@@ -178,6 +181,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
 
     /**
      * replace the data and store it in redis
+     *
      * @param apArticle
      * @param score
      * @param s
@@ -228,36 +232,37 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
 
     /**
      * update the number of article behaviors
+     *
      * @param mess
      */
     private ApArticle updateArticle(ArticleVisitStreamMess mess) {
         ApArticle apArticle = getById(mess.getArticleId());
-        apArticle.setCollection(apArticle.getCollection()==null?0:apArticle.getCollection()+mess.getCollect());
-        apArticle.setComment(apArticle.getComment()==null?0:apArticle.getComment()+mess.getComment());
-        apArticle.setLikes(apArticle.getLikes()==null?0:apArticle.getLikes()+mess.getLike());
-        apArticle.setViews(apArticle.getViews()==null?0:apArticle.getViews()+mess.getView());
+        apArticle.setCollection(apArticle.getCollection() == null ? 0 : apArticle.getCollection() + mess.getCollect());
+        apArticle.setComment(apArticle.getComment() == null ? 0 : apArticle.getComment() + mess.getComment());
+        apArticle.setLikes(apArticle.getLikes() == null ? 0 : apArticle.getLikes() + mess.getLike());
+        apArticle.setViews(apArticle.getViews() == null ? 0 : apArticle.getViews() + mess.getView());
         updateById(apArticle);
         return apArticle;
-
     }
 
     /**
      * calculate the specific score of the article
+     *
      * @param apArticle
      * @return
      */
     private Integer computeScore(ApArticle apArticle) {
         Integer score = 0;
-        if(apArticle.getLikes() != null){
+        if (apArticle.getLikes() != null) {
             score += apArticle.getLikes() * ArticleConstants.HOT_ARTICLE_LIKE_WEIGHT;
         }
-        if(apArticle.getViews() != null){
+        if (apArticle.getViews() != null) {
             score += apArticle.getViews();
         }
-        if(apArticle.getComment() != null){
+        if (apArticle.getComment() != null) {
             score += apArticle.getComment() * ArticleConstants.HOT_ARTICLE_COMMENT_WEIGHT;
         }
-        if(apArticle.getCollection() != null){
+        if (apArticle.getCollection() != null) {
             score += apArticle.getCollection() * ArticleConstants.HOT_ARTICLE_COLLECTION_WEIGHT;
         }
 
@@ -266,6 +271,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
 
     /**
      * load article details and data echoes
+     *
      * @param dto
      * @return
      */
@@ -281,27 +287,27 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
         boolean isfollow = false, islike = false, isunlike = false, iscollection = false;
 
         ApUser user = AppThreadLocalUtil.getUser();
-        if(user != null){
+        if (user != null) {
             //likes behavior
             String likeBehaviorJson = (String) cacheService.hGet(BehaviorConstants.LIKE_BEHAVIOR + dto.getArticleId().toString(), user.getId().toString());
-            if(StringUtils.isNotBlank(likeBehaviorJson)){
+            if (StringUtils.isNotBlank(likeBehaviorJson)) {
                 islike = true;
             }
             //unlike behavior
             String unLikeBehaviorJson = (String) cacheService.hGet(BehaviorConstants.UN_LIKE_BEHAVIOR + dto.getArticleId().toString(), user.getId().toString());
-            if(StringUtils.isNotBlank(unLikeBehaviorJson)){
+            if (StringUtils.isNotBlank(unLikeBehaviorJson)) {
                 isunlike = true;
             }
             //whether collect
-            String collctionJson = (String) cacheService.hGet(BehaviorConstants.COLLECTION_BEHAVIOR+user.getId(),dto.getArticleId().toString());
-            if(StringUtils.isNotBlank(collctionJson)){
+            String collctionJson = (String) cacheService.hGet(BehaviorConstants.COLLECTION_BEHAVIOR + user.getId(), dto.getArticleId().toString());
+            if (StringUtils.isNotBlank(collctionJson)) {
                 iscollection = true;
             }
 
             //whether following
             Double score = cacheService.zScore(BehaviorConstants.APUSER_FOLLOW_RELATION + user.getId(), dto.getAuthorId().toString());
             System.out.println(score);
-            if(score != null){
+            if (score != null) {
                 isfollow = true;
             }
 
@@ -318,6 +324,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
 
     /**
      * delete related articles on the app
+     *
      * @param id
      * @return
      */

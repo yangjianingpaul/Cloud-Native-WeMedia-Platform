@@ -9,19 +9,19 @@ import java.util.Date;
 public class UserSearchDto {
 
     /**
-     * 搜索关键字
+     * search for keywords
      */
     String searchWords;
     /**
-     * 当前页
+     * current page
      */
     int pageNum;
     /**
-     * 分页条数
+     * page size
      */
     int pageSize;
     /**
-     * 最小时间
+     * minimum time
      */
     Date minBehotTime;
 

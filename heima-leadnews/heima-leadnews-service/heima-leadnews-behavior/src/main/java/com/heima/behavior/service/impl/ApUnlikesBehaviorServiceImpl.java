@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * APP不喜欢行为表 服务实现类
+ * The APP does not like the behavior table service implementation class
  * </p>
  *
  * @author itheima

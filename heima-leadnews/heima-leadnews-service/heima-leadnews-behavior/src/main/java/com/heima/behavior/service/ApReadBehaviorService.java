@@ -6,7 +6,7 @@ import com.heima.model.common.dtos.ResponseResult;
 public interface ApReadBehaviorService {
 
     /**
-     * 保存阅读行为
+     * save the act of reading
      * @param dto
      * @return
      */

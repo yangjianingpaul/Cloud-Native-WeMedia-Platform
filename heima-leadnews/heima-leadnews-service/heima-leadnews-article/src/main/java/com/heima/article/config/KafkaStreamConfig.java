@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 通过重新注册KafkaStreamsConfiguration对象，设置自定配置参数
+ * Re-register the Kafka Streams Configuration object and set custom configuration parameters
  */
 
 @Setter

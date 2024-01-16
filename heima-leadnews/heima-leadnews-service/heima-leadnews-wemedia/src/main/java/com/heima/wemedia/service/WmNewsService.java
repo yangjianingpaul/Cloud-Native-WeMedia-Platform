@@ -24,7 +24,7 @@ public interface WmNewsService extends IService<WmNews> {
     public ResponseResult submitNews(WmNewsDto dto);
 
     /**
-     * Articles on and off the shelf
+     * Articles listed or not
      * @param dto
      * @return
      */
