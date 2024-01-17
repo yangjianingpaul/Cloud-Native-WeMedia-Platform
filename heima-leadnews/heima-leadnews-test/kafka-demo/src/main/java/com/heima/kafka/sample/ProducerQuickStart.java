@@ -6,50 +6,52 @@ import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
 /**
- * 生产者
+ * producer
  */
 public class ProducerQuickStart {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-        //1.kafka链接配置信息
+        //1.kafka link configuration information
         Properties prop = new Properties();
-        //kafka链接地址
+        //the kafka link address
         prop.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.31.125:9092");
         //key和value的序列化
         prop.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,"org.apache.kafka.common.serialization.StringSerializer");
         prop.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,"org.apache.kafka.common.serialization.StringSerializer");
 
-        //ack配置  消息确认机制
+        //ack配置  message acknowledgment mechanism
         prop.put(ProducerConfig.ACKS_CONFIG,"all");
 
-        //重试次数
+        //number of retries
         prop.put(ProducerConfig.RETRIES_CONFIG,10);
 
-        //数据压缩
+        //data compression
         prop.put(ProducerConfig.COMPRESSION_TYPE_CONFIG,"lz4");
 
-        //2.创建kafka生产者对象
+        //2.create a kafka producer object
         KafkaProducer<String,String> producer = new KafkaProducer<String,String>(prop);
 
-        //3.发送消息
+        //3.send a message
         /**
-         * 第一个参数 ：topic
-         * 第二个参数：消息的key
-         * 第三个参数：消息的value
+         * the first parameter ：topic
+         * the second parameter：key of message
+         * the third parameter：value of message
          */
-//        ProducerRecord<String,String> kvProducerRecord = new ProducerRecord<String,String>("topic-first","hello kafka");
-//        ProducerRecord<String,String> kvProducerRecord = new ProducerRecord<String,String>("topic-first","hello kafka");
+
+//        ProducerRecord<String,String> kvProducerRecord = new ProducerRecord<String,String>("topic-first","key-001","hello kafka");
 //        producer.send(kvProducerRecord);
         for (int i = 0; i < 5; i++) {
             ProducerRecord<String,String> kvProducerRecord = new ProducerRecord<String,String>("itcast-topic-input","hello kafka");
             producer.send(kvProducerRecord);
         }
-        //同步发送消息
-/*        RecordMetadata recordMetadata = producer.send(kvProducerRecord).get();
-        System.out.println(recordMetadata.offset());*/
 
-        //异步消息发送
+//        ProducerRecord<String,String> kvProducerRecord = new ProducerRecord<String,String>("topic-first","hello kafka");
+        //send messages synchronously
+//        RecordMetadata recordMetadata = producer.send(kvProducerRecord).get();
+//        System.out.println(recordMetadata.offset());
+
+        //asynchronous message sending
 //        producer.send(kvProducerRecord, new Callback() {
 //            @Override
 //            public void onCompletion(RecordMetadata recordMetadata, Exception e) {
@@ -60,7 +62,7 @@ public class ProducerQuickStart {
 //            }
 //        });
 
-        //4.关闭消息通道  必须要关闭，否则消息发送不成功
+        //4.Closing the Message Channel must be closed, otherwise the message will not be sent successfully
         producer.close();
     }
 }

@@ -10,36 +10,36 @@ import java.util.Collections;
 import java.util.Properties;
 
 /**
- * 消费者
+ * consumer
  */
 public class ConsumerQuickStart {
 
     public static void main(String[] args) {
 
-        //1.kafka的配置信息
+        //1.kafka configuration information
         Properties prop = new Properties();
-        //链接地址
+        //url
         prop.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.31.125:9092");
         //key和value的反序列化器
         prop.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         prop.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
 
-        //设置消费者组
-        prop.put(ConsumerConfig.GROUP_ID_CONFIG, "group2");
+        //set up consumer groups
+        prop.put(ConsumerConfig.GROUP_ID_CONFIG, "group1");
 //        prop.put(ConsumerConfig.GROUP_ID_CONFIG, "group2");
 
-        //手动提交偏移量
+        //manually commit offsets
 //        prop.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
 
 
-        //2.创建消费者对象
+        //2.create a consumer object
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(prop);
 
-        //3.订阅主题
+        //3.subscribe to a topic
 //        consumer.subscribe(Collections.singletonList("topic-first"));
         consumer.subscribe(Collections.singletonList("itcast-topic-out"));
 
-        //4.拉取消息
+        //4.pull messages
 
 //        while (true) {
 //            ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofMillis(1000));
@@ -50,7 +50,7 @@ public class ConsumerQuickStart {
 //            }
 //        }
 
-        //同步提交和异步提交偏移量
+        //synchronous and asynchronous commit offsets
         try {
             while (true) {
                 ConsumerRecords<String, String> consumerRecords = consumer.poll(Duration.ofMillis(1000));
@@ -60,14 +60,14 @@ public class ConsumerQuickStart {
                     System.out.println(consumerRecord.offset());
                     System.out.println(consumerRecord.partition());
                 }
-                //异步提交偏移量
+                //asynchronous commit offsets
                 consumer.commitAsync();
             }
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("记录错误的信息："+e);
+            System.out.println("record incorrect information："+e);
         }finally {
-            //同步
+            //synchronous
             consumer.commitSync();
         }
 

@@ -40,10 +40,10 @@ public class ApUnlikesBehaviorServiceImpl implements ApUnlikesBehaviorService {
         }
 
         if (dto.getType() == 0) {
-            log.info("保存当前key:{} ,{}, {}", dto.getArticleId(), user.getId(), dto);
+            log.info("save the current key:{} ,{}, {}", dto.getArticleId(), user.getId(), dto);
             cacheService.hPut(BehaviorConstants.UN_LIKE_BEHAVIOR + dto.getArticleId().toString(), user.getId().toString(), JSON.toJSONString(dto));
         } else {
-            log.info("删除当前key:{} ,{}, {}", dto.getArticleId(), user.getId(), dto);
+            log.info("delete the current key:{} ,{}, {}", dto.getArticleId(), user.getId(), dto);
             cacheService.hDelete(BehaviorConstants.UN_LIKE_BEHAVIOR + dto.getArticleId().toString(), user.getId().toString());
         }
 

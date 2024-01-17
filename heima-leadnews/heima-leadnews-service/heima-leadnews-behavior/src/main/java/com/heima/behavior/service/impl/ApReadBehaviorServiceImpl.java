@@ -31,27 +31,27 @@ public class ApReadBehaviorServiceImpl implements ApReadBehaviorService {
 
     @Override
     public ResponseResult readBehavior(ReadBehaviorDto dto) {
-        //1.检查参数
+        //1.check the parameters
         if (dto == null || dto.getArticleId() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
 
-        //2.是否登录
+        //2.whether or not to log in
         ApUser user = AppThreadLocalUtil.getUser();
         if (user == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);
         }
-        //更新阅读次数
+        //update the number of reads
         String readBehaviorJson = (String) cacheService.hGet(BehaviorConstants.READ_BEHAVIOR + dto.getArticleId().toString(), user.getId().toString());
         if (StringUtils.isNotBlank(readBehaviorJson)) {
             ReadBehaviorDto readBehaviorDto = JSON.parseObject(readBehaviorJson, ReadBehaviorDto.class);
             dto.setCount((short) (readBehaviorDto.getCount() + dto.getCount()));
         }
-        // 保存当前key
-        log.info("保存当前key:{} {} {}", dto.getArticleId(), user.getId(), dto);
+        // save the current key
+        log.info("save the current key:{} {} {}", dto.getArticleId(), user.getId(), dto);
         cacheService.hPut(BehaviorConstants.READ_BEHAVIOR + dto.getArticleId().toString(), user.getId().toString(), JSON.toJSONString(dto));
 
-        //发送消息，数据聚合
+        //send messages data aggregates
         UpdateArticleMess mess = new UpdateArticleMess();
         mess.setArticleId(dto.getArticleId());
         mess.setType(UpdateArticleMess.UpdateArticleType.VIEWS);

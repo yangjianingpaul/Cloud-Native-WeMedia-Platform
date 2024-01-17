@@ -32,12 +32,12 @@ public class ApLikesBehaviorServiceImpl implements ApLikesBehaviorService {
     @Override
     public ResponseResult like(LikesBehaviorDto dto) {
 
-        //1.检查参数
+        //1.check the parameters
         if (dto == null || dto.getArticleId() == null || checkParam(dto)) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
 
-        //2.是否登录
+        //2.whether or not to log in
         ApUser user = AppThreadLocalUtil.getUser();
         if (user == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.NEED_LOGIN);
@@ -47,24 +47,24 @@ public class ApLikesBehaviorServiceImpl implements ApLikesBehaviorService {
         mess.setArticleId(dto.getArticleId());
         mess.setType(UpdateArticleMess.UpdateArticleType.LIKES);
 
-        //3.点赞  保存数据
+        //3.like:save the data
         if (dto.getOperation() == 0) {
             Object obj = cacheService.hGet(BehaviorConstants.LIKE_BEHAVIOR + dto.getArticleId().toString(), user.getId().toString());
             if (obj != null) {
-                return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "已点赞");
+                return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "have liked");
             }
-            // 保存当前key
-            log.info("保存当前key:{} ,{}, {}", dto.getArticleId(), user.getId(), dto);
+            // save the current key
+            log.info("save current key:{} ,{}, {}", dto.getArticleId(), user.getId(), dto);
             cacheService.hPut(BehaviorConstants.LIKE_BEHAVIOR + dto.getArticleId().toString(), user.getId().toString(), JSON.toJSONString(dto));
             mess.setAdd(1);
         } else {
-            // 删除当前key
-            log.info("删除当前key:{}, {}", dto.getArticleId(), user.getId());
+            // delete current key
+            log.info("delete current key:{}, {}", dto.getArticleId(), user.getId());
             cacheService.hDelete(BehaviorConstants.LIKE_BEHAVIOR + dto.getArticleId().toString(), user.getId().toString());
             mess.setAdd(-1);
         }
 
-        //发送消息，数据聚合
+        //send messages data aggregates
         kafkaTemplate.send(HotArticleConstants.HOT_ARTICLE_SCORE_TOPIC,JSON.toJSONString(mess));
         return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
     }

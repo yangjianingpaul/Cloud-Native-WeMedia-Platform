@@ -214,8 +214,6 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
                         hot.setScore(score);
                         hotArticleVoList.add(hot);
                     }
-
-
                 } else {
                     HotArticleVo hot = new HotArticleVo();
                     BeanUtils.copyProperties(apArticle, hot);

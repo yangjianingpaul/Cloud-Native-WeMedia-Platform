@@ -14,42 +14,42 @@ import java.util.Arrays;
 import java.util.Properties;
 
 /**
- * 流式处理
+ * streaming
  */
 public class KafkaStreamQuickStart {
 
     public static void main(String[] args) {
 
-        //kafka的配置信心
+        //kafka configuration center
         Properties prop = new Properties();
         prop.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.31.125:9092");
         prop.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         prop.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         prop.put(StreamsConfig.APPLICATION_ID_CONFIG,"streams-quickstart");
 
-        //stream 构建器
+        //stream builder
         StreamsBuilder streamsBuilder = new StreamsBuilder();
 
-        //流式计算
+        //stream computing
         streamProcessor(streamsBuilder);
 
 
-        //创建kafkaStream对象
+        //create a kafka stream object
         KafkaStreams kafkaStreams = new KafkaStreams(streamsBuilder.build(),prop);
-        //开启流式计算
+        //enable stream computing
         kafkaStreams.start();
     }
 
     /**
-     * 流式计算
-     * 消息的内容：hello kafka  hello itcast
+     * stream computing
+     * the content of the message：hello kafka  hello itcast
      * @param streamsBuilder
      */
     private static void streamProcessor(StreamsBuilder streamsBuilder) {
-        //创建kstream对象，同时指定从那个topic中接收消息
+        //Create a kstream object and specify the topic from which message to receive
         KStream<String, String> stream = streamsBuilder.stream("itcast-topic-input");
         /**
-         * 处理消息的value
+         * the value of the processed message
          */
         stream.flatMapValues(new ValueMapper<String, Iterable<String>>() {
             @Override
@@ -57,19 +57,19 @@ public class KafkaStreamQuickStart {
                 return Arrays.asList(value.split(" "));
             }
         })
-                //按照value进行聚合处理
+                //aggregate by value
                 .groupBy((key,value)->value)
-                //时间窗口
+                //time window
                 .windowedBy(TimeWindows.of(Duration.ofSeconds(10)))
-                //统计单词的个数
+                //count the number of words
                 .count()
-                //转换为kStream
+                //convert to k stream
                 .toStream()
                 .map((key,value)->{
                     System.out.println("key:"+key+",value:"+value);
                     return new KeyValue<>(key.key().toString(),value.toString());
                 })
-                //发送消息
+                //send a message
                 .to("itcast-topic-out");
     }
 }

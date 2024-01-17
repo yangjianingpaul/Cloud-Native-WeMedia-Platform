@@ -25,12 +25,12 @@ public class HotArticleStreamHandler {
         //aggregate streaming
         stream.map((key, value) -> {
                     UpdateArticleMess mess = JSON.parseObject(value, UpdateArticleMess.class);
-                    //重置消息的key:1234343434   和  value: likes:1
+                    //reset the key of the message:1234343434   和  value: likes:1
                     return new KeyValue<>(mess.getArticleId().toString(), mess.getType().name() + ":" + mess.getAdd());
                 })
-                //按照文章id进行聚合
+                //aggregate by article id
                 .groupBy((key, value) -> key)
-                //时间窗口
+                //time window
                 .windowedBy(TimeWindows.of(Duration.ofSeconds(10)))
                 /**
                  * Complete the calculation of the aggregate by yourself
@@ -95,8 +95,8 @@ public class HotArticleStreamHandler {
                         }
 
                         String formatStr = String.format("COLLECTION:%d,COMMENT:%d,LIKES:%d,VIEWS:%d", col, com, lik, vie);
-                        System.out.println("文章的id:" + key);
-                        System.out.println("当前时间窗口内的消息处理结果：" + formatStr);
+                        System.out.println("the id of the article:" + key);
+                        System.out.println("The result of the message processing within the current time window：" + formatStr);
                         return formatStr;
                     }
                 }, Materialized.as("hot-atricle-stream-count-001"))
@@ -104,7 +104,7 @@ public class HotArticleStreamHandler {
                 .map((key, value) -> {
                     return new KeyValue<>(key.key().toString(), formatObj(key.key().toString(), value));
                 })
-                //发送消息
+                //send a message
                 .to(HotArticleConstants.HOT_ARTICLE_INCR_HANDLE_TOPIC);
 
         return stream;
