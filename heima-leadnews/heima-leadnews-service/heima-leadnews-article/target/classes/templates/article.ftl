@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover">
-    <title>黑马头条</title>
+    <title>NEWS</title>
     <!-- 引入样式文件 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.12.20/lib/index.css">
     <!-- 页面样式 -->
@@ -22,7 +22,7 @@
 
         <van-row type="flex" align="center" class="article-header">
             <van-col span="3">
-                <van-image round class="article-avatar" src="https://p3.pstatp.com/thumb/1480/7186611868"></van-image>
+                <van-image round class="article-avatar" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201711%2F23%2F20171123103948_damLJ.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708160598&t=9bd3e9f7065a4f8ece845b4201731784"></van-image>
             </van-col>
             <van-col span="16">
                 <div v-html="authorName"></div>
@@ -30,7 +30,7 @@
             </van-col>
             <van-col span="5">
                 <van-button round :icon="relation.isfollow ? '' : 'plus'" type="info" class="article-focus"
-                            :text="relation.isfollow ? '取消关注' : '关注'" :loading="followLoading" @click="handleClickArticleFollow">
+                            :text="relation.isfollow ? 'CANCEL' : 'SUBSCRIBE'" :loading="followLoading" @click="handleClickArticleFollow">
                 </van-button>
             </van-col>
         </van-row>
@@ -52,18 +52,18 @@
         <van-row type="flex" justify="center" class="article-action">
             <van-col>
                 <van-button round :icon="relation.islike ? 'good-job' : 'good-job-o'" class="article-like"
-                            :loading="likeLoading" :text="relation.islike ? '取消赞' : '点赞'" @click="handleClickArticleLike"></van-button>
+                            :loading="likeLoading" :text="relation.islike ? 'CANCEL' : 'LIKE'" @click="handleClickArticleLike"></van-button>
                 <van-button round :icon="relation.isunlike ? 'delete' : 'delete-o'" class="article-unlike"
                             :loading="unlikeLoading" @click="handleClickArticleUnlike">不喜欢</van-button>
             </van-col>
         </van-row>
 
         <!-- 文章评论列表 -->
-        <van-list v-model="commentsLoading" :finished="commentsFinished" finished-text="没有更多了"
+        <van-list v-model="commentsLoading" :finished="commentsFinished" finished-text="no more"
                   @load="onLoadArticleComments">
             <van-row id="#comment-view" type="flex" class="article-comment" v-for="(item, index) in comments" :key="index">
                 <van-col span="3">
-                    <van-image round src="https://p3.pstatp.com/thumb/1480/7186611868" class="article-avatar"></van-image>
+                    <van-image round src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201711%2F23%2F20171123103948_damLJ.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708160598&t=9bd3e9f7065a4f8ece845b4201731784" class="article-avatar"></van-image>
                 </van-col>
                 <van-col span="21">
                     <van-row type="flex" align="center" justify="space-between">
@@ -95,7 +95,7 @@
     <!-- 文章底部栏 -->
     <van-row type="flex" justify="space-around" align="center" class="article-bottom-bar">
         <van-col span="13">
-            <van-field v-model="commentValue" placeholder="写评论">
+            <van-field v-model="commentValue" placeholder="write a comment">
                 <template #button>
                     <van-button icon="back-top" @click="handleSaveComment"></van-button>
                 </template>
@@ -117,12 +117,12 @@
     <van-popup v-model="showPopup" closeable position="bottom"
                :style="{ width: '750px', height: '60%', left: '50%', 'margin-left': '-375px' }">
         <!-- 评论回复列表 -->
-        <van-list v-model="commentRepliesLoading" :finished="commentRepliesFinished" finished-text="没有更多了"
+        <van-list v-model="commentRepliesLoading" :finished="commentRepliesFinished" finished-text="no more"
                   @load="onLoadCommentReplies">
             <van-row id="#comment-reply-view" type="flex" class="article-comment-reply"
                      v-for="(item, index) in commentReplies" :key="index">
                 <van-col span="3">
-                    <van-image round src="https://p3.pstatp.com/thumb/1480/7186611868" class="article-avatar"></van-image>
+                    <van-image round src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201711%2F23%2F20171123103948_damLJ.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1708160598&t=9bd3e9f7065a4f8ece845b4201731784" class="article-avatar"></van-image>
                 </van-col>
                 <van-col span="21">
                     <van-row type="flex" align="center" justify="space-between">

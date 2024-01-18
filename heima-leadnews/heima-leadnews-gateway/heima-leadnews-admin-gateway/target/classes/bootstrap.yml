@@ -1,12 +1,12 @@
 server:
-  port: 6001
+  port: 51603
 spring:
   application:
     name: leadnews-admin-gateway
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.31.58:8848
+        server-addr: 192.168.31.125:8848
       config:
-        server-addr: 192.168.31.58:8848
+        server-addr: 192.168.31.125:8848
         file-extension: yml

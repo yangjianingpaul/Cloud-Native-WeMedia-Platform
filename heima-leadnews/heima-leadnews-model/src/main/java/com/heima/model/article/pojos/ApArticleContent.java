@@ -16,13 +16,13 @@ public class ApArticleContent implements Serializable {
     private Long id;
 
     /**
-     * 文章id
+     * article id
      */
     @TableField("article_id")
     private Long articleId;
 
     /**
-     * 文章内容
+     * article content
      */
     private String content;
 }

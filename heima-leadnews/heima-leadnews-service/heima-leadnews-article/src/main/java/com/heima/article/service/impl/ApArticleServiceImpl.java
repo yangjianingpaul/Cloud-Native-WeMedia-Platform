@@ -63,6 +63,7 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
         }
 //        Page values do not exceed 50
         size = Math.min(size, MAX_PAGE_SIZE);
+        dto.setSize(size);
 //        Check parameter
         if (!type.equals(ArticleConstants.LOADTYPE_LOAD_MORE) && !type.equals(ArticleConstants.LOADTYPE_LOAD_NEW)) {
             type = ArticleConstants.LOADTYPE_LOAD_MORE;
@@ -330,6 +331,11 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
     public ResponseResult deleteArticleById(String id) {
         String staticUrl = getById(id).getStaticUrl();
         articleFreemarkerService.deleteArticleToMinio(staticUrl);
+        long articleId = Long.parseLong(id);
+        apArticleContentMapper.delete(Wrappers.<ApArticleContent>lambdaQuery()
+                .eq(ApArticleContent::getArticleId, articleId));
+        apArticleConfigMapper.delete(Wrappers.<ApArticleConfig>lambdaQuery()
+                .eq(ApArticleConfig::getArticleId, articleId));
         boolean result = removeById(id);
         return ResponseResult.okResult(result);
     }
