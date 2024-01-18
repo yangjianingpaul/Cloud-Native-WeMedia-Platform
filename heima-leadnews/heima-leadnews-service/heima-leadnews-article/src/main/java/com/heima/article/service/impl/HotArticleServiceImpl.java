@@ -79,8 +79,7 @@ public class HotArticleServiceImpl implements HotArticleService {
         if (hotArticleVoList.size() > 30) {
             hotArticleVoList = hotArticleVoList.subList(0, 30);
         }
-        cacheService.set(HOT_ARTICLE_FIRST_PAGE,
-                JSON.toJSONString(hotArticleVoList));
+        cacheService.set(HOT_ARTICLE_FIRST_PAGE, JSON.toJSONString(hotArticleVoList));
     }
 
     /**

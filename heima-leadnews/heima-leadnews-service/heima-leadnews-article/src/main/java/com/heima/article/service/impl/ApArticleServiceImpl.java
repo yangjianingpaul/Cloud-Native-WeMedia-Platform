@@ -96,6 +96,10 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
      */
     @Override
     public ResponseResult load2(ArticleHomeDto dto, Short type, boolean firstPage) {
+        if (dto.getTag().equals("0")) {
+            dto.setTag("7");
+        }
+
         if (firstPage) {
             String jsonStr = cacheService.get(ArticleConstants.HOT_ARTICLE_FIRST_PAGE + dto.getTag());
             if (StringUtils.isNotBlank(jsonStr)) {
