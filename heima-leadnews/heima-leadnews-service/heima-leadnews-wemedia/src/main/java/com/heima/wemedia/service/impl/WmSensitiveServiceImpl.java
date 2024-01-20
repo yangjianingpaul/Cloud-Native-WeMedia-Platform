@@ -23,7 +23,8 @@ public class WmSensitiveServiceImpl extends ServiceImpl<WmSensitiveMapper, WmSen
     private WmSensitiveMapper wmSensitiveMapper;
 
     /**
-     * 获取敏感词列表
+     * get the sensitive list
+     *
      * @param dto
      * @return
      */
@@ -31,46 +32,49 @@ public class WmSensitiveServiceImpl extends ServiceImpl<WmSensitiveMapper, WmSen
     public ResponseResult sensitiveList(SensitiveDto dto) {
         dto.checkParam();
         LambdaQueryWrapper<WmSensitive> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+
         if (dto.getName().equals("")) {
             lambdaQueryWrapper.ge(WmSensitive::getId, 1);
         } else {
-            lambdaQueryWrapper.eq(WmSensitive::getSensitives, dto.getName());
-            if (wmSensitiveMapper.selectCount(lambdaQueryWrapper) == 0) {
+            int count = count(lambdaQueryWrapper.like(WmSensitive::getSensitives, dto.getName()));
+            if (count == 0) {
                 return ResponseResult.errorResult(AppHttpCodeEnum.DATA_NOT_EXIST);
             }
         }
+
         lambdaQueryWrapper.orderByDesc(WmSensitive::getCreatedTime);
         IPage page = new Page(dto.getPage(), dto.getSize());
         page = page(page, lambdaQueryWrapper);
-        ResponseResult responseResult = new PageResponseResult(dto.getPage(),
-                dto.getSize(),
-                (int) page.getTotal());
+        ResponseResult responseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) page.getTotal());
         responseResult.setData(page.getRecords());
         return responseResult;
     }
 
     /**
-     * 新增敏感词
+     * create a sensitive word
+     *
      * @param wmSensitive
      * @return
      */
     @Override
     public ResponseResult sensitiveSave(WmSensitive wmSensitive) {
-        if (wmSensitive == null) {
+        if (wmSensitive.getSensitives() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
-        LambdaQueryWrapper<WmSensitive> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(WmSensitive::getSensitives, wmSensitive.getSensitives());
-        if (wmSensitiveMapper.selectCount(lambdaQueryWrapper) > 0) {
+
+        int count = count(new LambdaQueryWrapper<WmSensitive>().eq(WmSensitive::getSensitives, wmSensitive.getSensitives()));
+        if (count > 0) {
             return ResponseResult.errorResult(AppHttpCodeEnum.DATA_EXIST);
         }
+
         wmSensitive.setCreatedTime(new Date());
         boolean result = save(wmSensitive);
         return ResponseResult.okResult(result);
     }
 
     /**
-     * 删除敏感词
+     * delete the sensitive word
+     *
      * @param id
      * @return
      */
@@ -84,30 +88,25 @@ public class WmSensitiveServiceImpl extends ServiceImpl<WmSensitiveMapper, WmSen
     }
 
     /**
-     * 修改敏感词
+     * update the sensitive word
+     *
      * @param wmSensitive
      * @return
      */
     @Override
     public ResponseResult sensitiveUpdate(WmSensitive wmSensitive) {
-        if (wmSensitive == null) {
+        if (wmSensitive.getSensitives() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
 
         LambdaQueryWrapper<WmSensitive> lambdaQueryWrapper = new LambdaQueryWrapper<>();
-        lambdaQueryWrapper.eq(WmSensitive::getSensitives, wmSensitive.getSensitives());
-        if (wmSensitiveMapper.selectCount(lambdaQueryWrapper) > 0) {
+        int count = count(lambdaQueryWrapper.eq(WmSensitive::getSensitives, wmSensitive.getSensitives()));
+        if (count > 0) {
             return ResponseResult.errorResult(AppHttpCodeEnum.DATA_EXIST);
         }
 
-        Integer id = wmSensitive.getId();
-        boolean deleteResult = removeById(id);
-        if (deleteResult) {
-            wmSensitive.setCreatedTime(new Date());
-            boolean saveResult = save(wmSensitive);
-            return ResponseResult.okResult(saveResult);
-        } else {
-            return ResponseResult.errorResult(AppHttpCodeEnum.REMOVE_FAIL);
-        }
+        wmSensitive.setCreatedTime(new Date());
+        boolean result = updateById(wmSensitive);
+        return ResponseResult.okResult(result);
     }
 }

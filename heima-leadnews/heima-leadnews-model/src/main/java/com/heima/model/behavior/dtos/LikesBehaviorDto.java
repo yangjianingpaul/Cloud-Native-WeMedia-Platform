@@ -6,20 +6,20 @@ import lombok.Data;
 public class LikesBehaviorDto {
 
 
-    // 文章、动态、评论等ID
+    // article ID,behavior ID,comment ID
     Long articleId;
     /**
-     * 喜欢内容类型
-     * 0文章
-     * 1动态
-     * 2评论
+     * the type of content
+     * 0:article
+     * 1:behavior
+     * 2:comment
      */
     Short type;
 
     /**
-     * 喜欢操作方式
-     * 0 点赞
-     * 1 取消点赞
+     * the operation type of like
+     * 0:like
+     * 1:cancel like
      */
     Short operation;
 }

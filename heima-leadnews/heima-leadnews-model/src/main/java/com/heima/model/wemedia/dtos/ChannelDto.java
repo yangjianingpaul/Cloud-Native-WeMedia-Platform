@@ -11,4 +11,7 @@ public class ChannelDto extends PageRequestDto {
      */
     @ApiModelProperty(value = "频道名称")
     private String name;
+
+    @ApiModelProperty(value = "账号状态")
+    private Boolean status;
 }

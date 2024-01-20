@@ -203,6 +203,10 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
         }
 
         LambdaQueryWrapper<WmNews> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        if (!dto.getTitle().equals("")) {
+            lambdaQueryWrapper.like(WmNews::getTitle, dto.getTitle());
+        }
+
         if (dto.getStatus() == null) {
             lambdaQueryWrapper.ge(WmNews::getId, 1);
         } else {
@@ -211,9 +215,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
         IPage page = new Page(dto.getPage(), dto.getSize());
         page = page(page, lambdaQueryWrapper);
-        ResponseResult responseResult = new PageResponseResult(dto.getPage(),
-                dto.getSize(),
-                (int) page.getTotal());
+        ResponseResult responseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) page.getTotal());
         responseResult.setData(page.getRecords());
         return responseResult;
     }

@@ -31,11 +31,10 @@ public class ApUserRealNameServiceImpl extends ServiceImpl<ApUserRealNameMapper,
         } else {
             lambdaQueryWrapper.eq(ApUserRealname::getStatus, dto.getStatus());
         }
+
         IPage page = new Page(dto.getPage(), dto.getSize());
         page = page(page, lambdaQueryWrapper);
-        ResponseResult responseResult = new PageResponseResult(dto.getPage(),
-                dto.getSize(),
-                (int) page.getTotal());
+        ResponseResult responseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) page.getTotal());
         responseResult.setData(page.getRecords());
         return responseResult;
     }
@@ -48,14 +47,14 @@ public class ApUserRealNameServiceImpl extends ServiceImpl<ApUserRealNameMapper,
     @Override
     public ResponseResult authFail(AuthDto dto) {
         dto.checkParam();
-        if (dto == null) {
+        if (dto.getId() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
 
-        ApUserRealname userRealname = getById(dto.getId());
-        userRealname.setStatus(UserConstants.FAIL_AUTH);
-        userRealname.setReason(dto.getMsg());
-        boolean result = updateById(userRealname);
+        ApUserRealname userRealName = getById(dto.getId());
+        userRealName.setStatus(UserConstants.FAIL_AUTH);
+        userRealName.setReason(dto.getMsg());
+        boolean result = updateById(userRealName);
         return ResponseResult.okResult(result);
     }
 
@@ -67,13 +66,13 @@ public class ApUserRealNameServiceImpl extends ServiceImpl<ApUserRealNameMapper,
     @Override
     public ResponseResult authPass(AuthDto dto) {
         dto.checkParam();
-        if (dto == null) {
+        if (dto.getId() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
 
-        ApUserRealname userRealname = getById(dto.getId());
-        userRealname.setStatus(UserConstants.PASS_AUTH);
-        boolean result = updateById(userRealname);
+        ApUserRealname userRealName = getById(dto.getId());
+        userRealName.setStatus(UserConstants.PASS_AUTH);
+        boolean result = updateById(userRealName);
         return ResponseResult.okResult(result);
     }
 }

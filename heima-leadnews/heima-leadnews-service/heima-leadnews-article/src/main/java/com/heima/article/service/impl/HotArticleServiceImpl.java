@@ -64,8 +64,7 @@ public class HotArticleServiceImpl implements HotArticleService {
             List<WmChannel> wmChannelList = JSON.parseArray(channelJson, WmChannel.class);
             if (wmChannelList != null && wmChannelList.size() > 0) {
                 for (WmChannel wmChannel : wmChannelList) {
-                    List<HotArticleVo> hotArticleVos = hotArticleVoList.stream().filter(x -> x.getChannelId().equals(wmChannel.getId()))
-                            .collect(Collectors.toList());
+                    List<HotArticleVo> hotArticleVos = hotArticleVoList.stream().filter(x -> x.getChannelId().equals(wmChannel.getId())).collect(Collectors.toList());
                     sortAndCache(hotArticleVos, ArticleConstants.HOT_ARTICLE_FIRST_PAGE + wmChannel.getId());
                 }
             }

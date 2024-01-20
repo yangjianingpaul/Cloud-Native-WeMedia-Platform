@@ -22,8 +22,8 @@ public class WmChannelController {
     }
 
     @PostMapping("/list")
-    public ResponseResult channelManagement(@RequestBody ChannelDto dto) {
-        return wmChannelService.channelManagement(dto);
+    public ResponseResult channelList(@RequestBody ChannelDto dto) {
+        return wmChannelService.channelList(dto);
     }
 
     @PostMapping("/save")

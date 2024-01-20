@@ -19,7 +19,7 @@ public interface WmChannelService extends IService<WmChannel> {
      * @param dto
      * @return
      */
-    ResponseResult channelManagement(ChannelDto dto);
+    ResponseResult channelList(ChannelDto dto);
 
     /**
      * New channel

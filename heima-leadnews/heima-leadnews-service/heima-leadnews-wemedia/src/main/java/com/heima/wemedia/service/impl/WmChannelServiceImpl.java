@@ -41,12 +41,13 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
      * @return
      */
     @Override
-    public ResponseResult channelManagement(ChannelDto dto) {
+    public ResponseResult channelList(ChannelDto dto) {
 //        1。check the parameters
         dto.checkParam();
 //        2。paginated queries
         IPage page = new Page(dto.getPage(), dto.getSize());
         LambdaQueryWrapper<WmChannel> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+
         if (dto.getName().equals("")) {
             lambdaQueryWrapper.ge(WmChannel::getId, 1);
         } else {
@@ -57,9 +58,7 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
         lambdaQueryWrapper.orderByDesc(WmChannel::getCreatedTime);
         page = page(page, lambdaQueryWrapper);
 //        3。the results are returned
-        ResponseResult responseResult = new PageResponseResult(dto.getPage(),
-                dto.getSize(),
-                (int) page.getTotal());
+        ResponseResult responseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) page.getTotal());
         responseResult.setData(page.getRecords());
         return responseResult;
     }
@@ -74,6 +73,12 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
         if (wmChannel == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
+
+        int count = count(new LambdaQueryWrapper<WmChannel>().eq(WmChannel::getName, wmChannel.getName()));
+        if (count > 0) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.DATA_EXIST);
+        }
+
         wmChannel.setCreatedTime(new Date());
         wmChannel.setIsDefault(WemediaConstants.WM_CHANNEL_IS_DEFAULT);
         save(wmChannel);
@@ -87,14 +92,22 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
      */
     @Override
     public ResponseResult updateChannel(WmChannel wmChannel) {
-        if (wmChannel == null) {
+        if (wmChannel.getId() == null && wmChannel.getName() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
-        removeById(wmChannel.getId());
+
+        WmChannel oldChannel = getById(wmChannel.getId());
+        if (wmChannel.getDescription() == null || wmChannel.getDescription().equals("")) {
+            wmChannel.setDescription(oldChannel.getDescription());
+        }
+
+        if (wmChannel.getOrd() == null) {
+            wmChannel.setOrd(oldChannel.getOrd());
+        }
         wmChannel.setCreatedTime(new Date());
         wmChannel.setIsDefault(WemediaConstants.WM_CHANNEL_IS_DEFAULT);
-        save(wmChannel);
-        return ResponseResult.okResult(wmChannel);
+        boolean result = updateById(wmChannel);
+        return ResponseResult.okResult(result);
     }
 
     /**

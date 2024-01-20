@@ -15,7 +15,7 @@ public class WmSensitiveController {
     private WmSensitiveService wmSensitiveService;
 
     /**
-     * 获取敏感词列表
+     * get the sensitive list
      * @param dto
      * @return
      */
@@ -25,7 +25,7 @@ public class WmSensitiveController {
     }
 
     /**
-     * 新增敏感词
+     * create a sensitive word
      * @param wmSensitive
      * @return
      */
@@ -35,7 +35,7 @@ public class WmSensitiveController {
     }
 
     /**
-     * 删除敏感词
+     * delete the sensitive word
      * @param id
      * @return
      */
@@ -46,7 +46,7 @@ public class WmSensitiveController {
     }
 
     /**
-     * 修改敏感词
+     * update the sensitive word
      * @param wmSensitive
      * @return
      */
