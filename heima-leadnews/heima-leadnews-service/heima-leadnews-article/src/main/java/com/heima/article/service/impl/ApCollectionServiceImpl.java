@@ -42,11 +42,11 @@ public class ApCollectionServiceImpl implements ApCollectionService {
 
         //collection
         if(dto.getOperation() == 0){
-            log.info("文章收藏，保存key:{},{},{}",dto.getEntryId(),user.getId().toString(), JSON.toJSONString(dto));
+            log.info("article collection，save key:{},{},{}",dto.getEntryId(),user.getId().toString(), JSON.toJSONString(dto));
             cacheService.hPut(BehaviorConstants.COLLECTION_BEHAVIOR + user.getId(), dto.getEntryId().toString(), JSON.toJSONString(dto));
         }else {
             //unfavorite
-            log.info("文章收藏，删除key:{},{},{}",dto.getEntryId(),user.getId().toString(), JSON.toJSONString(dto));
+            log.info("article collection，delete key:{},{},{}",dto.getEntryId(),user.getId().toString(), JSON.toJSONString(dto));
             cacheService.hDelete(BehaviorConstants.COLLECTION_BEHAVIOR + user.getId(), dto.getEntryId().toString());
         }
 

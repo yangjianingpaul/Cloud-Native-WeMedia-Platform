@@ -99,7 +99,7 @@ public class HotArticleStreamHandler {
                         System.out.println("The result of the message processing within the current time window：" + formatStr);
                         return formatStr;
                     }
-                }, Materialized.as("hot-atricle-stream-count-001"))
+                }, Materialized.as("hot-article-stream-count-001"))
                 .toStream()
                 .map((key, value) -> {
                     return new KeyValue<>(key.key().toString(), formatObj(key.key().toString(), value));
