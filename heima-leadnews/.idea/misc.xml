@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/heima-leadnews-test/freemarker-demo/pom.xml" />
         <option value="$PROJECT_DIR$/heima-leadnews-test/tesseract/pom.xml" />
         <option value="$PROJECT_DIR$/heima-leadnews-test/tess4j-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/heima-leadnews-service/heima-leadnews-comment/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

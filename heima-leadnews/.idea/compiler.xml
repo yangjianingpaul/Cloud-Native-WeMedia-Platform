@@ -6,6 +6,7 @@
       <directory url="file://$PROJECT_DIR$/heima-leadnews-service/heima-leadnews-schedule-test/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/heima-leadnews-gateway/heima-leadnews-admin-gateway/src/main/resources/archetype-resources" includeSubdirectories="true" />
       <directory url="file://$PROJECT_DIR$/heima-leadnews-service/heima-leadnews-admin/src/main/resources/archetype-resources" includeSubdirectories="true" />
+      <directory url="file://$PROJECT_DIR$/heima-leadnews-service/heima-leadnews-comment/src/main/resources/archetype-resources" includeSubdirectories="true" />
     </excludeFromCompile>
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
@@ -30,6 +31,7 @@
         <module name="es-init" />
         <module name="tesseract" />
         <module name="heima-leadnews-schedule" />
+        <module name="heima-leadnews-comment" />
         <module name="heima-leadnews-utils" />
         <module name="heima-leadnews-app-gateway" />
         <module name="heima-leadnews-search" />
@@ -55,6 +57,7 @@
       <module name="heima-leadnews-article" options="-parameters" />
       <module name="heima-leadnews-basic" options="-parameters" />
       <module name="heima-leadnews-behavior" options="-parameters" />
+      <module name="heima-leadnews-comment" options="-parameters" />
       <module name="heima-leadnews-common" options="-parameters" />
       <module name="heima-leadnews-feign-api" options="-parameters" />
       <module name="heima-leadnews-gateway" options="-parameters" />
