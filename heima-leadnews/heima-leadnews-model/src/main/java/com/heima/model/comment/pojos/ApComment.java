@@ -22,4 +22,16 @@ public class ApComment {
 
     @TableField("created_time")
     Date createdTime;
+
+    @TableField("author_name")
+    String authorName;
+
+    @TableField("operation")
+    Integer operation;
+
+    @TableField("likes")
+    Integer likes;
+
+    @TableField("reply")
+    Integer reply;
 }

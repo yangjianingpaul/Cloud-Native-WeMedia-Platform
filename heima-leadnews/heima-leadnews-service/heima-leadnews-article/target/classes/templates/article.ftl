@@ -54,7 +54,7 @@
                 <van-button round :icon="relation.islike ? 'good-job' : 'good-job-o'" class="article-like"
                             :loading="likeLoading" :text="relation.islike ? 'CANCEL' : 'LIKE'" @click="handleClickArticleLike"></van-button>
                 <van-button round :icon="relation.isunlike ? 'delete' : 'delete-o'" class="article-unlike"
-                            :loading="unlikeLoading" @click="handleClickArticleUnlike">不喜欢</van-button>
+                            :loading="unlikeLoading" @click="handleClickArticleUnlike">dislike</van-button>
             </van-col>
         </van-row>
 
@@ -83,7 +83,7 @@
                             {{ item.createdTime | timestampToDateTime }}
                         </van-col>
                         <van-col span="3">
-                            <van-button round size="normal" v-html="item.reply" @click="showCommentRepliesPopup(item.id)">回复 {{
+                            <van-button round size="normal" v-html="item.reply" @click="showCommentRepliesPopup(item.id)">reply {{
                                 item.reply || '' }}
                             </van-button>
                         </van-col>
@@ -149,7 +149,7 @@
         <!-- 评论回复底部栏 -->
         <van-row type="flex" justify="space-around" align="center" class="comment-reply-bottom-bar">
             <van-col span="13">
-                <van-field v-model="commentReplyValue" placeholder="写评论">
+                <van-field v-model="commentReplyValue" placeholder="write a comment">
                     <template #button>
                         <van-button icon="back-top" @click="handleSaveCommentReply"></van-button>
                     </template>
