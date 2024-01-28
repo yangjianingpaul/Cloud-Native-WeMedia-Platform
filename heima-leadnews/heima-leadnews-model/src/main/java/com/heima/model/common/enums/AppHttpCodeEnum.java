@@ -24,7 +24,7 @@ public enum AppHttpCodeEnum {
     DATA_EXIST(1000,"数据已经存在"),
     AP_USER_DATA_NOT_EXIST(1001,"ApUser数据不存在"),
     DATA_NOT_EXIST(1002,"数据不存在"),
-    COMMENT_NOT_EXIST(1006,"暂时无人评论"),
+    COMMENT_NOT_EXIST(1006,"暂时无更多评论"),
     CHANNEL_NOT_FORBID(1003,"频道未禁用"),
     REMOVE_FAIL(1004,"数据删除失败"),
     SAVE_FAIL(1005,"数据删除失败"),

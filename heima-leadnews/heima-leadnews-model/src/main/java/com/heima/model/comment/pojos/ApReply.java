@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 @TableName("ap_reply")
 public class ApReply {
@@ -20,5 +22,14 @@ public class ApReply {
     String content;
 
     @TableField("created_time")
-    Data createdTime;
+    Date createdTime;
+
+    @TableField("author_name")
+    String authorName;
+
+    @TableField("likes")
+    Integer likes;
+
+    @TableField("operation")
+    Integer operation;
 }

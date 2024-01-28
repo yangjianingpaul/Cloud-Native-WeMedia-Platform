@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.comment.mapper.CommentMapper;
 import com.heima.comment.service.CommentLoadService;
+import com.heima.model.comment.dtos.CommentLikeDto;
 import com.heima.model.comment.dtos.CommentLoadDto;
 import com.heima.model.comment.dtos.CommentSaveDto;
 import com.heima.model.comment.pojos.ApComment;
@@ -29,11 +30,14 @@ public class CommentLoadServiceImpl extends ServiceImpl<CommentMapper, ApComment
      */
     @Override
     public ResponseResult loadList(CommentLoadDto dto) {
+        if (dto == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
+        }
         LambdaQueryWrapper<ApComment> wrapper = new LambdaQueryWrapper<ApComment>()
                 .eq(ApComment::getArticleId, dto.getArticleId())
                 .orderByDesc(ApComment::getCreatedTime);
         List<ApComment> commentList = list(wrapper);
-        if (commentList.size() < dto.getIndex()) {
+        if (dto.getIndex() > 1 || commentList.get(0).getCreatedTime().compareTo(dto.getMinDate()) > 0) {
             return ResponseResult.errorResult(AppHttpCodeEnum.COMMENT_NOT_EXIST);
         }
         return ResponseResult.okResult(commentList);
@@ -61,5 +65,43 @@ public class CommentLoadServiceImpl extends ServiceImpl<CommentMapper, ApComment
 
         boolean result = save(comment);
         return ResponseResult.okResult(result);
+    }
+
+    /**
+     * comment like
+     * @param dto
+     * @return
+     */
+    @Override
+    public ResponseResult commentLike(CommentLikeDto dto) {
+        if (dto == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
+        }
+        ApComment comment = getById(dto.getCommentId());
+        comment.setOperation(dto.getOperation());
+        if (dto.getOperation() == 1) {
+            if (comment.getLikes() == null) {
+                comment.setLikes(1);
+            } else {
+                comment.setLikes(comment.getLikes() + 1);
+            }
+        } else {
+            comment.setLikes(comment.getLikes() - 1);
+        }
+
+
+        boolean result = updateById(comment);
+        return ResponseResult.okResult(result);
+    }
+
+    @Override
+    public void updateReply(Integer commentId) {
+        ApComment comment = getById(commentId);
+        if (comment.getReply() == null) {
+            comment.setReply(1);
+        } else {
+            comment.setReply( comment.getReply() + 1);
+        }
+        updateById(comment);
     }
 }
