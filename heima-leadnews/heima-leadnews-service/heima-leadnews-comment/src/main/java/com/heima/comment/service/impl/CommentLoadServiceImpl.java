@@ -68,6 +68,7 @@ public class CommentLoadServiceImpl extends ServiceImpl<CommentMapper, ApComment
         comment.setLikes(0);
         comment.setReply(0);
         comment.setAuthorName(userName);
+        comment.setOperation(1);
 
         boolean result = save(comment);
         return ResponseResult.okResult(result);
@@ -85,7 +86,8 @@ public class CommentLoadServiceImpl extends ServiceImpl<CommentMapper, ApComment
         }
         ApComment comment = getById(dto.getCommentId());
         comment.setOperation(dto.getOperation());
-        if (dto.getOperation() == 1) {
+
+        if (dto.getOperation() == 0) {
             if (comment.getLikes() == null) {
                 comment.setLikes(1);
             } else {

@@ -42,6 +42,7 @@ public class CommentReplyServiceImpl extends ServiceImpl<CommentReplyMapper, ApR
 
         apReply.setAuthorName(username);
         apReply.setCreatedTime(new Date());
+        apReply.setOperation(1);
         boolean result = save(apReply);
         commentLoadService.updateReply(dto.getCommentId());
         return ResponseResult.okResult(result);
@@ -68,7 +69,8 @@ public class CommentReplyServiceImpl extends ServiceImpl<CommentReplyMapper, ApR
         }
         ApReply apReply = getById(dto.getCommentRepayId());
         apReply.setOperation(dto.getOperation());
-        if (dto.getOperation() == 1) {
+
+        if (dto.getOperation() == 0) {
             if (apReply.getLikes() == null) {
                 apReply.setLikes(1);
             } else {
