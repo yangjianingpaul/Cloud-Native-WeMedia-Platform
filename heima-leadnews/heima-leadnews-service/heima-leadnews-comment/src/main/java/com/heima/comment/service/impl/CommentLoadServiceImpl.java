@@ -2,6 +2,7 @@ package com.heima.comment.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.heima.apis.user.IUserClient;
 import com.heima.comment.mapper.CommentMapper;
 import com.heima.comment.service.CommentLoadService;
 import com.heima.model.comment.dtos.CommentLikeDto;
@@ -13,7 +14,7 @@ import com.heima.model.common.enums.AppHttpCodeEnum;
 import com.heima.model.user.pojos.ApUser;
 import com.heima.utils.thread.AppThreadLocalUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -37,11 +38,14 @@ public class CommentLoadServiceImpl extends ServiceImpl<CommentMapper, ApComment
                 .eq(ApComment::getArticleId, dto.getArticleId())
                 .orderByDesc(ApComment::getCreatedTime);
         List<ApComment> commentList = list(wrapper);
-        if (dto.getIndex() > 1 || commentList.get(0).getCreatedTime().compareTo(dto.getMinDate()) > 0) {
+        if (dto.getIndex() > 1 || commentList.get(0).getCreatedTime().compareTo(dto.getMinDate()) >= 0) {
             return ResponseResult.errorResult(AppHttpCodeEnum.COMMENT_NOT_EXIST);
         }
         return ResponseResult.okResult(commentList);
     }
+
+    @Autowired
+    private IUserClient userClient;
 
     /**
      * create comment
@@ -55,13 +59,15 @@ public class CommentLoadServiceImpl extends ServiceImpl<CommentMapper, ApComment
         }
 
         ApUser user = AppThreadLocalUtil.getUser();
+        String userName = (String) userClient.getUserName(user.getId()).getData();
+
         ApComment comment = new ApComment();
         comment.setArticleId(dto.getArticleId());
         comment.setContent(dto.getContent());
         comment.setCreatedTime(new Date());
         comment.setLikes(0);
         comment.setReply(0);
-        comment.setAuthorName(user.getName());
+        comment.setAuthorName(userName);
 
         boolean result = save(comment);
         return ResponseResult.okResult(result);

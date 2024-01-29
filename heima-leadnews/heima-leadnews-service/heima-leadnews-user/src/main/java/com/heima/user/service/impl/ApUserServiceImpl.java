@@ -1,5 +1,6 @@
 package com.heima.user.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.model.common.dtos.ResponseResult;
@@ -61,5 +62,19 @@ public class ApUserServiceImpl extends ServiceImpl<ApUserMapper, ApUser> impleme
             map.put("token",AppJwtUtil.getToken(0L));
             return ResponseResult.okResult(map);
         }
+    }
+
+    @Override
+    public ResponseResult getUserName(Integer userId) {
+        if (userId == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
+        }
+
+        String name = getById(userId).getName();
+        if (name == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.DATA_NOT_EXIST);
+        }
+        
+        return ResponseResult.okResult(name);
     }
 }

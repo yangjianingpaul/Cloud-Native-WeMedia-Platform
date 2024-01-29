@@ -2,6 +2,7 @@ package com.heima.comment.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.heima.apis.user.IUserClient;
 import com.heima.comment.mapper.CommentReplyMapper;
 import com.heima.comment.service.CommentLoadService;
 import com.heima.comment.service.CommentReplyService;
@@ -27,13 +28,19 @@ public class CommentReplyServiceImpl extends ServiceImpl<CommentReplyMapper, ApR
 
     @Autowired
     private CommentLoadService commentLoadService;
+
+    @Autowired
+    private IUserClient userClient;
     @Override
     public ResponseResult commentReplySave(CommentReplyDto dto) {
         ApReply apReply = new ApReply();
         BeanUtils.copyProperties(dto, apReply);
         apReply.setOperation(0);
+
         ApUser user = AppThreadLocalUtil.getUser();
-        apReply.setAuthorName(user.getName());
+        String username = userClient.getUserName(user.getId()).getData().toString();
+
+        apReply.setAuthorName(username);
         apReply.setCreatedTime(new Date());
         boolean result = save(apReply);
         commentLoadService.updateReply(dto.getCommentId());
@@ -48,7 +55,7 @@ public class CommentReplyServiceImpl extends ServiceImpl<CommentReplyMapper, ApR
 
         LambdaQueryWrapper<ApReply> wrapper = new LambdaQueryWrapper<ApReply>().eq(ApReply::getCommentId, dto.getCommentId()).orderByDesc(ApReply::getCreatedTime);
         List<ApReply> apReplyList = list(wrapper);
-        if (apReplyList.size() == 0 || apReplyList.get(0).getCreatedTime().compareTo(dto.getMinDate()) > 0) {
+        if (apReplyList.size() == 0 || apReplyList.get(0).getCreatedTime().compareTo(dto.getMinDate()) >= 0) {
             return ResponseResult.errorResult(AppHttpCodeEnum.DATA_NOT_EXIST);
         }
         return ResponseResult.okResult(apReplyList);
