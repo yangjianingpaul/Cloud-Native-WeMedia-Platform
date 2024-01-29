@@ -57,4 +57,10 @@ public class WmNewsController {
     public ResponseResult articleAuthFail(@RequestBody NewsAuthDto dto) {
         return wmNewsService.articleAuthFail(dto);
     }
+
+    @GetMapping("/one/{id}")
+    public ResponseResult getWemediaById(@PathVariable String id) {
+        int parseInt = Integer.parseInt(id);
+        return wmNewsService.getWemediaById(parseInt);
+    }
 }

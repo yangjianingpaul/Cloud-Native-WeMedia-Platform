@@ -181,9 +181,13 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
      */
     @Override
     public ResponseResult deleteNewsById(Integer id) {
-        Long articleId = getById(id).getArticleId();
-        String stringId = Long.toString(articleId);
-        articleClient.deleteArticle(stringId);
+        WmNews wmNews = getById(id);
+        if (wmNews.getStatus() == 9) {
+            Long articleId = getById(id).getArticleId();
+            String stringId = Long.toString(articleId);
+            articleClient.deleteArticle(stringId);
+        }
+
         wmNewsMaterialMapper.delete(Wrappers.<WmNewsMaterial>lambdaQuery()
                 .eq(WmNewsMaterial::getNewsId, id));
         removeById(id);
@@ -272,6 +276,19 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
         wmNews.setReason(dto.getMsg());
         boolean result = updateById(wmNews);
         return ResponseResult.okResult(result);
+    }
+
+    /**
+     * update article
+     * @param wemediaId
+     * @return
+     */
+    @Override
+    public ResponseResult getWemediaById(Integer wemediaId) {
+        if (wemediaId == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
+        }
+        return ResponseResult.okResult(getById(wemediaId));
     }
 
     /**

@@ -64,4 +64,11 @@ public interface WmNewsService extends IService<WmNews> {
      * @return
      */
     ResponseResult articleAuthFail(NewsAuthDto dto);
+
+    /**
+     * update article
+     * @param wemediaId
+     * @return
+     */
+    ResponseResult getWemediaById(Integer wemediaId);
 }

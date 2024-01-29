@@ -194,10 +194,12 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
 
 //                Picture recognition
                 String result = tess4jClient.doOCR(bufferedImage);
+                if (!result.equals(null) && result.length() != 0) {
 //                Filter text
-                boolean isSensitive = handleSensitiveScan(result, wmNews);
-                if (!isSensitive) {
-                    return isSensitive;
+                    boolean isSensitive = handleSensitiveScan(result, wmNews);
+                    if (!isSensitive) {
+                        return isSensitive;
+                    }
                 }
                 imageList.add(bytes);
             }
