@@ -56,7 +56,7 @@ public class TaskinfoLogs implements Serializable {
     private Integer version;
 
     /**
-     * status 0=int 1=EXECUTED 2=CANCELLED
+     * status 0=init 1=EXECUTED 2=CANCELLED
      */
     @TableField("status")
     private Integer status;
