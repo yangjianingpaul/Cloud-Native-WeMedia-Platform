@@ -127,7 +127,6 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
         saveRelativeInfoForCover(dto, wmNews, materials);
 
 //        5.Review an article
-//        wmNewsAutoScanService.autoScanWmNews(wmNews.getId());
         wmNewsTaskService.addNewsToTask(wmNews.getId(), wmNews.getPublishTime());
         return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
     }
@@ -343,6 +342,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     @Autowired
     private WmMaterialMapper wmMaterialMapper;
+
     /**
      * The material relationship between the article and the image is stored in the database
      * @param materials

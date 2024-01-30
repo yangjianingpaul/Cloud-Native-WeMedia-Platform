@@ -24,6 +24,7 @@ import com.heima.model.mess.ArticleVisitStreamMess;
 import com.heima.model.user.pojos.ApUser;
 import com.heima.utils.thread.AppThreadLocalUtil;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.jsqlparser.statement.select.Wait;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -152,6 +153,11 @@ public class ApArticleServiceImpl extends ServiceImpl<ApArticleMapper, ApArticle
         } else {
 //        2.2 If there is an ID, modify the article and the content of the article
             updateById(apArticle);
+
+            ApArticleConfig apArticleConfig = apArticleConfigMapper.selectOne(Wrappers.<ApArticleConfig>lambdaQuery().eq(ApArticleConfig::getArticleId, dto.getId()));
+            apArticleConfig.setIsDown(false);
+            apArticleConfigMapper.updateById(apArticleConfig);
+
             ApArticleContent apArticleContent = apArticleContentMapper.selectOne(Wrappers.<ApArticleContent>lambdaQuery()
                     .eq(ApArticleContent::getArticleId, dto.getId()));
             apArticleContent.setContent(dto.getContent());
