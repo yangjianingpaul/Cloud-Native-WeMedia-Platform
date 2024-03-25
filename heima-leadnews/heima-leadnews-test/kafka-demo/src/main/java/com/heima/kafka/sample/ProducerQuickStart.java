@@ -16,7 +16,7 @@ public class ProducerQuickStart {
         Properties prop = new Properties();
         //the kafka link address
         prop.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.5.157:9092");
-        //key和value的序列化
+        //the serialization of key and value
         prop.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,"org.apache.kafka.common.serialization.StringSerializer");
         prop.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,"org.apache.kafka.common.serialization.StringSerializer");
 
@@ -39,12 +39,12 @@ public class ProducerQuickStart {
          * the third parameter：value of message
          */
 
-//        ProducerRecord<String,String> kvProducerRecord = new ProducerRecord<String,String>("topic-first","key-001","hello kafka");
-//        producer.send(kvProducerRecord);
-        for (int i = 0; i < 5; i++) {
-            ProducerRecord<String,String> kvProducerRecord = new ProducerRecord<String,String>("itcast-topic-input","hello kafka");
-            producer.send(kvProducerRecord);
-        }
+        ProducerRecord<String,String> kvProducerRecord = new ProducerRecord<String,String>("topic-first","key-001","hello kafka");
+        producer.send(kvProducerRecord);
+//        for (int i = 0; i < 5; i++) {
+//            ProducerRecord<String,String> kvProducerRecord = new ProducerRecord<String,String>("itcast-topic-input","hello kafka");
+//            producer.send(kvProducerRecord);
+//        }
 
 //        ProducerRecord<String,String> kvProducerRecord = new ProducerRecord<String,String>("topic-first","hello kafka");
         //send messages synchronously

@@ -1,9 +1,8 @@
 # Nacos配置
 
-## nacos配置中心
 ![](/resources/nacos配置中心.png)
 
-## leadnews-user
+## 1.leadnews-user
 
 ```yaml
 spring:
@@ -23,7 +22,7 @@ mybatis-plus:
   type-aliases-package: com.heima.model.user.pojos
 ```
 
-## leadnews-app-gateway
+## 2.leadnews-app-gateway
 
 ```yaml
 spring:
@@ -72,7 +71,7 @@ spring:
             - StripPrefix= 1
 ```
 
-## leadnews-article
+## 3.leadnews-article
 
 ```yaml
 spring:
@@ -123,7 +122,7 @@ kafka:
   group: ${spring.application.name}
 ```
 
-## leadnews-wemedia
+## 4.leadnews-wemedia
 
 ```yaml
 spring:
@@ -169,7 +168,7 @@ tess4j:
   language: chi_sim
 ```
 
-## leadnews-wemedia-gateway
+## 5.leadnews-wemedia-gateway
 
 ```yaml
 spring:
@@ -194,7 +193,7 @@ spring:
             - StripPrefix= 1
 ```
 
-## leadnews-schedule
+## 6.leadnews-schedule
 
 ```yaml
 spring:
@@ -214,7 +213,7 @@ mybatis-plus:
   type-aliases-package: com.heima.model.schedule.pojos
 ```
 
-## leadnews-search
+## 7.leadnews-search
 
 ```yaml
 spring:
@@ -237,7 +236,7 @@ elasticsearch:
   port: 9200
 ```
 
-## leadnews-admin-gateway
+## 8.leadnews-admin-gateway
 
 ```yaml
 spring:
@@ -274,7 +273,7 @@ spring:
             - StripPrefix= 1
 ```
 
-## leadnews-admin
+## 9.leadnews-admin
 
 ```yaml
 spring:
@@ -290,7 +289,7 @@ mybatis-plus:
   type-aliases-package: com.heima.model.admin.pojos
 ```
 
-## leadnews-behavior
+## 10.leadnews-behavior
 
 ```yaml
 spring:

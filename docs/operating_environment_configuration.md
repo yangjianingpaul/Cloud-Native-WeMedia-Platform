@@ -1,5 +1,5 @@
 # Operating Environment Configuration
-## Website front-end environment configuration: nginx configures front-end static resources to achieve reverse proxy
+## 1.Website front-end environment configuration: nginx configures front-end static resources to achieve reverse proxy
 ![](/resources/nginxConfiguration.png)
 
 ```shell
@@ -71,73 +71,73 @@ server {
 }
 ```
 
-## Web backend environment configuration: docker container technology
+## 2.Web backend environment configuration: docker container technology
 
-### nacos
+### a) nacos
 
-* 1. Pull the image
+* Pull the image
 
 ```shell
 docker pull nacos/nacos-server:1.2.0
 ```
 
-* 2. Create a container
+* Create a container
 
 ```shell
 docker run --env MODE=standalone --name nacos --restart=always  -d -p 8848:8848 nacos/nacos-server:1.2.0
 ```
 
-### minio
+### b) minio
 
-* 1. Pull the image
+* Pull the image
 
 ```shell
 docker pull minio/minio:RELEASE.2021-06-17T00-10-46Z.fips
 ```
 
-* 2. Create a container
+* Create a container
 
 ```shell
 docker run -p 9000:9000 --name minio -d --restart=always -e "MINIO_ACCESS_KEY=minio" -e "MINIO_SECRET_KEY=minio123" -v /home/data:/data -v /home/config:/root/.minio minio/minio:RELEASE.2021-06-17T00-10-46Z.fips server /data
 ```
 
-### redis
+### c) redis
 
-* 1. Pull the image
+* Pull the image
 
 ```shell
 docker pull redis
 ```
 
-* 2. Create a container
+* Create a container
 
 ```shell
 docker run -d --name redis --restart=always -p 6379:6379 redis --requirepass "leadnews"
 ```
 
-### zookeeper
+### d) zookeeper
 
-* 1. Pull the image
+* Pull the image
 
 ```shell
 docker pull zookeeper:3.4.14
 ```
 
-* 2. Create a container
+* Create a container
 
 ```shell
 docker run -d --name zookeeper -p 2181:2181 zookeeper:3.4.14
 ```
 
-### kafka
+### e) kafka
 
-* 1. Pull the image
+* Pull the image
 
 ```shell
 docker pull wurstmeister/kafka:2.12-2.3.1
 ```
 
-* 2. Create a container
+* Create a container
 
 ```shell
 docker run -d --name kafka \
@@ -149,21 +149,21 @@ docker run -d --name kafka \
 --net=host wurstmeister/kafka:2.12-2.3.1
 ```
 
-### elasticsearch
+### f) elasticsearch
 
-* 1. Pull the image
+* Pull the image
 
 ```shell
 docker pull elasticsearch:7.4.0
 ```
 
-* 2. Create a container
+* Create a container
 
 ```shell
 docker run -id --name elasticsearch -d --restart=always -p 9200:9200 -p 9300:9300 -v /usr/share/elasticsearch/plugins:/usr/share/elasticsearch/plugins -e "discovery.type=single-node" elasticsearch:7.4.0
 ```
 
-### ik word divider
+### g) ik word divider
 
 ```shell
 #Switch directory
@@ -178,23 +178,23 @@ cd /usr/share/elasticsearch/plugins/analysis-ik
 unzip elasticsearch-analysis-ik-7.4.0.zip
 ```
 
-### mongoDB
+### h) mongoDB
 
-* 1. Pull the image
+* Pull the image
 
 ```shell
 docker pull mongo
 ```
 
-* 2. Create a container
+* Create a container
 
 ```shell
 docker run -di --name mongo-service --restart=always -p 27017:27017 -v ~/data/mongodata:/data mongo
 ```
 
-### xxl-job
+### i) xxl-job
 
-* 1. Create a mysql container and initialize the SQL script for xxl-job
+* Create a mysql container and initialize the SQL script for xxl-job
 
 ```shell
 docker run -p 3306:3306 --name mysql57 \
@@ -205,13 +205,13 @@ docker run -p 3306:3306 --name mysql57 \
 -d mysql:5.7
 ```
 
-* 2. Pull the image
+* Pull the image
 
 ```shell
 docker pull xuxueli/xxl-job-admin:2.3.0
 ```
 
-* 3. Create a container
+* Create a container
 
 ```shell
 docker run -e PARAMS="--spring.datasource.url=jdbc:mysql://192.168.31.125:3306/xxl_job?Unicode=true&characterEncoding=UTF-8 \

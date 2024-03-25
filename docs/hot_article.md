@@ -1,10 +1,10 @@
-# Hot article
+# 1.Hot article
 
 ## Criteria for judging hot articles
 - Number of likes, number of comments, number of reads, number of favorites
 - Put hot data into redis for display
 
-## Timing computing hot articles
+# 2.Timing computing hot articles
 ![](/resources/timing_calculate.png)
 
 - Calculate the score of an article based on its behavior (likes, comments, reads, favorites) and complete the calculation once a day using a scheduled task
@@ -13,7 +13,7 @@
 
 - When the App user queries the article list, the article data with high popularity is preferentially queried from redis
 
-## xxl-job Distributed task scheduling framework
+## a) xxl-job Distributed task scheduling framework
 
 - The current software architecture has begun to shift to distributed architecture, which divides the single structure into several services, and completes business processing through network interaction between services. Under the distributed architecture, a service often deploes multiple instances to run our business, and if task scheduling is run in this distributed system environment, we call it distributed task scheduling **.
 
@@ -32,7 +32,7 @@
     - xxl_job_registry: The actuator registry maintains the online actuator and dispatch center machine address information.
     - xxl job user: indicates the system user list.
 
-## Configure the deployment scheduling center -docker installation
+## b) Configure the deployment scheduling center -docker installation
 - Create a mysql container and initialize the SQL script for xxl-job
 
 ```shell
@@ -59,18 +59,18 @@ docker run -e PARAMS="--spring.datasource.url=jdbc:mysql://192.168.31.125:3306/x
 --name xxl-job-admin --restart=always  -d xuxueli/xxl-job-admin:2.3.0
 ```
 
-## Hot article timing calculation ideas
+## c) Hot article timing calculation ideas
 ![](/resources/score_calculation.png)
 
-## Hot articles real-time calculation
+# 3.Hot articles real-time calculation
 ![](/resources/realtimeCalculation.png)
 
-## kafka stream implements streaming computing
+## a) kafka stream implements streaming computing
 
 * Stream calculation test class：”KafkaStreamQuickStart“
 
-## Real-time computing flow
-![](/resources/realtimeCalculation.png)
+## b) Real-time computing flow
+![](/resources/Real-timeCalculationFlowChart.png)
 
 - User behavior (read volume, comments, likes, favorites) sends messages
     - Integrate kafka producer configuration in the HeMI-Leadnews-Behavior microservice
@@ -84,7 +84,7 @@ docker run -e PARAMS="--spring.datasource.url=jdbc:mysql://192.168.31.125:3306/x
     - Add methods in ApArticleService to update article score values in the database
     - The monitor is defined, the aggregated data is received, and the score of the article is recalculated
 
-## springboot integration kafka stream
+## c) springboot integration kafka stream
 
 ~~~java
 package com.heima.kafka.config;

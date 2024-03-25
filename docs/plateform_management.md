@@ -1,8 +1,7 @@
-# Platform Management
-## Platform Management Interface
+# 1.Platform Management
 ![](/resources/platformManagement.png)
 
-## Platform management login
+# 2.Platform management login
 |          | **Introduction**             |
 | -------- | -------------------- |
 | Interface path | /admin/login/in |
@@ -10,7 +9,7 @@
 | Parameter     | AdUserDto                   |
 | Response Result | ResponseResult       |
 
-## Channel Management
+# 3.Channel Management
 
 - Create Channel
 
@@ -48,7 +47,7 @@
 | Parameter     | Null                   |
 | Response Result | ResponseResult       |
 
-## Illegal words management
+# 4.Illegal words management
 
 - Create illegal words
 
@@ -86,7 +85,7 @@
 | Parameter     | Null                   |
 | Response Result | ResponseResult   ｜
 
-## User authentication audit
+# 5.User authentication audit
 
 - Personal center users in the app can be real-name authentication, and the required materials are: name, ID number, ID card front photo, ID card back photo, handheld photo, and living photo (through the combination of smiling, blinking, opening mouth, shaking head, nodding, etc., to ensure that the operation is a real living face.) When the user submits the review, it goes to the back end for the operations manager to conduct the review
 - The platform operator checks the user authentication information for audit, including user identity audit, and needs to connect to the public security system to verify ID card information
@@ -119,7 +118,7 @@
 | Parameter     | AuthDto                   |
 | Response Result | ResponseResult       |
 
-## Manual article review
+# 6.Manual article review
 
 - If the we-media article fails to be automatically audited, but is manually audited (the status of the we-media article is 3), you need to manually process the review of the article on the admin side
 

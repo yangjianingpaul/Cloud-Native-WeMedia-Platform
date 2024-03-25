@@ -1,16 +1,16 @@
 # Database Configuration
 
-## leadnews_admin
+## 1.leadnews_admin
 ![](/resources/leadnews_admin.png)
 
-## leadnews_article
+## 2.leadnews_article
 ![](/resources/leadnews_article.png)
 
-## leadnews_schedule
+## 3.leadnews_schedule
 ![](/resources/leadnews_schedule.png)
 
-## leadnews_user
+## 4.leadnews_user
 ![](/resources/leadnews_user.png)
 
-## leadnews_wemedia
+## 5.leadnews_wemedia
 ![](/resources/leadnews_wemedia.png)

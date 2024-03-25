@@ -1,4 +1,5 @@
-# App Article Loading Interface Definition
+# 1.article service
+## a) App Article Loading Interface Definition
 |          | **Load home page**         | **Load more**             | **Load latest**            |
 | -------- | -------------------- | ------------------------ | ----------------------- |
 | Interface Path | /api/v1/article/load | /api/v1/article/loadmore | /api/v1/article/loadnew |
@@ -6,18 +7,18 @@
 | Parameter     | ArticleHomeDto       | ArticleHomeDto           | ArticleHomeDto          |
 | Response Result | ResponseResult       | ResponseResult           | ResponseResult          |
 
-# Article template engine: freemarker
+## b) Article template engine: freemarker
 * FreeMarker is a template engine: a general-purpose tool for generating output text (HTML pages, emails, configuration files, source code, etc.) based on templates and data to be changed. It is not intended for end users, but is a Java class library, a component that programmers can embed in the product they are developing.
 
 ![](/resources/freemarker.png)
 
-# Object storage service MinIO
+## c) Object storage service MinIO
 MinIO is an object storage service based on the Apache License v2.0 open source protocol. It can be used as a cloud storage solution to save massive pictures, videos, and documents. Thanks to the Golang implementation, the server can work on Windows, Linux, OS X, and FreeBSD. Simple configuration, basically copy the executable program, a single line command can be run.
 
-# MinIO Management Console
+* MinIO Management Console
 ![](/resources/MinIO.png)
 
-# MinIO test cases
+* MinIO test cases
 
 ```java
 public static void main(String[] args) {
@@ -38,17 +39,14 @@ public static void main(String[] args) {
     }
 ```
 
-# We-media articles off the shelf
+# 2.We-media articles off the shelf
 * kafka decouple the we-media microservice from the article microservice.
 
-# We media articles off the shelf
-* kafka decouple the we-media microservice from the article microservice.
-
-# Description of the loading and unloading process
+## Description of the loading and unloading process
 ![](/resources/up_or_down.png)
 
-# content search
-- Article search
+# 3.content search
+- (1)Article search
 
   - set up environment of ElasticSearch
 
@@ -58,7 +56,7 @@ public static void main(String[] args) {
 
   - Index data synchronization
 
-- search history
+- (2)search history
 
   - set up environment of Mongodb
 
@@ -68,27 +66,27 @@ public static void main(String[] args) {
 
   - Delete search history
 
-- Associative word query
+- (3)Associative word query
 
   - The source of associative words
 
   - Associative word function realization
 
 
-## Set up the ElasticSearch environment
-### 1) Pull image
+## a) Set up the ElasticSearch environment
+* Pull image
 
 ```shell
 docker pull elasticsearch:7.4.0
 ```
 
-### 2) Create a container
+* Create a container
 
 ```shell
 docker run -id --name elasticsearch -d --restart=always -p 9200:9200 -p 9300:9300 -v /usr/share/elasticsearch/plugins:/usr/share/elasticsearch/plugins -e "discovery.type=single-node" elasticsearch:7.4.0
 ```
 
-### 3) Configure the Chinese word divider ik
+* Configure the Chinese word divider ik
 
 ```shell
 #Switch directory
@@ -103,21 +101,23 @@ cd /usr/share/elasticsearch/plugins/analysis-ik
 unzip elasticsearch-analysis-ik-7.4.0.zip
 ```
 
-## app side article search
-- The user enters a list of key searchable articles
+* [SpringBoot's operation interfaces of Elasticsearch](elasticsearch.md)
+
+## b) app side article search
+- Users enter keywords to search the list of articles
 
 - Keywords are highlighted
 
 - The article list display is the same as the home display, when the user clicks on an article, the article details can be viewed
 
-## Create indexes and mappings
+### 1）Create indexes and mappings
 - Add mappings using postman
     - put request add mappings ： http://192.168.31.125:9200/app_info_article
     - GET requests query mappings：http://192.168.31.125:9200/app_info_article
     - DELETE requests to delete indexes and mappings：http://192.168.31.125:9200/app_info_article
     - GET request, query all documents：http://192.168.31.125:9200/app_info_article/_search
 
-## Data initialization to the es index library
+### 2）Data initialization to the es index library
 ```java
 package com.heima.es;
 
@@ -171,20 +171,20 @@ public class ApArticleTest {
 }
 ```
 
-## Test
+### 3) Test
 - postman Queries data in all es GET request： http://192.168.31.125:9200/app_info_article/_search
 
-## Articles are automatically reviewed and indexed
+### 4) Articles are automatically reviewed and indexed
 ![](/resources/create_search_index.png)
 
 * The article collects data and sends messages in the buildArticleToMinIO method in the ArticleFreemarkerService of the microservice.
 
-## app Search - Search records
+### 5) app Search - Search records
 - Display 10 search records of the user, in reverse chronological order according to the search keyword
 - You can delete the search history
 - Save the history records, save 10, and delete the oldest history records
 
-## Installing mongoDb
+#### a) Installing mongoDb
 - Pull image
 
 ```shell
@@ -198,8 +198,9 @@ docker run -di --name mongo-service --restart=always -p 27017:27017 -v ~/data/mo
 ```
 
 - In the search method of ArticleSearchService asynchronous invocation 'apUserSearchService.insert' method save history.
+* [SpringBoot's operation interfaces of MongoDB](spring_mongodb.md)
 
-## Load a list of search records
+#### b) Load a list of search records
 - Query information based on the current user in reverse chronological order
 |          | **Introduction**             |
 | -------- | -------------------- |
@@ -208,7 +209,7 @@ docker run -di --name mongo-service --restart=always -p 27017:27017 -v ~/data/mo
 | parameter     | Null                   |
 | response result | ResponseResult       |
 
-## Delete search history
+#### c) Delete search history
 - Delete based on the search history id
 |          | **Introduction**            |
 | -------- | ------------------- |
@@ -217,7 +218,7 @@ docker run -di --name mongo-service --restart=always -p 27017:27017 -v ~/data/mo
 | parameter     | HistorySearchDto    |
 | response result | ResponseResult      |
 
-# Keyword association
+#### d) Keyword association
 - Maintain search terms in the ap_associate_words table in mongoDB
 |          | **Introduction**                 |
 | -------- | ------------------------ |
