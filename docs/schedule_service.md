@@ -1,5 +1,6 @@
 # 1.Scheduled release of article
 * redis implementation: The zset data type's de-ordering (fractional sorting) feature is delayed. For example, the timestamp is sorted as a score
+* [SpringBoot Redis](redis.java)
 
 # 2.redis implementation of delayed tasks:
 ![](/resources/delayTask.png)

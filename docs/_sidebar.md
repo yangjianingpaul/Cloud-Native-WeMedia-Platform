@@ -27,3 +27,4 @@
 * [13.Hot Articles](hot_article.md)
 * [SpringBoot MongoDB](spring_mongodb.md)
 * [SpringBoot ElasticSearch](elasticsearch.md)
+* [SpringBoot Redis](redis.java)
