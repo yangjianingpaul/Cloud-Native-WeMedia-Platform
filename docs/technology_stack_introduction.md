@@ -1,2 +1,2 @@
-# 1.Tachnology Stack Introduction
+# Tachnology Stack Introduction
 ![](/resources/TechnologyStack.png)
