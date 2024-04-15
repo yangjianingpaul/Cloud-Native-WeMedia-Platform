@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 /**
  * <p>
- * APP已发布文章配置表
+ * app has published article configuration table
  * </p>
  *
  * @author itheima
@@ -34,13 +34,13 @@ public class ApArticleConfig implements Serializable {
     private Long id;
 
     /**
-     * 文章id
+     * article id
      */
     @TableField("article_id")
     private Long articleId;
 
     /**
-     * 是否可评论
+     * is it possible to comment
      * true: 可以评论   1
      * false: 不可评论  0
      */
@@ -48,7 +48,7 @@ public class ApArticleConfig implements Serializable {
     private Boolean isComment;
 
     /**
-     * 是否转发
+     * whether to forward
      * true: 可以转发   1
      * false: 不可转发  0
      */
@@ -56,7 +56,7 @@ public class ApArticleConfig implements Serializable {
     private Boolean isForward;
 
     /**
-     * 是否下架
+     * whether to remove it from the shelves
      * true: 下架   1
      * false: 没有下架  0
      */
@@ -64,7 +64,7 @@ public class ApArticleConfig implements Serializable {
     private Boolean isDown;
 
     /**
-     * 是否已删除
+     * has it been deleted
      * true: 删除   1
      * false: 没有删除  0
      */

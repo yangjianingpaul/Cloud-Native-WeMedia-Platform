@@ -65,6 +65,7 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
 
     /**
      * add a new channel
+     *
      * @param wmChannel
      * @return
      */
@@ -87,6 +88,7 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
 
     /**
      * update the channel
+     *
      * @param wmChannel
      * @return
      */
@@ -112,6 +114,7 @@ public class WmChannelServiceImpl extends ServiceImpl<WmChannelMapper, WmChannel
 
     /**
      * delete the channel
+     *
      * @param channelId
      * @return
      */

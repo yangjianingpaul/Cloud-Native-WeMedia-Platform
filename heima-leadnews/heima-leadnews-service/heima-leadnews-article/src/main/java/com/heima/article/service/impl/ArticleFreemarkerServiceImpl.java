@@ -47,6 +47,7 @@ public class ArticleFreemarkerServiceImpl implements ArticleFreemarkerService {
 
     /**
      * Generate static files and upload them to minIO
+     *
      * @param apArticle
      * @param content
      */
@@ -81,6 +82,7 @@ public class ArticleFreemarkerServiceImpl implements ArticleFreemarkerService {
 
     /**
      * Delete the minIO static file
+     *
      * @param staticUrl
      */
     @Override
@@ -90,8 +92,10 @@ public class ArticleFreemarkerServiceImpl implements ArticleFreemarkerService {
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
+
     /**
      * Send a message and create an index
+     *
      * @param apArticle
      * @param content
      * @param path

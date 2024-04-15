@@ -12,7 +12,7 @@ public class AppTokenInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
         String userId = request.getHeader("userId");
-        if(userId != null){
+        if (userId != null) {
             //into the current thread
             ApUser apUser = new ApUser();
             apUser.setId(Integer.valueOf(userId));

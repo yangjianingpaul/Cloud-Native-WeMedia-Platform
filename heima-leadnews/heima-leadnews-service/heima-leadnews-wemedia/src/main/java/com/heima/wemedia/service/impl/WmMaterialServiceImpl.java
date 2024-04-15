@@ -40,6 +40,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
 
     /**
      * image upload
+     *
      * @param multipartFile
      * @return
      */
@@ -65,8 +66,8 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
         WmMaterial wmMaterial = new WmMaterial();
         wmMaterial.setUserId(WmThreadLocalUtil.getUser().getId());
         wmMaterial.setUrl(fileId);
-        wmMaterial.setIsCollection((short)0);
-        wmMaterial.setType((short)0);
+        wmMaterial.setIsCollection((short) 0);
+        wmMaterial.setType((short) 0);
         wmMaterial.setCreatedTime(new Date());
         save(wmMaterial);
 //        4。return result
@@ -74,8 +75,8 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
     }
 
     /**
-     *
      * Material list query
+     *
      * @param dto
      * @return
      */
@@ -98,7 +99,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
 //        3。Result return
         ResponseResult responseResult = new PageResponseResult(dto.getPage(),
                 dto.getSize(),
-                (int)page.getTotal());
+                (int) page.getTotal());
         responseResult.setData(page.getRecords());
         return responseResult;
     }
@@ -108,6 +109,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
 
     /**
      * Delete material
+     *
      * @param id
      * @return
      */
@@ -127,6 +129,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
 
     /**
      * Photo collection
+     *
      * @param id
      * @return
      */
@@ -140,6 +143,7 @@ public class WmMaterialServiceImpl extends ServiceImpl<WmMaterialMapper, WmMater
 
     /**
      * cancel collection
+     *
      * @param id
      * @return
      */

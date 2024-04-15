@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-public class ScheduleClient  implements IScheduleClient {
+public class ScheduleClient implements IScheduleClient {
 
     @Autowired
     private TaskService taskService;
 
     /**
      * create task
+     *
      * @param task task object
      * @return task id
      */
@@ -27,6 +28,7 @@ public class ScheduleClient  implements IScheduleClient {
 
     /**
      * cancel task
+     *
      * @param taskId task id
      * @return cancel result
      */
@@ -38,6 +40,7 @@ public class ScheduleClient  implements IScheduleClient {
 
     /**
      * Pull tasks by type and priority
+     *
      * @param type
      * @param priority
      * @return
@@ -45,6 +48,6 @@ public class ScheduleClient  implements IScheduleClient {
     @GetMapping("/api/v1/task/{type}/{priority}")
     @Override
     public ResponseResult poll(@PathVariable("type") int type, @PathVariable("priority") int priority) {
-        return ResponseResult.okResult(taskService.poll(type,priority));
+        return ResponseResult.okResult(taskService.poll(type, priority));
     }
 }

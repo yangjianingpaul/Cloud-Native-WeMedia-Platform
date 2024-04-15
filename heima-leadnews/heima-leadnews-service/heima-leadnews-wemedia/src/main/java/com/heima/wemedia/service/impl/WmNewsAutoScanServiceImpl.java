@@ -40,9 +40,11 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
 
     @Autowired
     private WmNewsMapper wmNewsMapper;
+
     /**
      * We media article review
-     * @param id    we-media article id
+     *
+     * @param id we-media article id
      */
     @Override
     @Async
@@ -99,9 +101,10 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
 
     @Autowired
     private WmSensitiveMapper wmSensitiveMapper;
+
     /**
-     *
      * Self-managing sensitive word moderation
+     *
      * @param content
      * @param wmNews
      * @return
@@ -116,7 +119,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
 //        See if the article contains sensitive words
         Map<String, Integer> map = SensitiveWordUtil.matchWords(content);
         if (map.size() > 0) {
-            updateWmNews(wmNews, 2 ,"illegal content" + map);
+            updateWmNews(wmNews, 2, "illegal content" + map);
             flag = false;
         }
         return flag;
@@ -133,6 +136,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
 
     /**
      * save the relevant article data on the app
+     *
      * @param wmNews
      */
     private ResponseResult saveAppArticle(WmNews wmNews) {
@@ -170,8 +174,10 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
 
     @Autowired
     private Tess4jClient tess4jClient;
+
     /**
      * Review picture
+     *
      * @param images
      * @param wmNews
      * @return
@@ -240,6 +246,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
 
     /**
      * Review plain text content
+     *
      * @param content
      * @param wmNews
      * @return
@@ -276,6 +283,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
 
     /**
      * Revise article content
+     *
      * @param wmNews
      * @param status
      * @param reason
@@ -289,6 +297,7 @@ public class WmNewsAutoScanServiceImpl implements WmNewsAutoScanService {
     /**
      * 1。Extract text and pictures from the content of we-media articles
      * 2。Extract the cover image of the article
+     *
      * @param wmNews
      * @return
      */

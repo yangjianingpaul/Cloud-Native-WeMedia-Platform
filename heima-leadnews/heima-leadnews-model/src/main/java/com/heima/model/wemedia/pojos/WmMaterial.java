@@ -42,8 +42,8 @@ public class WmMaterial implements Serializable {
 
     /**
      * Material type
-            0 image
-            1 video
+     * 0 image
+     * 1 video
      */
     @TableField("type")
     private Short type;

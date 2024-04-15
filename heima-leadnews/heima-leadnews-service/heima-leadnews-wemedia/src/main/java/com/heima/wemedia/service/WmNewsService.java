@@ -11,6 +11,7 @@ public interface WmNewsService extends IService<WmNews> {
 
     /**
      * Search the article list
+     *
      * @param dto
      * @return
      */
@@ -18,6 +19,7 @@ public interface WmNewsService extends IService<WmNews> {
 
     /**
      * Publish revised articles or save them as drafts
+     *
      * @param dto
      * @return
      */
@@ -25,6 +27,7 @@ public interface WmNewsService extends IService<WmNews> {
 
     /**
      * Articles listed or not
+     *
      * @param dto
      * @return
      */
@@ -32,6 +35,7 @@ public interface WmNewsService extends IService<WmNews> {
 
     /**
      * Delete article
+     *
      * @param id
      * @return
      */
@@ -39,6 +43,7 @@ public interface WmNewsService extends IService<WmNews> {
 
     /**
      * Article review list
+     *
      * @param dto
      * @return
      */
@@ -46,6 +51,7 @@ public interface WmNewsService extends IService<WmNews> {
 
     /**
      * Manual article review
+     *
      * @param articleId
      * @return
      */
@@ -53,6 +59,7 @@ public interface WmNewsService extends IService<WmNews> {
 
     /**
      * Manual approval
+     *
      * @param dto
      * @return
      */
@@ -60,6 +67,7 @@ public interface WmNewsService extends IService<WmNews> {
 
     /**
      * Manual audit failure
+     *
      * @param dto
      * @return
      */
@@ -67,6 +75,7 @@ public interface WmNewsService extends IService<WmNews> {
 
     /**
      * update article
+     *
      * @param wemediaId
      * @return
      */

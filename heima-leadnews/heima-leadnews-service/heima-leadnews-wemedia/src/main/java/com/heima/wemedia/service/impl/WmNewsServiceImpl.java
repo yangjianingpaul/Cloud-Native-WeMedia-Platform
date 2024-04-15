@@ -41,11 +41,12 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @Transactional
-public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implements WmNewsService {
+public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> implements WmNewsService {
 
 
     /**
      * a list of conditional query articles
+     *
      * @param dto
      * @return
      */
@@ -71,7 +72,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
         }
 //        fuzzy queries for keywords
         if (StringUtils.isNotBlank(dto.getKeyword())) {
-            lambdaQueryWrapper.like(WmNews::getTitle, dto.getKeyword() );
+            lambdaQueryWrapper.like(WmNews::getTitle, dto.getKeyword());
         }
 //        query the articles of the current logged in person
         lambdaQueryWrapper.eq(WmNews::getUserId, WmThreadLocalUtil.getUser().getId());
@@ -79,7 +80,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
         lambdaQueryWrapper.orderByDesc(WmNews::getPublishTime);
         page = page(page, lambdaQueryWrapper);
 //        3。the results are returned
-        ResponseResult responseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int)page.getTotal());
+        ResponseResult responseResult = new PageResponseResult(dto.getPage(), dto.getSize(), (int) page.getTotal());
         responseResult.setData(page.getRecords());
         return responseResult;
     }
@@ -92,18 +93,19 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * Publish revised articles or save them as drafts
+     *
      * @param dto
      * @return
      */
     @Override
     public ResponseResult submitNews(WmNewsDto dto) {
         if (dto == null || dto.getContent() == null) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID );
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
 //        1.Save or modify the article
         WmNews wmNews = new WmNews();
 //        Attribute copy
-        BeanUtils.copyProperties(dto,wmNews);
+        BeanUtils.copyProperties(dto, wmNews);
         if (dto.getImages() != null && dto.getImages().size() > 0) {
             String imagesStr = StringUtils.join(dto.getImages(), ",");
             wmNews.setImages(imagesStr);
@@ -136,6 +138,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * the article is listed or not
+     *
      * @param dto
      * @return
      */
@@ -175,6 +178,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * delete the article
+     *
      * @param id
      * @return
      */
@@ -195,6 +199,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * a list of article reviews
+     *
      * @param dto
      * @return
      */
@@ -225,6 +230,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * details of the manual review of the article
+     *
      * @param articleId
      * @return
      */
@@ -240,6 +246,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * manually approved
+     *
      * @param dto
      * @return
      */
@@ -261,6 +268,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * manual review failed
+     *
      * @param dto
      * @return
      */
@@ -279,6 +287,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * update article
+     *
      * @param wemediaId
      * @return
      */
@@ -296,8 +305,9 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
      * 1. If the content image is greater than or equal to 1, it is less than 3 single image type 1
      * 2. If the content image is greater than or equal to 3, multi-image type 3
      * 3. If there is no picture in the content, there is no picture type 0
-     *
+     * <p>
      * The second function is to save the relationship between the cover image and the material
+     *
      * @param dto
      * @param wmNews
      * @param materials
@@ -333,6 +343,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * Handle the relationship between the content material and the image of the article
+     *
      * @param materials
      * @param newsId
      */
@@ -345,6 +356,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * The material relationship between the article and the image is stored in the database
+     *
      * @param materials
      * @param newsId
      * @param type
@@ -371,6 +383,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * extract image information from the article
+     *
      * @param content
      * @return
      */
@@ -391,6 +404,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
 
     /**
      * save or modify the article
+     *
      * @param wmNews
      */
     private void saveOrUpdateWmNews(WmNews wmNews) {
@@ -398,7 +412,7 @@ public class WmNewsServiceImpl  extends ServiceImpl<WmNewsMapper, WmNews> implem
         wmNews.setUserId(WmThreadLocalUtil.getUser().getId());
         wmNews.setCreatedTime(new Date());
         wmNews.setSubmitedTime(new Date());
-        wmNews.setEnable((short)1); //listed by default
+        wmNews.setEnable((short) 1); //listed by default
 
         if (wmNews.getId() == null) {
 //            save

@@ -20,7 +20,7 @@ import java.util.Date;
 
 @Service
 @Slf4j
-public class WmNewsTaskServiceImpl  implements WmNewsTaskService {
+public class WmNewsTaskServiceImpl implements WmNewsTaskService {
 
 
     @Autowired
@@ -28,6 +28,7 @@ public class WmNewsTaskServiceImpl  implements WmNewsTaskService {
 
     /**
      * Add a task to the delay queue
+     *
      * @param id          article id
      * @param publishTime publish time and Can be used as the execution time of the task
      */

@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 public class WmTokenInterceptor implements HandlerInterceptor {
 
     /**
-     *
      * Gets the user information in the header and stores it into the current thread
+     *
      * @param request
      * @param response
      * @param handler
@@ -32,8 +32,8 @@ public class WmTokenInterceptor implements HandlerInterceptor {
     }
 
     /**
-     *
      * Clean up the data in the thread
+     *
      * @param request
      * @param response
      * @param handler

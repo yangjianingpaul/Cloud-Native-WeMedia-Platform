@@ -49,9 +49,9 @@ public class WmNews implements Serializable {
 
     /**
      * article layout
-            0 No picture article
-            1 single image
-            3 multi image
+     * 0 No picture article
+     * 1 single image
+     * 3 multi image
      */
     @TableField("type")
     private Short type;
@@ -79,13 +79,13 @@ public class WmNews implements Serializable {
 
     /**
      * article status
-            0 draft
-            1 submit（To be reviewed）
-            2 review failure
-            3 manually review
-            4 Manual approval
-            8 approve（To be published）
-            9 have published
+     * 0 draft
+     * 1 submit（To be reviewed）
+     * 2 review failure
+     * 3 manually review
+     * 4 Manual approval
+     * 8 approve（To be published）
+     * 9 have published
      */
     @TableField("status")
     private Short status;
@@ -116,16 +116,18 @@ public class WmNews implements Serializable {
 
     @TableField("enable")
     private Short enable;
-    
-     //State enumeration class
+
+    //State enumeration class
     @Alias("WmNewsStatus")
-    public enum Status{
-        NORMAL((short)0),SUBMIT((short)1),FAIL((short)2),ADMIN_AUTH((short)3),ADMIN_SUCCESS((short)4),SUCCESS((short)8),PUBLISHED((short)9);
+    public enum Status {
+        NORMAL((short) 0), SUBMIT((short) 1), FAIL((short) 2), ADMIN_AUTH((short) 3), ADMIN_SUCCESS((short) 4), SUCCESS((short) 8), PUBLISHED((short) 9);
         short code;
-        Status(short code){
+
+        Status(short code) {
             this.code = code;
         }
-        public short getCode(){
+
+        public short getCode() {
             return this.code;
         }
     }

@@ -10,12 +10,14 @@ public interface WmChannelService extends IService<WmChannel> {
 
     /**
      * Query all channels
+     *
      * @return
      */
     public ResponseResult findAll();
 
     /**
      * channel management
+     *
      * @param dto
      * @return
      */
@@ -23,6 +25,7 @@ public interface WmChannelService extends IService<WmChannel> {
 
     /**
      * New channel
+     *
      * @param wmChannel
      * @return
      */
@@ -30,6 +33,7 @@ public interface WmChannelService extends IService<WmChannel> {
 
     /**
      * Update channel
+     *
      * @param wmChannel
      * @return
      */
@@ -37,6 +41,7 @@ public interface WmChannelService extends IService<WmChannel> {
 
     /**
      * Delete channel
+     *
      * @param channelId
      * @return
      */

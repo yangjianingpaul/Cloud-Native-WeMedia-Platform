@@ -78,9 +78,9 @@ public class WmUser implements Serializable {
 
     /**
      * status
-            0 Temporarily unavailable
-            1 Permanently unavailable
-            9 Normally available
+     * 0 Temporarily unavailable
+     * 1 Permanently unavailable
+     * 9 Normally available
      */
     @TableField("status")
     private Integer status;
@@ -93,9 +93,9 @@ public class WmUser implements Serializable {
 
     /**
      * account type
-            0 personal
-            1 enterprise
-            2 Subsidiary account
+     * 0 personal
+     * 1 enterprise
+     * 2 Subsidiary account
      */
     @TableField("type")
     private Integer type;

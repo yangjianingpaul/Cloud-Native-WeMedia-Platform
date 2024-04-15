@@ -30,5 +30,5 @@ public class Task implements Serializable {
      * task parameter
      */
     private byte[] parameters;
-    
+
 }

@@ -28,7 +28,7 @@ public class WmChannelController {
 
     @PostMapping("/save")
     public ResponseResult saveChannel(@RequestBody WmChannel wmChannel) {
-        return  wmChannelService.saveChannel(wmChannel);
+        return wmChannelService.saveChannel(wmChannel);
     }
 
     @PostMapping("/update")

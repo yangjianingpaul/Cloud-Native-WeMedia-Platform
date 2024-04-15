@@ -13,7 +13,7 @@ public class AppInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String userId = request.getHeader("userId");
-        if(userId != null){
+        if (userId != null) {
             //Stored in the current thread
             ApUser apUser = new ApUser();
             apUser.setId(Integer.valueOf(userId));
@@ -29,6 +29,6 @@ public class AppInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        WmThreadLocalUtil.clear();
+        AppThreadLocalUtil.clear();
     }
 }

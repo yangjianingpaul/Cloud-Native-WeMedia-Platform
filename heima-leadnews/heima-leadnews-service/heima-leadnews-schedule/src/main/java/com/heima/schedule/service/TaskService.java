@@ -7,6 +7,7 @@ public interface TaskService {
 
     /**
      * delay task
+     *
      * @param task
      * @return
      */
@@ -14,6 +15,7 @@ public interface TaskService {
 
     /**
      * cancel the task
+     *
      * @param taskId
      * @return
      */
@@ -21,6 +23,7 @@ public interface TaskService {
 
     /**
      * pull tasks by type and priority
+     *
      * @param type
      * @param priority
      * @return
