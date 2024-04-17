@@ -7,6 +7,7 @@ public interface ApUserSearchService {
 
     /**
      * Save the user's search history
+     *
      * @param keyword
      * @param userId
      */
@@ -14,12 +15,14 @@ public interface ApUserSearchService {
 
     /**
      * Query search history
+     *
      * @return
      */
     public ResponseResult findUserSearch();
 
     /**
      * Delete history
+     *
      * @param dto
      * @return
      */

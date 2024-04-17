@@ -10,6 +10,7 @@ import java.util.Date;
  * <p>
  * app user search information table
  * </p>
+ *
  * @author itheima
  */
 @Data

@@ -8,8 +8,9 @@ import java.io.IOException;
 public interface ArticleSearchService {
 
     /**
-     es article pagination search
-     @return
+     * es article pagination search
+     *
+     * @return
      */
     ResponseResult searchArticle(UserSearchDto userSearchDto) throws IOException;
 }

@@ -3,43 +3,61 @@
 * reverse index
 
 # 2.Index base operation：
+* mapping{
+		properties{}
+		type{text\keyword}
+		index{}
+		analyzer{}
+	}
 * PUT 'index_base_name'
 * Delete 'index_base_name'
 * Get 'index_base_name'
 
 # 3.Document operation：
 * POST(Get/Delete/Put) /'index_base_name'/_doc/'document_id'
+* POST:Full modification
+* Put:Incremental modification
 
 # 4.SpringBoot's Elasticsearch Client Initialization：
-- restHighLevelClient
+- RestHighLevelClient client;
+- client=new RestHighLevelClient(RestClient.builder(HttpHost.create("http://")))
 
 # 5.SpringBoot's index base operation：
 
 ```java
-createIndexRequest
-Client.indices().create();
+CreateIndexRequest request;
+request.source(MAPPING_TEMPLATE, XContentType.JSON);
+client.indices().create(request);
 
-deleteIndexRequest
-client.indices.delete();
+DeleteIndexRequest request;
+client.indices.delete(request);
 
-getIndexRequest
-Client.indices.exists();
+GetIndexRequest request;
+client.indices.exists(request);
 ```
 
 # 6.SpringBoot's document operation：
 
 ```java
-indexRequest
-client.index();
+IndexRequest request;
+request.source(JSON.toJSONString(Dto), XContentType.JSON);
+client.index(request);
 
-getRequest
-Client.get();
+GetRequest("indexName","id") request;
+GetResponse response=client.get(request);
 
-updateRequest
-Client.update();
+UpdateRequest("indexName", "id") request;
+request.doc("age",18,"name","Rose");
+client.update(request);
 
-deleteRequest
-Client.delete();
+DeleteRequest("indexName","id") request;
+client.delete(request);
+
+BulkRequest request;
+for () {
+	request.add(new IndexRequest("indexName").id().source("json", XContentType.JSON));
+}
+client.bulk(request);
 ```
 
 # 7.Query operation：
@@ -97,15 +115,20 @@ Get /indexName/_search
 
 ```java
 SearchRequest request  = new SearchRequest(“hotel”);
-Request.source().query(QueryBulder.matchAllQuery());
-SearchResponse response = client.search(request,RequestOptions.DEFAULT);
+request.source().query(QueryBulder.matchAllQuery());
+SearchResponse response = client.search(request, RequestOptions.DEFAULT);
 
-Source.query();
-Source.sort();
+SearchHits[] hits=response.getHits().getHits();
+for(SearchHit hit:hits){
+	String json=hit.getSourceAsString();
+}
+
+source.query();
+source.sort();
 source.aggregation();
-Source.highlight();
-Source.size();
-Source.from();
+source.highlighter();
+source.size();
+source.from();
 
 Querybulders.matchAllQuery();
 Querybulders.multiMatchAllQuery();

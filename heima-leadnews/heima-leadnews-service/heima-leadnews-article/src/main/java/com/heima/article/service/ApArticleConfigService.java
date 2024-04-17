@@ -7,7 +7,8 @@ import java.util.Map;
 
 public interface ApArticleConfigService extends IService<ApArticleConfig> {
     /**
-     * 修改文章
+     * modify articles
+     *
      * @param map
      */
     void updateByMap(Map map);

@@ -18,6 +18,7 @@ public class ApArticleConfigServiceImpl extends ServiceImpl<ApArticleConfigMappe
 
     /**
      * update article
+     *
      * @param map
      */
     @Override
@@ -26,7 +27,7 @@ public class ApArticleConfigServiceImpl extends ServiceImpl<ApArticleConfigMappe
         Object enable = map.get("enable");
         boolean isDown = true;
         if (enable.equals(1)) {
-           isDown = false;
+            isDown = false;
         }
 //        update article
         update(Wrappers.<ApArticleConfig>lambdaUpdate().eq(ApArticleConfig::getArticleId, map.get("articleId"))

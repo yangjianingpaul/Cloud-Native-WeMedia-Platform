@@ -29,6 +29,7 @@ public class ApUserSearchServiceImpl implements ApUserSearchService {
 
     /**
      * save the user's search history
+     *
      * @param keyword
      * @param userId
      */
@@ -83,6 +84,7 @@ public class ApUserSearchServiceImpl implements ApUserSearchService {
 
     /**
      * delete search history
+     *
      * @param dto
      * @return
      */
