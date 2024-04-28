@@ -12,16 +12,17 @@ import java.util.List;
 @Mapper
 public interface ApArticleMapper extends BaseMapper<ApArticle> {
     /**
-     *
      * load Article list
+     *
      * @param dto
-     * @param type  1。load more  2。load latest
+     * @param type 1。load more  2。load latest
      * @return
      */
     public List<ApArticle> loadArticleList(ArticleHomeDto dto, Short type);
 
     /**
      * query article list of last 5 days
+     *
      * @param dayParam
      * @return
      */

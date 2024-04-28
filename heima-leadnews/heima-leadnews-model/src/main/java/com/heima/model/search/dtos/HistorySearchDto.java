@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class HistorySearchDto {
     /**
-    * receive a search history id
-    */
+     * receive a search history id
+     */
     String id;
 }

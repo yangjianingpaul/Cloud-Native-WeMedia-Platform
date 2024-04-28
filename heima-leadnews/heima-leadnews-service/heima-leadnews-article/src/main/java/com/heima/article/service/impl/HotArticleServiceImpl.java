@@ -54,6 +54,7 @@ public class HotArticleServiceImpl implements HotArticleService {
 
     /**
      * The favorites weight is 30 articles with high scores cached per channel
+     *
      * @param hotArticleVoList
      */
     private void cacheTagToRedis(List<HotArticleVo> hotArticleVoList) {
@@ -83,6 +84,7 @@ public class HotArticleServiceImpl implements HotArticleService {
 
     /**
      * Calculate the article score
+     *
      * @param apArticleList
      * @return
      */
@@ -103,6 +105,7 @@ public class HotArticleServiceImpl implements HotArticleService {
 
     /**
      * Calculate the specific score value of the article
+     *
      * @param apArticle
      * @return
      */

@@ -29,7 +29,7 @@ public class MongoTest {
     public void saveTest() {
         for (int i = 0; i < 10; i++) {
             ApAssociateWords apAssociateWords = new ApAssociateWords();
-            apAssociateWords.setAssociateWords("黑马头条");
+            apAssociateWords.setAssociateWords("helloWorld");
             apAssociateWords.setCreatedTime(new Date());
             mongoTemplate.save(apAssociateWords);
         }
@@ -45,7 +45,7 @@ public class MongoTest {
     //conditional queries
     @Test
     public void testQuery() {
-        Query query = Query.query(Criteria.where("associateWords").is("黑马头条"))
+        Query query = Query.query(Criteria.where("associateWords").is("helloWorld"))
                 .with(Sort.by(Sort.Direction.DESC, "createdTime"));
         List<ApAssociateWords> apAssociateWordsList = mongoTemplate.find(query, ApAssociateWords.class);
         System.out.println(apAssociateWordsList);
@@ -54,6 +54,6 @@ public class MongoTest {
 //    delete
     @Test
     public void testDel() {
-        mongoTemplate.remove(Query.query(Criteria.where("associateWords").is("黑马头条")), ApAssociateWords.class);
+        mongoTemplate.remove(Query.query(Criteria.where("associateWords").is("helloWorld")), ApAssociateWords.class);
     }
 }

@@ -14,7 +14,7 @@ public class ComputeHotArticleJob {
     private HotArticleService hotArticleService;
 
     @XxlJob("computeHotArticleJob")
-    public void handle(){
+    public void handle() {
         log.info("Hot article score calculation The scheduling task starts...");
         hotArticleService.computeHotArticle();
         log.info("The hot article score calculation scheduling task is complete. Procedure...");
