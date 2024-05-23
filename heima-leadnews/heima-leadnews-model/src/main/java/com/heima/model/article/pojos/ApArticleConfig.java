@@ -30,7 +30,7 @@ public class ApArticleConfig implements Serializable {
         this.isComment = true;
     }
 
-    @TableId(value = "id",type = IdType.ID_WORKER)
+    @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
 
     /**

@@ -22,10 +22,10 @@ public class KafkaStreamQuickStart {
 
         //kafka configuration center
         Properties prop = new Properties();
-        prop.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG,"192.168.5.157:9092");
+        prop.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.5.157:9092");
         prop.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         prop.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        prop.put(StreamsConfig.APPLICATION_ID_CONFIG,"streams-quickstart");
+        prop.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-quickstart");
 
         //stream builder
         StreamsBuilder streamsBuilder = new StreamsBuilder();
@@ -35,7 +35,7 @@ public class KafkaStreamQuickStart {
 
 
         //create a kafka stream object
-        KafkaStreams kafkaStreams = new KafkaStreams(streamsBuilder.build(),prop);
+        KafkaStreams kafkaStreams = new KafkaStreams(streamsBuilder.build(), prop);
         //enable stream computing
         kafkaStreams.start();
     }
@@ -43,6 +43,7 @@ public class KafkaStreamQuickStart {
     /**
      * stream computing
      * the content of the message：hello kafka  hello itcast
+     *
      * @param streamsBuilder
      */
     private static void streamProcessor(StreamsBuilder streamsBuilder) {
@@ -52,22 +53,22 @@ public class KafkaStreamQuickStart {
          * the value of the processed message
          */
         stream.flatMapValues(new ValueMapper<String, Iterable<String>>() {
-            @Override
-            public Iterable<String> apply(String value) {
-                return Arrays.asList(value.split(" "));
-            }
-        })
+                    @Override
+                    public Iterable<String> apply(String value) {
+                        return Arrays.asList(value.split(" "));
+                    }
+                })
                 //aggregate by value
-                .groupBy((key,value)->value)
+                .groupBy((key, value) -> value)
                 //time window
                 .windowedBy(TimeWindows.of(Duration.ofSeconds(10)))
                 //count the number of words
                 .count()
                 //convert to k stream
                 .toStream()
-                .map((key,value)->{
-                    System.out.println("key:"+key+",value:"+value);
-                    return new KeyValue<>(key.key().toString(),value.toString());
+                .map((key, value) -> {
+                    System.out.println("key:" + key + ",value:" + value);
+                    return new KeyValue<>(key.key().toString(), value.toString());
                 })
                 //send a message
                 .to("itcast-topic-out");

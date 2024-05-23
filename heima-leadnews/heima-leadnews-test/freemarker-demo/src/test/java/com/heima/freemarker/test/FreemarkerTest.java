@@ -36,7 +36,7 @@ public class FreemarkerTest {
         template.process(getData(), new FileWriter("/Users/yangjianing/Desktop/list.html"));
     }
 
-    private Map getData(){
+    private Map getData() {
 
         Map<String, Object> map = new HashMap<>();
 
@@ -59,15 +59,15 @@ public class FreemarkerTest {
         stus.add(stu2);
 
         //向model中存放List集合数据
-        map.put("stus",stus);
+        map.put("stus", stus);
 //            model.addAttribute("stus",stus);
 
         //------------------------------------
 
         //创建Map数据
-        HashMap<String,Student> stuMap = new HashMap<>();
-        stuMap.put("stu1",stu1);
-        stuMap.put("stu2",stu2);
+        HashMap<String, Student> stuMap = new HashMap<>();
+        stuMap.put("stu1", stu1);
+        stuMap.put("stu2", stu2);
         // 3.1 向model中存放Map数据
         map.put("stuMap", stuMap);
 //            model.addAttribute("stuMap", stuMap);

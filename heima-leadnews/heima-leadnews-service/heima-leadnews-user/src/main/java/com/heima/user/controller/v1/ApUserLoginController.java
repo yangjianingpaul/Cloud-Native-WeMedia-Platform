@@ -18,7 +18,7 @@ public class ApUserLoginController {
     private ApUserService apUserService;
 
     @PostMapping("/login_auth")
-    public ResponseResult login(@RequestBody LoginDto dto){
+    public ResponseResult login(@RequestBody LoginDto dto) {
         return apUserService.login(dto);
     }
 }

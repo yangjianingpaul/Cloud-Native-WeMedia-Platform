@@ -9,22 +9,22 @@ public class ReadBehaviorDto {
     Long articleId;
 
     /**
-     * 阅读次数
+     * number of times read
      */
     Short count;
 
     /**
-     * 阅读时长（S)
+     * reading time（S)
      */
     Integer readDuration;
 
     /**
-     * 阅读百分比
+     * reading percentage
      */
     Short percentage;
 
     /**
-     * 加载时间
+     * loading time
      */
     Short loadDuration;
 

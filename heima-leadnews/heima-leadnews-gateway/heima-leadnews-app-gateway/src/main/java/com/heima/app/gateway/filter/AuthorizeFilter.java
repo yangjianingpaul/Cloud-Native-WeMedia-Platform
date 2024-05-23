@@ -25,7 +25,7 @@ public class AuthorizeFilter implements Ordered, GlobalFilter {
         ServerHttpResponse response = exchange.getResponse();
 
         //2.Determine whether to log in
-        if(request.getURI().getPath().contains("/login")){
+        if (request.getURI().getPath().contains("/login")) {
             //pass
             return chain.filter(exchange);
         }
@@ -34,7 +34,7 @@ public class AuthorizeFilter implements Ordered, GlobalFilter {
         String token = request.getHeaders().getFirst("token");
 
         //4.Check whether the token exists
-        if(StringUtils.isBlank(token)){
+        if (StringUtils.isBlank(token)) {
             response.setStatusCode(HttpStatus.UNAUTHORIZED);
             return response.setComplete();
         }
@@ -44,7 +44,7 @@ public class AuthorizeFilter implements Ordered, GlobalFilter {
             Claims claimsBody = AppJwtUtil.getClaimsBody(token);
             //Whether it is expired or not
             int result = AppJwtUtil.verifyToken(claimsBody);
-            if(result == 1 || result  == 2){
+            if (result == 1 || result == 2) {
                 response.setStatusCode(HttpStatus.UNAUTHORIZED);
                 return response.setComplete();
             }
@@ -68,6 +68,7 @@ public class AuthorizeFilter implements Ordered, GlobalFilter {
 
     /**
      * Priority setting:  A smaller value indicates a higher priority
+     *
      * @return
      */
     @Override

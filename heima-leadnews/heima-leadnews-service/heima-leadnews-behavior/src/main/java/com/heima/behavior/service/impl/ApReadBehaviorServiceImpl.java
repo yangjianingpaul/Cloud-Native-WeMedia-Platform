@@ -27,7 +27,7 @@ public class ApReadBehaviorServiceImpl implements ApReadBehaviorService {
     private CacheService cacheService;
 
     @Autowired
-    private KafkaTemplate<String,String> kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Override
     public ResponseResult readBehavior(ReadBehaviorDto dto) {

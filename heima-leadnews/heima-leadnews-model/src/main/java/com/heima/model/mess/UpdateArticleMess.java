@@ -7,7 +7,7 @@ public class UpdateArticleMess {
 
     /**
      * modify the field type of the article
-      */
+     */
     private UpdateArticleType type;
     /**
      * article id
@@ -18,7 +18,7 @@ public class UpdateArticleMess {
      */
     private Integer add;
 
-    public enum UpdateArticleType{
-        COLLECTION,COMMENT,LIKES,VIEWS;
+    public enum UpdateArticleType {
+        COLLECTION, COMMENT, LIKES, VIEWS;
     }
 }

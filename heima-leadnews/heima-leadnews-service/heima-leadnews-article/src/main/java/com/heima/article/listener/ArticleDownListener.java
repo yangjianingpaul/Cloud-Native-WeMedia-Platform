@@ -23,7 +23,7 @@ public class ArticleDownListener {
         if (StringUtils.isNotBlank(message)) {
             Map map = JSON.parseObject(message, Map.class);
             apArticleConfigService.updateByMap(map);
-            log.info("The article configuration on the article side is modified，articleId={}",map.get("articleId"));
+            log.info("The article configuration on the article side is modified，articleId={}", map.get("articleId"));
         }
     }
 }
