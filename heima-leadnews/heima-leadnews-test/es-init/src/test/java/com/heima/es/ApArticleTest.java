@@ -9,7 +9,6 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentType;
 import org.junit.Test;
-import org.junit.runner.Request;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +28,7 @@ public class ApArticleTest {
 
     /**
      * Note: The import of data volume, if the amount of data is too large, need to page import
+     *
      * @throws Exception
      */
     @Test

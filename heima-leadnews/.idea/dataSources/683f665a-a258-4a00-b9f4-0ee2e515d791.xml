@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="leadnews-history@192.168.5.157">
-  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.43">
+  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.53">
     <root id="1">
       <ServerVersion>4.0.3</ServerVersion>
     </root>
@@ -13,40 +13,40 @@
     <table id="6" parent="4" name="ap_associate_words"/>
     <table id="7" parent="4" name="ap_user_search"/>
     <column id="8" parent="6" name="_id">
-      <DataType>ObjectId|12s</DataType>
       <Position>1</Position>
+      <StoredType>ObjectId|12s</StoredType>
     </column>
     <column id="9" parent="6" name="associateWords">
-      <DataType>String|12s</DataType>
       <Position>1</Position>
+      <StoredType>String|12s</StoredType>
     </column>
     <column id="10" parent="6" name="_class">
-      <DataType>String|12s</DataType>
       <Position>2</Position>
+      <StoredType>String|12s</StoredType>
     </column>
     <column id="11" parent="6" name="createdTime">
-      <DataType>ISODate|91s</DataType>
       <Position>2</Position>
+      <StoredType>ISODate|91s</StoredType>
     </column>
     <column id="12" parent="7" name="_id">
-      <DataType>ObjectId|12s</DataType>
       <Position>1</Position>
+      <StoredType>ObjectId|12s</StoredType>
     </column>
     <column id="13" parent="7" name="_class">
-      <DataType>String|12s</DataType>
       <Position>1</Position>
+      <StoredType>String|12s</StoredType>
     </column>
     <column id="14" parent="7" name="createdTime">
-      <DataType>ISODate|91s</DataType>
       <Position>1</Position>
+      <StoredType>ISODate|91s</StoredType>
     </column>
     <column id="15" parent="7" name="keyword">
-      <DataType>String|12s</DataType>
       <Position>2</Position>
+      <StoredType>String|12s</StoredType>
     </column>
     <column id="16" parent="7" name="userId">
-      <DataType>Int32|4s</DataType>
       <Position>3</Position>
+      <StoredType>Int32|4s</StoredType>
     </column>
   </database-model>
 </dataSource>

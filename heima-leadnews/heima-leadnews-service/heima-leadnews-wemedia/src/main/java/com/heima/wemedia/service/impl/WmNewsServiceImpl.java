@@ -155,7 +155,7 @@ public class WmNewsServiceImpl extends ServiceImpl<WmNewsMapper, WmNews> impleme
         }
 //        3：determine if the article has been published
         if (!wmNews.getStatus().equals(WmNews.Status.PUBLISHED.getCode())) {
-            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "The current article is not published and cannot be taken or unlisted");
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "The current article is not published and cannot be take down or take up");
         }
 //        4:modify the article enable
         if (dto.getEnable() != null && dto.getEnable() > -1 && dto.getEnable() < 2) {
