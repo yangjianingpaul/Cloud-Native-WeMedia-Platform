@@ -1,0 +1,22 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: es-article
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.5.157:3306/leadnews_article?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: root
+# Set the XML file location corresponding to Mapper interface, if you have custom methods in Mapper interface, this configuration is needed
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  # Set alias package scan path, through this property you can register aliases for classes in the package
+  type-aliases-package: com.mediaplatform.model.article.pojos
+
+
+# Custom elasticsearch connection configuration
+elasticsearch:
+  host: 192.168.5.157
+  port: 9200

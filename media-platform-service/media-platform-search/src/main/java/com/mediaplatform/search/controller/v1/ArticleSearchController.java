@@ -1,0 +1,32 @@
+package com.mediaplatform.search.controller.v1;
+
+import com.mediaplatform.model.common.dtos.ResponseResult;
+import com.mediaplatform.model.search.dtos.UserSearchDto;
+import com.mediaplatform.search.service.ArticleSearchService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+
+@RestController
+@RequestMapping("/api/v1/article/search")
+public class ArticleSearchController {
+
+    @Autowired
+    private ArticleSearchService articleSearchService;
+
+    /**
+     * elasticsearch
+     *
+     * @param dto
+     * @return
+     * @throws IOException
+     */
+    @PostMapping("/search")
+    public ResponseResult searchArticle(@RequestBody UserSearchDto dto) throws IOException {
+        return articleSearchService.searchArticle(dto);
+    }
+}

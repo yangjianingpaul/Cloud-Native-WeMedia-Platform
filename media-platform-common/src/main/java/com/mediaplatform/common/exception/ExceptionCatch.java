@@ -1,0 +1,42 @@
+package com.mediaplatform.common.exception;
+
+
+import com.mediaplatform.model.common.dtos.ResponseResult;
+import com.mediaplatform.model.common.enums.AppHttpCodeEnum;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@ControllerAdvice  //ControllerEnhancementClass
+@Slf4j
+public class ExceptionCatch {
+
+    /**
+     * handle uncontrollable exceptions
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public ResponseResult exception(Exception e) {
+        e.printStackTrace();
+        log.error("catch exception:{}", e.getMessage());
+
+        return ResponseResult.errorResult(AppHttpCodeEnum.SERVER_ERROR);
+    }
+
+    /**
+     * handle controllable exceptions, custom exception
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(CustomException.class)
+    @ResponseBody
+    public ResponseResult exception(CustomException e) {
+        log.error("catch exception:{}", e);
+        return ResponseResult.errorResult(e.getAppHttpCodeEnum());
+    }
+}

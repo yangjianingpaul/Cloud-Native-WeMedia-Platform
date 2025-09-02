@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <!-- Define log file storage path, using absolute path -->
+    <property name="LOG_HOME" value="e:/logs"/>
+
+    <!-- Console output settings -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- Formatted output: %d represents date, %thread represents thread name, %-5level: level displayed from left with 5 character width, %msg: log message, %n is newline character -->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- Generate log files daily -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Output filename for log files -->
+            <fileNamePattern>${LOG_HOME}/leadnews.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Asynchronous output -->
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- Don't lose logs. By default, if queue is 80% full, TRACE, DEBUG, INFO level logs will be discarded -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- Change default queue depth, this value affects performance. Default value is 256 -->
+        <queueSize>512</queueSize>
+        <!-- Add additional appender, maximum one can be added -->
+        <appender-ref ref="FILE"/>
+    </appender>
+
+
+    <logger name="org.apache.ibatis.cache.decorators.LoggingCache" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger name="org.springframework.boot" level="debug"/>
+    <root level="info">
+        <!--<appender-ref ref="ASYNC"/>-->
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
