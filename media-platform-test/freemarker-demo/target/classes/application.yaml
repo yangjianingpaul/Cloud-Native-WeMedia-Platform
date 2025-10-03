@@ -1,0 +1,10 @@
+server:
+  port: 8881 # Service port
+spring:
+  application:
+    name: freemarker-demo # Specify service name
+  freemarker:
+    cache: false  # Disable template cache for testing convenience
+    settings:
+      template_update_delay: 0 # Template update delay time, set to 0 for immediate check, if time > 0 there will be cache which is inconvenient for template testing
+    suffix: .ftl               # Specify Freemarker template file suffix
